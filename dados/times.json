@@ -3,7 +3,7 @@
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/XUXA.png",
-    "statusInscricao": "Não Inscrito❌",
+    "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
     "capitao": "koszz",
     "substituicoesFeitas": 1,
@@ -51,7 +51,7 @@
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
     "logo": "imagens/times/PINGYELLOW.png",
-    "statusInscricao": "Inscrito ✅",
+    "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
     "capitao": "TEXAS3006",
     "substituicoesFeitas": 0,
@@ -68,7 +68,7 @@
     "nome": "TÓXICOS",
     "tag": "toxicos",
     "logo": "imagens/times/TÓXICOS.png",
-    "statusInscricao": "aguardando",
+    "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
     "capitao": "xJMaRcox",
     "substituicoesFeitas": 0,
@@ -82,3 +82,4 @@
     ]
   }
 ]
+
