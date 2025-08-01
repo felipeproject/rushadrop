@@ -3,8 +3,16 @@
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/XUXA.png",
-    "statusInscricao": "aguardando",
+    "statusInscricao": "Não Inscrito❌",
     "descricao": "",
+    "capitao": "koszz",
+    "substituicoesFeitas": 1,
+    "entradasSaidas": [
+      {
+        "entrada": "vim_do_lite",
+        "saida": "llLordSparkll"
+      }
+    ],
     "jogadores": [
       "koszz",
       "vim_do_lite",
@@ -17,8 +25,20 @@
     "nome": "PINGREEN",
     "tag": "time4",
     "logo": "imagens/times/PINGREEN.png",
-    "statusInscricao": "aguardando",
+    "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
+    "capitao": "STRAT_FPS",
+    "substituicoesFeitas": 2,
+    "entradasSaidas": [
+      {
+        "entrada": "MESTRE-MCS",
+        "saida": "BLANKSZ1"
+      },
+      {
+        "entrada": "AllbertWesker",
+        "saida": "IIBLAST"
+      }
+    ],
     "jogadores": [
       "STRAT_FPS",
       "MESTRE-MCS",
@@ -31,15 +51,17 @@
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
     "logo": "imagens/times/PINGYELLOW.png",
-    "statusInscricao": "aguardando",
+    "statusInscricao": "Inscrito ✅",
     "descricao": "",
+    "capitao": "TEXAS3006",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
     "jogadores": [
       "TEXAS3006",
-      "Aguardando...",
-      "Aguardando...",
-      "Aguardando...",
-      "Aguardando..."
-      
+      "XxWarlockLFxX",
+      "Lukyne_marth3",
+      "⏳ Aguardando...",
+      "⏳ Aguardando..."
     ]
   },
   {
@@ -48,13 +70,15 @@
     "logo": "imagens/times/TÓXICOS.png",
     "statusInscricao": "aguardando",
     "descricao": "",
+    "capitao": "xJMaRcox",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
     "jogadores": [
       "xJMaRcox",
-      "Aguardando...",
-      "Aguardando...",
-      "Aguardando...",
-      "Aguardando..."
+      "⏳ Aguardando...",
+      "⏳ Aguardando...",
+      "⏳ Aguardando...",
+      "⏳ Aguardando..."
     ]
   }
-  
 ]

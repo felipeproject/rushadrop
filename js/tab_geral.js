@@ -61,7 +61,12 @@ async function criarTabelaGeral() {
 
   const times = await carregarTimes();
 
+  // Inicializa todos os times com 0 kills e 0 pontos
   const geral = {};
+  for (const time of times) {
+    geral[time.nome] = { kills: 0, pontos: 0 };
+  }
+
   const todosCsv = Object.values(rodadas).flat();
 
   for (const arquivo of todosCsv) {
@@ -70,15 +75,34 @@ async function criarTabelaGeral() {
       if (!resp.ok) continue;
       const text = await resp.text();
       const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+
+      // Armazena kills e melhor posição por jogo temporariamente
+      const killsJogo = {};
+      const melhorPos = {};
+
       parsed.data.forEach(row => {
         const jogador = row['Name'];
+        const kills = Number(row['Kills']) || 0;
+        const pos = Number(row['Win Place']);
         const time = encontrarTime(jogador, times);
         if (!time) return;
-        if (!geral[time]) geral[time] = { kills: 0, pontos: 0 };
-        geral[time].kills += Number(row['Kills']) || 0;
-        const pos = Number(row['Win Place']);
-        geral[time].pontos += pontosPorColocacao(pos) + (Number(row['Kills']) || 0);
+
+        geral[time].kills += kills;
+
+        killsJogo[time] = (killsJogo[time] || 0) + kills;
+
+        if (!melhorPos[time] || pos < melhorPos[time]) {
+          melhorPos[time] = pos;
+        }
       });
+
+      // Após processar todos os jogadores, aplicar pontos aos times com kills > 0
+      for (const time in killsJogo) {
+        if (killsJogo[time] > 0) {
+          const pos = melhorPos[time];
+          geral[time].pontos += pontosPorColocacao(pos) + killsJogo[time];
+        }
+      }
     } catch {
       continue;
     }
@@ -113,7 +137,6 @@ async function criarTabelaGeral() {
       const td = document.createElement('td');
 
       if (i === 1) {
-        // Alinhamento flex para logo circular + nome
         td.style.display = 'flex';
         td.style.alignItems = 'center';
 
@@ -132,7 +155,6 @@ async function criarTabelaGeral() {
         img.style.height = '100%';
         img.style.objectFit = 'cover';
 
-        // Fallback para .jpg se .png não carregar
         img.onerror = () => {
           img.onerror = null;
           img.src = `imagens/times/${item.time}.jpg`;

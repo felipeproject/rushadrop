@@ -1,7 +1,7 @@
 import { rodadas, mapas, PONTOS_POR_COLOCACAO } from './configGlobal.js';
 
 const PONTOS_PADRAO = 1;
-const MAPA_IMG_TAMANHO = 200; // px
+const MAPA_IMG_TAMANHO = 200;
 
 let rodadaAtual = null;
 let jogoIndexAtual = 0;
@@ -15,14 +15,12 @@ function formatarNumero(num) {
   return Math.round(num).toLocaleString('pt-BR');
 }
 
-// Carrega o JSON externo
 async function carregarTimes() {
   const resp = await fetch('./dados/times.json');
   if (!resp.ok) throw new Error('Erro ao carregar lista de times');
   return await resp.json();
 }
 
-// Converte JSON detalhado para objeto { nomeTime: [jogadores] }
 function converterTimes(jsonTimes) {
   const timesObj = {};
   jsonTimes.forEach(time => {
@@ -55,10 +53,12 @@ async function processarJogo(arquivo, times) {
     const kills = Number(row['Kills']);
     const pos = Number(row['Win Place']);
     if (!jogador || isNaN(kills) || isNaN(pos)) return;
+
     const time = encontrarTime(jogador, times);
     if (!time) return;
 
     killsPorTime[time] = (killsPorTime[time] || 0) + kills;
+
     if (!melhorPosPorTime[time] || pos < melhorPosPorTime[time]) {
       melhorPosPorTime[time] = pos;
     }
@@ -68,6 +68,10 @@ async function processarJogo(arquivo, times) {
   for (const time in killsPorTime) {
     const kills = killsPorTime[time];
     const pos = melhorPosPorTime[time];
+
+    // Ignora se nenhum kill foi feito e posição não é válida
+    if (kills === 0 && !pos) continue;
+
     const pontos = pontosPorColocacao(pos) + kills;
     geralJogo[time] = { kills, pontos };
   }
@@ -135,7 +139,6 @@ function criarBarraDetalhes() {
     flex-grow: 1;
   `;
 
-  // Botões Navegação
   const btnPrev = document.createElement('button');
   btnPrev.id = 'btn-prev';
   btnPrev.textContent = '‹';
@@ -200,7 +203,6 @@ async function criarTabelaJogo(rodada, jogoIndex) {
     return;
   }
 
-  // Carrega times globais uma vez
   const timesJson = await carregarTimes();
   timesGlobais = converterTimes(timesJson);
 
@@ -208,7 +210,6 @@ async function criarTabelaJogo(rodada, jogoIndex) {
   try {
     geralJogo = await processarJogo(arquivo, timesGlobais);
   } catch (err) {
-    // Mensagem amigável para o usuário, substituindo erro técnico:
     container.textContent = 'Dados do jogo ainda não disponíveis. Por favor, tente novamente mais tarde.';
     return;
   }
@@ -219,7 +220,7 @@ async function criarTabelaJogo(rodada, jogoIndex) {
 
   const colunas = ['Rank', 'Time', 'Kills no Jogo', 'Pontos no Jogo'];
   const table = document.createElement('table');
-  table.classList.add('tabela-rodadas'); // Estilo via CSS no HTML
+  table.classList.add('tabela-rodadas');
 
   criarBarraDetalhes();
 
@@ -251,33 +252,38 @@ async function criarTabelaJogo(rodada, jogoIndex) {
   atualizarBotoesNavegacao();
 }
 
-async function encontrarUltimoJogoValido() {
-  const rodadasKeys = Object.keys(rodadas);
-  for (let i = rodadasKeys.length - 1; i >= 0; i--) {
-    const rodada = rodadasKeys[i];
-    for (let j = rodadas[rodada].length - 1; j >= 0; j--) {
-      const arquivo = rodadas[rodada][j];
-      try {
-        const resp = await fetch(arquivo, { method: 'HEAD' });
-        if (!resp.ok) continue;
-        const respGet = await fetch(arquivo);
-        if (!respGet.ok) continue;
-        const text = await respGet.text();
-        if (text.trim().length > 0) return { rodada, jogoIndex: j };
-      } catch { continue; }
-    }
-  }
-  return { rodada: Object.keys(rodadas)[0], jogoIndex: 0 };
-}
-
 async function popularSelectorRodadas() {
   const selector = document.getElementById('rodada-selector');
-  Object.keys(rodadas).forEach(r => {
-    const option = document.createElement('option');
-    option.value = r;
-    option.textContent = r;
-    selector.appendChild(option);
-  });
+  selector.textContent = '';
+
+  const rodadasValidas = [];
+
+  for (const [rodada, jogos] of Object.entries(rodadas)) {
+    let algumExiste = false;
+    for (const jogo of jogos) {
+      try {
+        const resp = await fetch(jogo, { method: 'HEAD' });
+        if (resp.ok) {
+          algumExiste = true;
+          break;
+        }
+      } catch { continue; }
+    }
+
+    if (algumExiste) {
+      rodadasValidas.push(rodada);
+      const option = document.createElement('option');
+      option.value = rodada;
+      option.textContent = rodada;
+      selector.appendChild(option);
+    }
+  }
+
+  if (rodadasValidas.length === 0) {
+    selector.disabled = true;
+    selector.innerHTML = '<option>Sem rodadas disponíveis</option>';
+    return;
+  }
 
   selector.addEventListener('change', e => {
     rodadaAtual = e.target.value;
@@ -285,9 +291,9 @@ async function popularSelectorRodadas() {
     criarTabelaJogo(rodadaAtual, jogoIndexAtual);
   });
 
-  const ultimoJogo = await encontrarUltimoJogoValido();
-  rodadaAtual = ultimoJogo.rodada;
-  jogoIndexAtual = ultimoJogo.jogoIndex;
+  const ultimaRodada = rodadasValidas[rodadasValidas.length - 1];
+  rodadaAtual = ultimaRodada;
+  jogoIndexAtual = 0;
   selector.value = rodadaAtual;
   criarTabelaJogo(rodadaAtual, jogoIndexAtual);
 }

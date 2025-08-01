@@ -8,6 +8,99 @@
   <link rel="stylesheet" href="css/times.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.822);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      border-radius: 8px;
+      max-width: 800px;
+      width: 90%;
+      padding: 1rem;
+      outline: none;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    #modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+      float: right;
+    }
+
+    .team-hero {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      background: #0f0f0f;
+
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .team-logo {
+      max-width: 150px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .team-info {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: rgb(255, 255, 255);
+      margin-top: 1rem;
+    }
+
+    th,
+    td {
+      border: 1px solid #ffffff;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    th {
+      background: #ffffff;
+    }
+
+    .gallery img {
+      width: 100px;
+      margin-right: 0.5rem;
+      border-radius: 6px;
+    }
+
+    .status-badge {
+      background: #ffffff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,11 +116,18 @@
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
-  
-<script type="module" src="./js/times.js"></script>
 
+  <!-- Modal -->
+  <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-content" role="document" tabindex="0">
+      <button id="modal-close" aria-label="Fechar detalhes do time">&times;</button>
+      <div id="modal-body">
+        <!-- Conteúdo do time será inserido aqui -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/times.js"></script>
 </body>
-    <!-- "statusInscricao": "inscrito",
-    "statusInscricao": "aguardando", -->
 
 </html>
