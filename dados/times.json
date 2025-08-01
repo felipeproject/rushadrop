@@ -6,13 +6,8 @@
     "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
     "capitao": "koszz",
-    "substituicoesFeitas": 1,
-    "entradasSaidas": [
-      {
-        "entrada": "vim_do_lite",
-        "saida": "llLordSparkll"
-      }
-    ],
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
     "jogadores": [
       "koszz",
       "vim_do_lite",
@@ -28,17 +23,8 @@
     "statusInscricao": "Aguardando pagamento.. ⏳",
     "descricao": "",
     "capitao": "STRAT_FPS",
-    "substituicoesFeitas": 2,
-    "entradasSaidas": [
-      {
-        "entrada": "MESTRE-MCS",
-        "saida": "BLANKSZ1"
-      },
-      {
-        "entrada": "AllbertWesker",
-        "saida": "IIBLAST"
-      }
-    ],
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
     "jogadores": [
       "STRAT_FPS",
       "MESTRE-MCS",
@@ -82,4 +68,5 @@
     ]
   }
 ]
+
 
