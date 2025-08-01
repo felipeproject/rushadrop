@@ -1,0 +1,137 @@
+:root {
+  --hero-image-max-width: 500px;
+}
+
+body {
+  background-color: #161616;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 6.5rem; /* navbar mais alta */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3rem;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+
+
+#search-bar {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto 2.5rem auto;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 9999px;
+  border: 1px solid #00000025;
+  background-color: #121212;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: text;
+}
+
+#search-bar::placeholder {
+  color: #ffffff;
+  font-style: italic;
+}
+
+#times-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6rem;
+}
+
+@media (max-width: 900px) {
+  #times-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  #times-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.time-card {
+  background-color: #121212;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.time-card:hover,
+
+.time-card:focus-visible {
+  outline: 3px solid #c5a722;
+  outline-offset: 4px;
+}
+
+.time-logo {
+  width: clamp(120px, 30vw, 220px);
+  height: clamp(120px, 30vw, 220px);
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.time-nome {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.status-inscricao {
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.status-inscrito {
+  color: #22c55e;
+}
+
+.status-aguardando {
+  color: #d9ff00;
+}
+
+.status-cancelado {
+  color: #ef4444;
+}
+
+.time-jogadores {
+  list-style: disc inside;
+  color: #d1d5db;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  width: 100%;
+  max-width: 350px;
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.time-jogadores li.text-yellow-400 {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+#no-results {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #9ca3af;
+  margin-top: 1rem;
+  user-select: none;
+}

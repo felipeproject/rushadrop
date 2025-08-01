@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rusha Drop - PUBG</title>
+
+  <!-- Estilo Principal -->
+  <link rel="stylesheet" href="css/index.css" />
+
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Estilo do botão Discord -->
+  <style>
+    .btn-discord {
+      background-color: #5865F2;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .btn-discord:hover {
+      background-color: #4752C4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Seção principal -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="titulo">Campeonato Rusha Drop - PUBG</h1>
+        <p class="descricao">Prepare sua squad, lute pela glória, conquiste o pódio!</p>
+        <div class="botoes">
+          <a href="inscricao.html" class="btn-gradient"><i class="fas fa-pen-fancy"></i> Fazer Inscrição</a>
+          <button id="scroll-down-btn" class="btn-secondary"><i class="fas fa-arrow-down"></i> Ver Mais</button>
+          <a href="https://discord.gg/Gdxza8h8MU" target="_blank" class="btn-discord">
+            <i class="fab fa-discord"></i> Entrar no Discord
+          </a>
+        </div>
+      </div>
+
+      <div class="cronometro-container">
+        <div class="gif-moldura">
+          <img
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnNpaGVwM2F0NmRnMGZ3MndzN3ZmbGZodnk2aHd3MXh0ZWhvdmtuZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/I2FMO2aSSc3FkTvzG3/giphy.gif"
+            alt="Torcida animada" />
+        </div>
+        <div class="glass-card">
+          <h2><i class="fas fa-trophy"></i> Início do Campeonato</h2>
+          <div id="countdown"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Seções de Detalhes -->
+  <div class="section-grid">
+    <div id="detalhes" class="card fade-in">
+      <h2><i class="fas fa-info-circle"></i> Detalhes</h2>
+      <p><strong>Formato:</strong> Squads (4 titulares + 1 reserva)</p>
+      <p><strong>Modo:</strong> FPP</p>
+      <p><strong>Inscrição:</strong> R$ 50,00 por time</p>
+      <p><strong>Premiação:</strong>
+        <i class="fas fa-medal" style="color: gold;"></i> 50% •
+        <i class="fas fa-medal" style="color: silver;"></i> 30% •
+        <i class="fas fa-medal" style="color: #cd7f32;"></i> 20%
+      </p>
+      <p><strong>Início:</strong> 16 de agosto (pode ser adiado)</p>
+      <p><strong>Transmissão:</strong> YouTube ou Twitch</p>
+    </div>
+
+    <div class="image-center fade-in">
+      <img src="imagens/pubg_PNG2.png" alt="Campeonato PUBG" class="hero-image" loading="lazy" />
+    </div>
+
+    <div id="calendario" class="card fade-in">
+      <h2><i class="fas fa-calendar-alt"></i> Calendário</h2>
+      <ul class="list-disc">
+        <li>16 de agosto</li>
+        <li>23 de agosto</li>
+        <li>30 de agosto</li>
+        <li><strong>06 de setembro – FINAL</strong></li>
+      </ul>
+      <p><i class="fas fa-map"></i> Mapas: a definir</p>
+      <p><i class="fas fa-clock"></i> Horário: via Discord</p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Rodapé -->
+  <footer>
+    Rusha Drop eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initScrollButton } from './js/scroll.js';
+    import { injectNavbar } from './js/navbar.js';
+    import { startCountdown } from './js/countdown.js';
+
+    injectNavbar();
+    startCountdown('2025-08-16T00:00:00Z', 'countdown');
+    initScrollButton();
+  </script>
+</body>
+
+</html>

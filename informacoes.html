@@ -1,0 +1,280 @@
+<!-- informacoes.html -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonatos - Rusha Drop PUBG</title>
+  <link rel="stylesheet" href="css/navbar.css" />
+    <!-- Font Awesome (ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Font Awesome CDN -->
+  <script src="https://kit.fontawesome.com/a2d9f7f3c7.js" crossorigin="anonymous"></script>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #161616;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 80px;
+      /* espaço para navbar fixa */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Conteúdo principal */
+    main {
+      max-width: 1200px;
+      width: 90%;
+      margin-top: 20px;
+      padding: 1rem;
+    }
+
+    /* Títulos */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      user-select: none;
+      color: white;
+    }
+
+    /* Seções */
+    section {
+      margin-top: 2rem;
+    }
+
+    /* Títulos das seções */
+    section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    section h2 i {
+      margin-right: 0.5rem;
+    }
+
+    /* Grid de cartões */
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Cartões */
+    .bg-gray-800 {
+      background-color: #2d2d2d;
+    }
+
+    .p-5 {
+      padding: 1.25rem;
+    }
+
+    .rounded-xl {
+      border-radius: 1rem;
+    }
+
+    /* Títulos internos */
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+    }
+
+    ul {
+      list-style: disc inside;
+    }
+
+    ul ul {
+      margin-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #121212;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      color: #6b7280;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Campeonatos Rusha Drop PUBG</h1>
+
+    <!-- Inscrição -->
+    <section id="inscricao">
+      <h2><i class="fas fa-file-alt" style="color:#22c55e;"></i> Inscrição</h2>
+      <div class="grid">
+        <div class="bg-gray-800 p-5 rounded-xl">
+          <h3 class="font-semibold text-lg mb-2">Requisitos</h3>
+          <ul>
+            <li>Times de 4 a 5 jogadores (1 reserva permitido)</li>
+            <li>Cada jogador deve ter ID fixo (sem trocas frequentes)</li>
+          </ul>
+        </div>
+        <div class="bg-gray-800 p-5 rounded-xl">
+          <h3 class="font-semibold text-lg mb-2">Pagamento</h3>
+          <ul>
+            <li>Valor: R$ 50,00 por equipe</li>
+            <li>Via PIX (chave oficial)</li>
+            <li>O capitão é o responsável pelo envio do valor</li>
+            <li><span style="color:#ef4444; font-weight:bold;">Sem reembolso após confirmação</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pontuação -->
+    <section id="pontuacao">
+      <h2><i class="fas fa-chart-line" style="color:#facc15;"></i> Sistema de Pontuação</h2>
+      <div class="grid">
+        <div class="bg-gray-800 p-5 rounded-xl">
+          <h3 class="font-semibold mb-2">Por colocação</h3>
+          <ul>
+            <li>1º – 15 pts</li>
+            <li>2º – 12 pts</li>
+            <li>3º – 10 pts</li>
+            <li>4º – 8 pts</li>
+            <li>5º – 6 pts</li>
+            <li>6º – 4 pts</li>
+            <li>7º – 2 pts</li>
+            <li>8º – em diante – 1 pt</li>
+          </ul>
+        </div>
+        <div class="bg-gray-800 p-5 rounded-xl">
+          <h3 class="font-semibold mb-2">Adicionais</h3>
+          <ul>
+            <li>+1 ponto por kill</li>
+            <li>Falta = 0 pontos</li>
+            <li>Exemplo: 2º + 5 kills = 17 pts</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendário -->
+    <section id="calendario">
+      <h2><i class="fas fa-calendar-alt" style="color:#ec4899;"></i> Calendário</h2>
+      <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
+        <ul>
+          <li><strong>Datas:</strong>
+            <ul>
+              <li>DAY 1 - 16 de agosto (sábado)</li>
+              <li>DAY 2 - 23 de agosto (sábado)</li>
+              <li>DAY 3 - 30 de agosto (sábado)</li>
+              <li>DAY 4 - 06 de setembro (sábado) – FINAL</li>
+            </ul>
+          </li>
+          <li><strong>Horário:</strong> fixo, divulgado no Discord</li>
+          <li><strong>Mapas:</strong> a definir semanalmente</li>
+          <li><strong>Sala:</strong> criada 15 min antes da rodada</li>
+          <li><strong>Tolerância:</strong> 5 minutos de atraso</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Regras -->
+    <section id="regras">
+      <h2><i class="fas fa-user-shield" style="color:#8b5cf6;"></i> Regras de Substituição e Identidade</h2>
+      <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
+        <ol>
+          <li>Até 5 jogadores por time (4 titulares + 1 reserva)</li>
+          <li>Máximo de 2 substituições até a metade do campeonato</li>
+          <li>Substituição deve ser avisada com 24h de antecedência</li>
+          <li>Troca de nick ou conta = conta como substituição</li>
+          <li>Sem aviso = suspensão automática de 1 rodada</li>
+          <li>Jogador não pode participar de mais de 1 time</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Organização & Comunicação -->
+    <section id="organizacao">
+      <h2><i class="fas fa-users-cog" style="color:#14b8a6;"></i> Organização e Comunicação</h2>
+      <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
+        <ul>
+          <li><strong>Discord oficial:</strong> canal principal para avisos, suporte e horários</li>
+          <li><strong>Canal de denúncia:</strong> ativo para problemas e suspeitas</li>
+          <li>Admins respondem em até 24h úteis</li>
+          <li>Times devem manter capitão ativo no Discord</li>
+          <li>Mensagens fora de contexto em canais = silenciamento</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Penalidades -->
+    <section id="penalidades">
+      <h2><i class="fas fa-gavel" style="color:#ef4444;"></i> Penalidades</h2>
+      <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
+        <ul>
+          <li><strong>Leve:</strong> Spam, flood → Advertência ou -2 pts</li>
+          <li><strong>Média:</strong> Ofensas, discussões públicas → -5 pts ou suspensão</li>
+          <li><strong>Grave:</strong> Trapaça, fake, conluio → eliminação e banimento</li>
+          <li><strong>Julgamento:</strong> mínimo 2 admins envolvidos</li>
+          <li><strong>Defesa:</strong> Equipe tem direito de se explicar antes de decisão final</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="mb-16">
+      <h2><i class="fas fa-question-circle" style="color:#22d3ee;"></i> FAQ – Perguntas Frequentes</h2>
+      <p style="color:#9ca3af; font-style:italic;">Essa seção será atualizada conforme dúvidas forem surgindo.</p>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    Rusha Drop eSports © 2025 – Todos os direitos reservados.
+  </footer>
+  <script type="module">
+    import { injectNavbar } from './js/navbar.js';
+    injectNavbar();
+  </script>
+  <script>
+
+    // Script para alterar fundo da navbar ao rolar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('solid');
+      } else {
+        navbar.classList.remove('solid');
+      }
+    });
+  </script>
+</body>
+
+</html>

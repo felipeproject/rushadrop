@@ -1,0 +1,60 @@
+[
+  {
+    "nome": "XUXA",
+    "tag": "xuxa",
+    "logo": "imagens/times/XUXA.png",
+    "statusInscricao": "aguardando",
+    "descricao": "",
+    "jogadores": [
+      "koszz",
+      "vim_do_lite",
+      "llLordSparkll",
+      "Oboneco",
+      "Hugo197"
+    ]
+  },
+  {
+    "nome": "PINGREEN",
+    "tag": "time4",
+    "logo": "imagens/times/PINGREEN.png",
+    "statusInscricao": "aguardando",
+    "descricao": "",
+    "jogadores": [
+      "STRAT_FPS",
+      "MESTRE-MCS",
+      "BLANKSZ1",
+      "AllbertWesker",
+      "IIBLAST"
+    ]
+  },
+  {
+    "nome": "PINGYELLOW",
+    "tag": "pingyellow",
+    "logo": "imagens/times/PINGYELLOW.png",
+    "statusInscricao": "aguardando",
+    "descricao": "",
+    "jogadores": [
+      "TEXAS3006",
+      "Aguardando...",
+      "Aguardando...",
+      "Aguardando...",
+      "Aguardando..."
+      
+    ]
+  },
+  {
+    "nome": "TÓXICOS",
+    "tag": "toxicos",
+    "logo": "imagens/times/TÓXICOS.png",
+    "statusInscricao": "aguardando",
+    "descricao": "",
+    "jogadores": [
+      "xJMaRcox",
+      "Aguardando...",
+      "Aguardando...",
+      "Aguardando...",
+      "Aguardando..."
+    ]
+  }
+  
+]

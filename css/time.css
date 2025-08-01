@@ -1,0 +1,297 @@
+/* time.css */
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #121212;
+  color: #ddd;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ddd;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.btn-voltar i {
+  margin-right: 0.5rem;
+}
+
+.btn-voltar:hover {
+  color: #09f;
+}
+
+/* Time Hero */
+.team-hero {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+.team-logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #222;
+  border: 1px solid #333;
+}
+
+.team-info {
+  flex: 1;
+}
+
+.team-name {
+  font-size: 2.4rem;
+  margin-bottom: 0.4rem;
+  color: #eee;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.status-inscrito {
+  background: #0a842e;
+  color: #c6f6d5;
+  border: 1px solid #064e1a;
+}
+
+.status-aguardando {
+  background: #825a0d;
+  color: #fef3c7;
+  border: 1px solid #57420a;
+}
+
+.status-cancelado {
+  background: #842020;
+  color: #fcdede;
+  border: 1px solid #5a1515;
+}
+
+/* Links no time info */
+.team-info a {
+  color: #09f;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.team-info a:hover {
+  text-decoration: underline;
+}
+
+/* Galeria */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #2e2e2e;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  background: #222;
+}
+
+/* Penalidades */
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #ccc;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+ul {
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+  color: #f66;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Tabela de jogadores */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+}
+
+thead th {
+  background: #222;
+  padding: 0.75rem;
+  text-align: left;
+  color: #aaa;
+  font-weight: 600;
+  border-bottom: 2px solid #444;
+}
+
+tbody tr {
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #1a1a1a;
+}
+
+tbody td {
+  padding: 0.75rem;
+  color: #ddd;
+  vertical-align: middle;
+}
+
+tbody td:first-child a {
+  color: #09f;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+tbody td:first-child a:hover {
+  text-decoration: underline;
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-logo {
+  width: 150px;
+  height: 150px;
+}
+
+.skeleton-title {
+  width: 250px;
+  height: 32px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-badge {
+  width: 120px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.skeleton-gallery {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton-gallery > div {
+  flex: 1;
+  height: 100px;
+  border-radius: 6px;
+}
+
+.skeleton-table-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-cell {
+  flex: 1;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.skeleton-cell.name {
+  flex: 2;
+}
+
+/* Mensagem de erro */
+#error-message {
+  background: #600000;
+  color: #fdd;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 2rem;
+  text-align: center;
+}
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background-color: #222;
+  color: #eee;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.btn-voltar:hover,
+.btn-voltar:focus {
+  background-color: #444;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+}
+.team-description {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.5rem 0;
+  color: #ddd;
+  line-height: 1.5;
+  background-color: #222;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  max-width: 600px;
+}

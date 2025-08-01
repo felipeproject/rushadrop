@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonato Rusha Drop - Tabelas</title>
+
+  <!-- Font Awesome (ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      background-color: #111;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #9ae6b4;
+    }
+
+    select,
+    button {
+      background-color: #1f1f1f;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
+
+    main {
+      padding-top: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tabelas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    section {
+      background-color: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #2e2e2e;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* === TABELA BONITA === */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    th,
+    td {
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    th {
+      background: #1f1f1f;
+      color: #9ae6b4;
+      font-weight: 500;
+    }
+
+    tr:nth-child(even) {
+      background-color: #181818;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #141414;
+    }
+
+    tbody tr:hover {
+      background-color: #222;
+      transition: background-color 0.2s ease;
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: 500;
+      color: #ddd;
+    }
+
+    @media (max-width: 768px) {
+      .tabelas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <!-- Tabelas principais em layout em grade -->
+    <div class="tabelas-grid">
+      <!-- Tabela das Rodadas (ESQUERDA) -->
+      <section id="tabelas-rodadas">
+        <h2>Tabelas das Rodadas</h2>
+        <label for="rodada-selector">Selecione a Rodada:</label><br />
+        <select id="rodada-selector"></select>
+
+        <div id="rodada-container">Selecione uma rodada para visualizar os jogos.</div>
+      </section>
+
+      <!-- Tabela Geral do Campeonato (DIREITA) -->
+      <section id="tabela-geral">
+        <h2>Tabela Geral do Campeonato</h2>
+        <div id="geral-container">Carregando tabela geral...</div>
+      </section>
+    </div>
+
+    <!-- Tabela Top Jogadores (ABAIXO) -->
+    <section id="top-jogadores" style="margin-top: 2rem;">
+      <h2>Top 10 Jogadores</h2>
+      <div id="top-container">Carregando top jogadores...</div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    Rusha Drop eSports © 2025 – Todos os direitos reservados.
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { injectNavbar } from './js/navbar.js';
+    injectNavbar();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script type="module" src="./js/tab_geral.js"></script>
+  <script type="module" src="./js/tab_rodadas.js"></script>
+  <script type="module" src="./js/tab_top.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Times Participantes</title>
+  <link rel="stylesheet" href="css/times.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <main>
+    <input type="search" id="search-bar" placeholder="Buscar time ou jogador..." autocomplete="off" />
+    <div id="times-container" aria-live="polite" aria-busy="true">
+      Carregando times...
+    </div>
+    <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
+  </main>
+
+  <script type="module">
+    import { injectNavbar } from './js/navbar.js';
+    injectNavbar();
+  </script>
+  
+<script type="module" src="./js/times.js"></script>
+
+</body>
+    <!-- "statusInscricao": "inscrito",
+    "statusInscricao": "aguardando", -->
+
+</html>
