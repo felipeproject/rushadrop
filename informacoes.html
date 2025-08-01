@@ -8,13 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Campeonatos - Rusha Drop PUBG</title>
   <link rel="stylesheet" href="css/navbar.css" />
-    <!-- Font Awesome (ícones) -->
+  <!-- Font Awesome (ícones) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Font Awesome CDN -->
   <script src="https://kit.fontawesome.com/a2d9f7f3c7.js" crossorigin="anonymous"></script>
+
   <style>
-    /* Reset básico */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -26,14 +24,12 @@
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding-top: 80px;
-      /* espaço para navbar fixa */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Conteúdo principal */
     main {
       max-width: 1200px;
       width: 90%;
@@ -41,7 +37,6 @@
       padding: 1rem;
     }
 
-    /* Títulos */
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
@@ -51,12 +46,10 @@
       color: white;
     }
 
-    /* Seções */
     section {
       margin-top: 2rem;
     }
 
-    /* Títulos das seções */
     section h2 {
       font-size: 2rem;
       font-weight: 700;
@@ -70,7 +63,6 @@
       margin-right: 0.5rem;
     }
 
-    /* Grid de cartões */
     .grid {
       display: grid;
       gap: 1.5rem;
@@ -82,7 +74,6 @@
       }
     }
 
-    /* Cartões */
     .bg-gray-800 {
       background-color: #2d2d2d;
     }
@@ -95,7 +86,6 @@
       border-radius: 1rem;
     }
 
-    /* Títulos internos */
     .font-semibold {
       font-weight: 600;
     }
@@ -116,7 +106,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Rodapé */
     footer {
       background-color: #121212;
       text-align: center;
@@ -126,12 +115,27 @@
       color: #6b7280;
       width: 100%;
     }
+
+    .highlight {
+      color: #facc15;
+      font-weight: bold;
+    }
+
+    .warning {
+      color: #f97316;
+      font-weight: bold;
+    }
+
+    .italic {
+      font-style: italic;
+    }
   </style>
 </head>
 
 <body>
   <main>
     <h1>Campeonatos Rusha Drop PUBG</h1>
+
 
     <!-- Inscrição -->
     <section id="inscricao">
@@ -170,7 +174,7 @@
             <li>5º – 6 pts</li>
             <li>6º – 4 pts</li>
             <li>7º – 2 pts</li>
-            <li>8º – em diante – 1 pt</li>
+            <li>8º em diante – 1 pt</li>
           </ul>
         </div>
         <div class="bg-gray-800 p-5 rounded-xl">
@@ -220,7 +224,7 @@
       </div>
     </section>
 
-    <!-- Organização & Comunicação -->
+    <!-- Organização -->
     <section id="organizacao">
       <h2><i class="fas fa-users-cog" style="color:#14b8a6;"></i> Organização e Comunicação</h2>
       <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
@@ -248,6 +252,26 @@
       </div>
     </section>
 
+        <!-- NOVO AVISO -->
+    <section id="avisos-legais">
+      <h2><i class="fas fa-triangle-exclamation" style="color:#f97316;"></i> Aviso Legal e Informações Sujeitas a Alterações</h2>
+      <div class="bg-gray-800 p-5 rounded-xl text-gray-300">
+        <p><span class="highlight">ATENÇÃO:</span> Esta página está disponível para acesso e referência, mas ainda está em fase de estruturação e ajustes.</p>
+        <br />
+        <ul>
+          <li>Algumas regras, datas, critérios de pontuação ou penalidades podem ser <span class="highlight">alterados ou complementados</span> até o início oficial do campeonato.</li>
+          <li>Todas as mudanças serão feitas com <span class="highlight">transparência, ética e responsabilidade</span>, visando a melhoria da experiência dos participantes.</li>
+          <li>As atualizações serão comunicadas prioritariamente por meio do <strong>Discord oficial</strong> e também por meio desta página.</li>
+          <li><span class="warning">Ao se inscrever, o time declara estar ciente de que as informações podem sofrer ajustes</span> e que acompanhará os comunicados para manter-se atualizado.</li>
+          <li>O organizador se reserva o direito de <strong>adicionar ou ajustar regras</strong> conforme necessário para garantir o equilíbrio competitivo, segurança, integridade e bom andamento do evento.</li>
+          <li>Casos omissos serão avaliados pela organização, com base nos princípios do regulamento geral e da esportividade.</li>
+        </ul>
+        <br />
+        <p class="italic">Esta cláusula evita desentendimentos futuros e garante que todos estejam cientes de que nem tudo é definitivo neste estágio inicial.</p>
+      </div>
+    </section>
+
+
     <!-- FAQ -->
     <section id="faq" class="mb-16">
       <h2><i class="fas fa-question-circle" style="color:#22d3ee;"></i> FAQ – Perguntas Frequentes</h2>
@@ -255,17 +279,16 @@
     </section>
   </main>
 
-  <!-- Rodapé -->
   <footer>
     Rusha Drop eSports © 2025 – Todos os direitos reservados.
   </footer>
+
   <script type="module">
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
-  <script>
 
-    // Script para alterar fundo da navbar ao rolar
+  <script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
