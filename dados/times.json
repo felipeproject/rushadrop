@@ -3,7 +3,7 @@
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/XUXA.png",
-    "statusInscricao": "Aguardando pagamento.. ⏳",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "koszz",
     "substituicoesFeitas": 0,
@@ -20,7 +20,7 @@
     "nome": "PINGREEN",
     "tag": "time4",
     "logo": "imagens/times/PINGREEN.png",
-    "statusInscricao": "Aguardando pagamento.. ⏳",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "STRAT_FPS",
     "substituicoesFeitas": 0,
@@ -37,7 +37,7 @@
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
     "logo": "imagens/times/PINGYELLOW.png",
-    "statusInscricao": "Aguardando pagamento.. ⏳",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "TEXAS3006",
     "substituicoesFeitas": 0,
@@ -46,27 +46,42 @@
       "TEXAS3006",
       "XxWarlockLFxX",
       "Lukyne_marth3",
-      "⏳ Aguardando...",
-      "⏳ Aguardando..."
+      "⏳Aguardando...",
+      "⏳Aguardando..."
+    ]
+  },
+  {
+    "nome": "Falcon",
+    "tag": "falcon",
+    "logo": "imagens/times/FALCON.png",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "Racha_Cuca_AWM",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "Racha_Cuca_AWM",
+      "JASONVOORHEES13K",
+      "⏳Aguardando...",
+      "⏳Aguardando...",
+      "⏳Aguardando..."
     ]
   },
   {
     "nome": "TÓXICOS",
     "tag": "toxicos",
     "logo": "imagens/times/TÓXICOS.png",
-    "statusInscricao": "Aguardando pagamento.. ⏳",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "xJMaRcox",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
       "xJMaRcox",
-      "⏳ Aguardando...",
-      "⏳ Aguardando...",
-      "⏳ Aguardando...",
-      "⏳ Aguardando..."
+      "⏳Aguardando...",
+      "⏳Aguardando...",
+      "⏳Aguardando...",
+      "⏳Aguardando..."
     ]
   }
 ]
-
-
