@@ -9,7 +9,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Modal styles */
     .modal {
       position: fixed;
       top: 0;
@@ -52,7 +51,6 @@
       gap: 2rem;
       flex-wrap: wrap;
       background: #0f0f0f;
-
       border-radius: 8px;
       padding: 1.5rem;
       margin-bottom: 1rem;
@@ -104,28 +102,44 @@
 </head>
 
 <body>
-  <main>
-    <input type="search" id="search-bar" placeholder="Buscar time ou jogador..." autocomplete="off" />
+  <main class="p-4">
+    <input type="search" id="search-bar" placeholder="Buscar time ou jogador..." autocomplete="off"
+      class="w-full max-w-2xl mb-6 px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white" />
     <div id="times-container" aria-live="polite" aria-busy="true">
       Carregando times...
     </div>
     <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
-  </main>
 
-  <script type="module">
-    import { injectNavbar } from './js/navbar.js';
-    injectNavbar();
-  </script>
+    <!-- Botão de Mostrar/Ocultar Jogadores -->
+    <button
+      id="toggle-free-agents"
+      class="mt-10 mb-4 ml-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
+    >
+      Mostrar Jogadores Disponíveis <span id="badge-count"
+        class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold">0</span>
+    </button>
+
+    <!-- Seção de Jogadores Sem Time -->
+    <section id="free-agents-section"
+      class="hidden p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
+      <h2 class="text-xl font-bold mb-4">💪🏻 Jogadores Disponíveis para Recrutamento</h2>
+      <ul id="free-agents-list" class="space-y-2">
+        <!-- Lista dinâmica de jogadores será inserida aqui -->
+      </ul>
+    </section>
+  </main>
 
   <!-- Modal -->
   <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-content" role="document" tabindex="0">
       <button id="modal-close" aria-label="Fechar detalhes do time">&times;</button>
       <div id="modal-body">
-        <!-- Conteúdo do time será inserido aqui -->
+        <!-- Conteúdo dinâmico aqui -->
       </div>
     </div>
   </div>
+
+  <!-- Observações -->
   <section class="mt-10 p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
     <h2 class="text-lg font-semibold mb-3">Observações</h2>
     <ul class="list-disc list-inside text-sm space-y-1">
@@ -140,10 +154,97 @@
     </p>
   </section>
 
-
-
+  <!-- Scripts -->
+  <script type="module">
+    import { injectNavbar } from './js/navbar.js';
+    injectNavbar();
+  </script>
   <script type="module" src="js/times.js"></script>
   <script type="module" src="js/media-detector.js"></script>
+
+  <!-- Script para carregar jogadoresDisponiveis de JSON externo -->
+  <script>
+    const listContainer = document.getElementById("free-agents-list");
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modal-body");
+    const modalClose = document.getElementById("modal-close");
+    const toggleButton = document.getElementById('toggle-free-agents');
+    const section = document.getElementById('free-agents-section');
+
+    let jogadoresDisponiveis = [];
+
+    // Função para popular a lista de jogadores na tela
+    function popularJogadores() {
+      listContainer.innerHTML = "";
+      jogadoresDisponiveis.forEach(jogador => {
+        const li = document.createElement("li");
+        li.innerHTML = `<button class="hover:underline text-blue-400" onclick="mostrarDetalhes('${jogador.nick}')">${jogador.nick}</button>`;
+        listContainer.appendChild(li);
+      });
+    }
+
+    // Função para atualizar o badge de contagem
+    function atualizarBadge() {
+      const badge = document.getElementById('badge-count');
+      if (badge) {
+        badge.textContent = jogadoresDisponiveis.length;
+      }
+    }
+
+    // Função para mostrar detalhes do jogador no modal
+    window.mostrarDetalhes = function (nick) {
+      const jogador = jogadoresDisponiveis.find(j => j.nick === nick);
+      if (jogador) {
+        modalBody.innerHTML = `
+          <h3 class="text-xl font-bold mb-2">${jogador.nick}</h3>
+          <p><strong>Nome:</strong> ${jogador.nome}</p>
+          <p><strong>Discord:</strong> ${jogador.Discord}</p>
+          <p><strong>Contato:</strong> ${jogador.contato}</p>
+        `;
+        modal.setAttribute("aria-hidden", "false");
+      }
+    }
+
+    modalClose.addEventListener("click", () => {
+      modal.setAttribute("aria-hidden", "true");
+      modalBody.innerHTML = "";
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.setAttribute("aria-hidden", "true");
+        modalBody.innerHTML = "";
+      }
+    });
+
+    toggleButton.addEventListener('click', () => {
+      const isHidden = section.classList.contains('hidden');
+      if (isHidden) {
+        section.classList.remove('hidden');
+        toggleButton.innerHTML = `Ocultar Jogadores Disponíveis <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold">${jogadoresDisponiveis.length}</span>`;
+      } else {
+        section.classList.add('hidden');
+        toggleButton.innerHTML = `Mostrar Jogadores Disponíveis <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold">${jogadoresDisponiveis.length}</span>`;
+      }
+    });
+
+    // Carrega o JSON externo com fetch
+    fetch('dados/jogadoresDisponiveis.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao carregar o JSON de jogadores');
+        }
+        return response.json();
+      })
+      .then(data => {
+        jogadoresDisponiveis = data;
+        popularJogadores();
+        atualizarBadge();
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+  </script>
 </body>
 
 </html>
