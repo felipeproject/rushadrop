@@ -197,13 +197,13 @@
       if (jogador) {
         modalBody.innerHTML = `
           <h3 class="text-xl font-bold mb-2">${jogador.nick}</h3>
-          <p><strong>Nome:</strong> ${jogador.nome}</p>
           <p><strong>Discord:</strong> ${jogador.Discord}</p>
           <p><strong>Contato:</strong> ${jogador.contato}</p>
         `;
         modal.setAttribute("aria-hidden", "false");
       }
     }
+          // <p><strong>Nome:</strong> ${jogador.nome}</p>
 
     modalClose.addEventListener("click", () => {
       modal.setAttribute("aria-hidden", "true");
