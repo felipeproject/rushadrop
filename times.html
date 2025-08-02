@@ -15,7 +15,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.822);
+      background: rgba(0, 0, 0, 0.89);
       display: none;
       justify-content: center;
       align-items: center;
@@ -27,7 +27,7 @@
     }
 
     .modal-content {
-      background: #1a1a1a;
+      background: #1a1a1ae5;
       border-radius: 8px;
       max-width: 800px;
       width: 90%;
@@ -41,21 +41,11 @@
       background: transparent;
       border: none;
       font-size: 1.5rem;
-      color: #fff;
+      color: #ffffff;
       cursor: pointer;
       float: right;
     }
 
-    .team-hero {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      background: #0f0f0f;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      color: white;
-    }
 
     .team-logo {
       max-width: 150px;
@@ -67,22 +57,12 @@
       flex: 1;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      color: rgb(255, 255, 255);
-      margin-top: 1rem;
-    }
-
     th,
+
     td {
-      border: 1px solid #ffffff;
+      border: 1px solid rgba(83, 83, 83, 0.89);
       padding: 0.5rem;
       text-align: left;
-    }
-
-    th {
-      background: #ffffff;
     }
 
     .gallery img {
@@ -111,17 +91,14 @@
     <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
 
     <!-- Botão de Mostrar/Ocultar Jogadores -->
-    <button
-      id="toggle-free-agents"
-      class="mt-10 mb-4 ml-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2"
-    >
+    <button id="toggle-free-agents"
+      class="mt-10 mb-4 ml-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2">
       Mostrar Jogadores Disponíveis <span id="badge-count"
         class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold">0</span>
     </button>
 
     <!-- Seção de Jogadores Sem Time -->
-    <section id="free-agents-section"
-      class="hidden p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
+    <section id="free-agents-section" class="hidden p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
       <h2 class="text-xl font-bold mb-4">💪🏻 Jogadores Disponíveis para Recrutamento</h2>
       <ul id="free-agents-list" class="space-y-2">
         <!-- Lista dinâmica de jogadores será inserida aqui -->
@@ -203,7 +180,7 @@
         modal.setAttribute("aria-hidden", "false");
       }
     }
-          // <p><strong>Nome:</strong> ${jogador.nome}</p>
+    // <p><strong>Nome:</strong> ${jogador.nome}</p>
 
     modalClose.addEventListener("click", () => {
       modal.setAttribute("aria-hidden", "true");
