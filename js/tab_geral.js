@@ -1,58 +1,64 @@
+// js/tab_geral.js
 const timesJsonUrl = './dados/times.json';
+const DIAS = ['DAY1', 'DAY2', 'DAY3', 'DAY4'];
+const ARQUIVOS_POR_DIA = 3;
 
-const rodadas = {
-  DAY1: [
-    'csv/DAY1/jogo1.csv',
-    'csv/DAY1/jogo2.csv',
-    'csv/DAY1/jogo3.csv',
-  ],
-  DAY2: [
-    'csv/DAY2/jogo1.csv',
-    'csv/DAY2/jogo2.csv',
-    'csv/DAY2/jogo3.csv',
-  ],
-  DAY3: [
-    'csv/DAY3/jogo1.csv',
-    'csv/DAY3/jogo2.csv',
-    'csv/DAY3/jogo3.csv',
-  ],
-  DAY4: [
-    'csv/DAY4/jogo1.csv',
-    'csv/DAY4/jogo2.csv',
-    'csv/DAY4/jogo3.csv',
-  ],
+const rodadas = Object.fromEntries(
+  DIAS.map(dia => [dia, Array.from({ length: ARQUIVOS_POR_DIA }, (_, i) => `csv/${dia}/jogo${i + 1}.csv`)])
+);
+
+const PONTOS_POR_COLOCACAO = {
+  1: 15, 2: 12, 3: 10, 4: 8, 5: 6, 6: 4, 7: 2
 };
 
-function pontosPorColocacao(pos) {
-  switch (pos) {
-    case 1: return 15;
-    case 2: return 12;
-    case 3: return 10;
-    case 4: return 8;
-    case 5: return 6;
-    case 6: return 4;
-    case 7: return 2;
-    default: return 1;
-  }
-}
+const getPontosPorColocacao = (pos) => PONTOS_POR_COLOCACAO[pos] || 1;
 
-function formatarNumero(num) {
-  return Math.round(num).toLocaleString('pt-BR');
-}
+const formatarNumero = (num) => Math.round(num).toLocaleString('pt-BR');
 
-async function carregarTimes() {
+const carregarTimes = async () => {
   const resp = await fetch(timesJsonUrl);
   if (!resp.ok) throw new Error('Erro ao carregar lista de times');
-  return await resp.json();
-}
+  return resp.json();
+};
 
-function encontrarTime(jogador, timesArray) {
-  for (const timeObj of timesArray) {
-    if (timeObj.jogadores.includes(jogador)) {
-      return timeObj.nome;
+const encontrarTime = (jogador, times) =>
+  times.find(t => t.jogadores.includes(jogador))?.nome || null;
+
+async function processarCSV(arquivo, times, geral) {
+  try {
+    const resp = await fetch(arquivo);
+    if (!resp.ok) return;
+
+    const text = await resp.text();
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+
+    const killsJogo = {};
+    const melhorPos = {};
+
+    parsed.data.forEach(({ Name, Kills, 'Win Place': Pos }) => {
+      const jogador = Name?.trim();
+      const kills = Number(Kills) || 0;
+      const pos = Number(Pos);
+      const time = encontrarTime(jogador, times);
+      if (!time) return;
+
+      geral[time].kills += kills;
+      killsJogo[time] = (killsJogo[time] || 0) + kills;
+
+      if (!melhorPos[time] || pos < melhorPos[time]) {
+        melhorPos[time] = pos;
+      }
+    });
+
+    for (const time in killsJogo) {
+      if (killsJogo[time] > 0) {
+        const pos = melhorPos[time];
+        geral[time].pontos += getPontosPorColocacao(pos) + killsJogo[time];
+      }
     }
+  } catch (err) {
+    console.warn(`Erro ao processar ${arquivo}:`, err);
   }
-  return null;
 }
 
 async function criarTabelaGeral() {
@@ -60,60 +66,23 @@ async function criarTabelaGeral() {
   container.textContent = 'Carregando...';
 
   const times = await carregarTimes();
+  const geral = Object.fromEntries(times.map(t => [t.nome, { kills: 0, pontos: 0 }]));
 
-  // Inicializa todos os times com 0 kills e 0 pontos
-  const geral = {};
-  for (const time of times) {
-    geral[time.nome] = { kills: 0, pontos: 0 };
-  }
-
-  const todosCsv = Object.values(rodadas).flat();
-
-  for (const arquivo of todosCsv) {
-    try {
-      const resp = await fetch(arquivo);
-      if (!resp.ok) continue;
-      const text = await resp.text();
-      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-
-      // Armazena kills e melhor posição por jogo temporariamente
-      const killsJogo = {};
-      const melhorPos = {};
-
-      parsed.data.forEach(row => {
-        const jogador = row['Name'];
-        const kills = Number(row['Kills']) || 0;
-        const pos = Number(row['Win Place']);
-        const time = encontrarTime(jogador, times);
-        if (!time) return;
-
-        geral[time].kills += kills;
-
-        killsJogo[time] = (killsJogo[time] || 0) + kills;
-
-        if (!melhorPos[time] || pos < melhorPos[time]) {
-          melhorPos[time] = pos;
-        }
-      });
-
-      // Após processar todos os jogadores, aplicar pontos aos times com kills > 0
-      for (const time in killsJogo) {
-        if (killsJogo[time] > 0) {
-          const pos = melhorPos[time];
-          geral[time].pontos += pontosPorColocacao(pos) + killsJogo[time];
-        }
-      }
-    } catch {
-      continue;
-    }
+  const arquivos = Object.values(rodadas).flat();
+  for (const arquivo of arquivos) {
+    await processarCSV(arquivo, times, geral);
   }
 
   const geralArray = Object.entries(geral)
-    .map(([time, stats]) => ({ time, kills: stats.kills, pontos: stats.pontos }))
+    .map(([time, stats]) => ({ time, ...stats }))
     .sort((a, b) => b.pontos - a.pontos);
 
-  const colunas = ['Rank', 'Time', 'Kills', 'Pontos'];
+  renderizarTabela(container, geralArray);
+}
+
+function renderizarTabela(container, dados) {
   const table = document.createElement('table');
+  const colunas = ['Rank', 'Time', 'Kills', 'Pontos'];
 
   const thead = document.createElement('thead');
   const trHead = document.createElement('tr');
@@ -126,61 +95,71 @@ async function criarTabelaGeral() {
   table.appendChild(thead);
 
   const tbody = document.createElement('tbody');
-  geralArray.forEach((item, idx) => {
+  dados.forEach((item, idx) => {
     const tr = document.createElement('tr');
+
     [
       idx + 1,
-      item.time,
+      gerarCelulaTime(item.time),
       formatarNumero(item.kills),
       formatarNumero(item.pontos)
-    ].forEach((text, i) => {
+    ].forEach((conteudo, i) => {
       const td = document.createElement('td');
-
-      if (i === 1) {
-        td.style.display = 'flex';
-        td.style.alignItems = 'center';
-
-        const circle = document.createElement('div');
-        circle.style.width = '80px';
-        circle.style.height = '80px';
-        circle.style.borderRadius = '50%';
-        circle.style.overflow = 'hidden';
-        circle.style.flexShrink = '0';
-        circle.style.marginRight = '12px';
-
-        const img = document.createElement('img');
-        img.src = `imagens/times/${item.time}.png`;
-        img.alt = item.time;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-
-        img.onerror = () => {
-          img.onerror = null;
-          img.src = `imagens/times/${item.time}.jpg`;
-        };
-
-        circle.appendChild(img);
-
-        const span = document.createElement('span');
-        span.textContent = item.time;
-        span.style.fontWeight = '600';
-        span.style.fontSize = '1rem';
-
-        td.appendChild(circle);
-        td.appendChild(span);
+      if (i === 1 && conteudo instanceof HTMLElement) {
+        td.appendChild(conteudo);
       } else {
-        td.textContent = text;
+        td.textContent = conteudo;
       }
-
       tr.appendChild(td);
     });
+
     tbody.appendChild(tr);
   });
-  table.appendChild(tbody);
 
+  table.appendChild(tbody);
   container.textContent = '';
   container.appendChild(table);
+}
+
+function gerarCelulaTime(nomeTime) {
+  const wrapper = document.createElement('div');
+  wrapper.style.display = 'flex';
+  wrapper.style.alignItems = 'center';
+
+  const circle = document.createElement('div');
+  Object.assign(circle.style, {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    overflow: 'hidden',
+    flexShrink: '0',
+    marginRight: '12px'
+  });
+
+  const img = document.createElement('img');
+  img.src = `imagens/times/${nomeTime}.png`;
+  img.alt = nomeTime;
+  Object.assign(img.style, {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
+  });
+
+  img.onerror = () => {
+    img.onerror = null;
+    img.src = `imagens/times/${nomeTime}.jpg`;
+  };
+
+  circle.appendChild(img);
+
+  const span = document.createElement('span');
+  span.textContent = nomeTime;
+  span.style.fontWeight = '600';
+  span.style.fontSize = '1rem';
+
+  wrapper.appendChild(circle);
+  wrapper.appendChild(span);
+  return wrapper;
 }
 
 criarTabelaGeral();
