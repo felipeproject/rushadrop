@@ -1,5 +1,6 @@
 import { fetchTimes, filterTimes } from './timesService.js';
 import { renderTimes } from './timesRenderer.js';
+import { createOpggLink } from './createOpggLink.js'; // Importa a função para criar link do op.gg
 
 const container = document.getElementById('times-container');
 const noResults = document.getElementById('no-results');
@@ -11,10 +12,17 @@ const modalClose = document.getElementById('modal-close');
 
 let timesData = [];
 
+// ---------- Controle do modal ----------
+
+// Fecha modal ao clicar no "X"
 modalClose.addEventListener('click', closeModal);
+
+// Fecha modal ao clicar fora do conteúdo
 modal.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
 });
+
+// Fecha modal ao apertar Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
     closeModal();
@@ -31,12 +39,16 @@ function closeModal() {
   modalBody.innerHTML = '';
 }
 
+// ---------- Configuração dos arquivos CSV das rodadas ----------
+
 const rodadas = {
   DAY1: ['csv/DAY1/jogo1.csv', 'csv/DAY1/jogo2.csv', 'csv/DAY1/jogo3.csv'],
   DAY2: ['csv/DAY2/jogo1.csv', 'csv/DAY2/jogo2.csv', 'csv/DAY2/jogo3.csv'],
   DAY3: ['csv/DAY3/jogo1.csv', 'csv/DAY3/jogo2.csv', 'csv/DAY3/jogo3.csv'],
   DAY4: ['csv/DAY4/jogo1.csv', 'csv/DAY4/jogo2.csv', 'csv/DAY4/jogo3.csv'],
 };
+
+// ---------- Função para buscar CSV remoto ----------
 
 async function fetchCSV(url) {
   try {
@@ -49,6 +61,8 @@ async function fetchCSV(url) {
     return null;
   }
 }
+
+// ---------- Função para converter CSV em objeto ----------
 
 function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
@@ -66,6 +80,8 @@ function parseCSV(csvText) {
   }
   return data;
 }
+
+// ---------- Função para carregar e agregar dados de todos os jogadores ----------
 
 async function carregarTodosJogadores() {
   const jogadoresMap = new Map();
@@ -103,10 +119,14 @@ async function carregarTodosJogadores() {
   return Array.from(jogadoresMap.values()).sort((a, b) => a.bestWinPlace - b.bestWinPlace);
 }
 
+// ---------- Ícones usados no modal ----------
+
 const iconCapitao = '⚓';
 const iconSubstituicoes = '🔄';
 const iconEntrada = '↗️';
 const iconSaida = '↙️';
+
+// ---------- Função para carregar detalhes do time e mostrar no modal ----------
 
 async function loadTeamDetails(tag) {
   const time = timesData.find(t => t.tag.toLowerCase() === tag.toLowerCase());
@@ -121,32 +141,56 @@ async function loadTeamDetails(tag) {
 
   try {
     const jogadoresDetalhados = await carregarTodosJogadores();
+
+    // Limpa sufixos tipo (C) para comparar nomes
     const jogadoresDoTime = time.jogadores.map(j => j.replace(/\s*\(.*?\)/g, '').trim());
+
+    // Filtra jogadores que pertencem ao time
     const jogadoresFiltrados = jogadoresDetalhados.filter(j =>
       jogadoresDoTime.some(nomeTime => nomeTime.toLowerCase() === j.nick.toLowerCase())
     );
 
+    // Mapa para busca rápida dos dados dos jogadores
     const dadosMap = new Map(jogadoresFiltrados.map(j => [j.nick.toLowerCase(), j]));
 
+    // Monta as linhas da tabela dos jogadores com o link criado via createOpggLink
     const linhasTabela = jogadoresDoTime.map(nomeJogador => {
+      if (nomeJogador.includes('⏳Aguardando')) {
+        // Não cria link para jogadores aguardando
+        return `
+          <tr>
+            <td>${nomeJogador}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        `;
+      }
+
       const j = dadosMap.get(nomeJogador.toLowerCase());
-      return j ? `
-        <tr>
-          <td><a href="#" class="player-nick" data-nick="${j.nick}">${j.nick}</a></td>
-          <td>${j.kills}</td>
-          <td>${j.assistencias}</td>
-          <td>${j.danos}</td>
-        </tr>
-      ` : `
-        <tr>
-          <td>${nomeJogador}</td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-      `;
+      if (j) {
+        const link = createOpggLink(j.nick);
+        return `
+          <tr>
+            <td>${link.outerHTML}</td>
+            <td>${j.kills}</td>
+            <td>${j.assistencias}</td>
+            <td>${j.danos}</td>
+          </tr>
+        `;
+      } else {
+        return `
+          <tr>
+            <td>${nomeJogador}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        `;
+      }
     }).join('');
 
+    // Status do time com cor condicional
     const status = time.statusInscricao || '';
     let statusColor = '';
 
@@ -169,6 +213,7 @@ async function loadTeamDetails(tag) {
       </p>
     `).join('');
 
+    // Monta o HTML do modal completo
     const html = `
       <section class="team-hero">
         <img src="${time.logo}" alt="Logo do time ${time.nome}" class="team-logo" />
@@ -203,6 +248,7 @@ async function loadTeamDetails(tag) {
         ${time.galeria.map(img => `<img src="${img}" alt="Imagem do time ${time.nome}" loading="lazy" />`).join('')}
       </section>
       ` : ''}
+
       <style>
         .team-hero {
           display: flex;
@@ -224,7 +270,6 @@ async function loadTeamDetails(tag) {
         .substituicao-item {
           margin-left: 30px;
           font-size: 0.95rem;
-
         }
         table {
           width: 100%;
@@ -238,14 +283,15 @@ async function loadTeamDetails(tag) {
           text-align: left;
         }
         th {
-          background-color:rgb(37, 37, 37);
+          background-color: rgb(37, 37, 37);
+          color: white;
         }
-        a.player-nick {
-          color: #007bff;
-          text-decoration: none;
-        }
-        a.player-nick:hover {
+        a {
+          color: inherit;
           text-decoration: underline;
+        }
+        a:hover {
+          text-decoration: none;
         }
       </style>
     `;
@@ -258,7 +304,12 @@ async function loadTeamDetails(tag) {
   }
 }
 
+// ---------- Função para tratar clique no card do time ----------
+
 function handleCardClick(e) {
+  // Evita abrir modal ao clicar em link (ex: link do op.gg)
+  if (e.target.tagName === 'A') return;
+
   const card = e.target.closest('.time-card');
   if (!card) return;
   const tag = card.dataset.tag;
@@ -266,12 +317,16 @@ function handleCardClick(e) {
   loadTeamDetails(tag);
 }
 
+// ---------- Função para tratar tecla Enter ou Espaço no card do time ----------
+
 function handleCardKeyDown(e) {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault();
     handleCardClick(e);
   }
 }
+
+// ---------- Função inicial que busca times, renderiza e adiciona listeners ----------
 
 async function init() {
   try {
@@ -281,6 +336,7 @@ async function init() {
     container.textContent = 'Falha ao carregar os times.';
   }
 
+  // Filtro de times conforme texto digitado na busca
   searchInput.addEventListener('input', () => {
     const filtered = filterTimes(timesData, searchInput.value);
     renderTimes(container, filtered, noResults);

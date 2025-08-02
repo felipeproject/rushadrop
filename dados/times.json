@@ -18,7 +18,7 @@
   },
   {
     "nome": "PINGREEN",
-    "tag": "time4",
+    "tag": "pingreen",
     "logo": "imagens/times/PINGREEN.png",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -85,4 +85,3 @@
     ]
   }
 ]
-
