@@ -46,8 +46,8 @@
       "TEXAS3006",
       "XxWarlockLFxX",
       "Lukyne_marth3",
-      "⏳Aguardando...",
-      "⏳Aguardando..."
+      "⏳",
+      "⏳"
     ]
   },
   {
@@ -62,9 +62,26 @@
     "jogadores": [
       "Racha_Cuca_AWM",
       "JASONVOORHEES13K",
-      "⏳Aguardando...",
-      "⏳Aguardando...",
-      "⏳Aguardando..."
+      "⏳",
+      "⏳",
+      "⏳"
+    ]
+  },
+  {
+    "nome": "CAPIVARAS PUBG",
+    "tag": "capivaras_pubg",
+    "logo": "imagens/times/CAPIVARAS_PUBG.png",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "* Leandro",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "Mago12k",
+      "* Leandro",
+      "* Noob",
+      "* Alison",
+      "* Fidalgo"
     ]
   },
   {
@@ -78,10 +95,10 @@
     "entradasSaidas": [],
     "jogadores": [
       "xJMaRcox",
-      "⏳Aguardando...",
-      "⏳Aguardando...",
-      "⏳Aguardando...",
-      "⏳Aguardando..."
+      "⏳",
+      "⏳",
+      "⏳",
+      "⏳"
     ]
   }
 ]
