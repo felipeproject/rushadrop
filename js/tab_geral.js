@@ -126,40 +126,31 @@ function gerarCelulaTime(nomeTime) {
   wrapper.style.display = 'flex';
   wrapper.style.alignItems = 'center';
 
-  const circle = document.createElement('div');
-  Object.assign(circle.style, {
-    width: '80px',
-    height: '80px',
-    borderRadius: '50%',
-    overflow: 'hidden',
-    flexShrink: '0',
-    marginRight: '12px'
-  });
-
   const img = document.createElement('img');
-  img.src = `imagens/times/${nomeTime}.png`;
+  img.src = `imagens/times/sf/${nomeTime}.png`;
   img.alt = nomeTime;
   Object.assign(img.style, {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover'
+    width: '80px',
+    height: '80px',
+    objectFit: 'contain',  // garante que a logo inteira fique visível
+    marginRight: '12px',
+    display: 'block',
   });
 
   img.onerror = () => {
     img.onerror = null;
-    img.src = `imagens/times/${nomeTime}.jpg`;
+    img.src = `imagens/times/sf/${nomeTime}.jpg`;
   };
-
-  circle.appendChild(img);
 
   const span = document.createElement('span');
   span.textContent = nomeTime;
   span.style.fontWeight = '600';
   span.style.fontSize = '1rem';
 
-  wrapper.appendChild(circle);
+  wrapper.appendChild(img);
   wrapper.appendChild(span);
   return wrapper;
 }
+
 
 criarTabelaGeral();
