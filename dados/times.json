@@ -1,9 +1,27 @@
 [
   {
+    "nome": "ESPARTANOS",
+    "tag": "espartanos",
+    "logo": "imagens/times/ESPARTANOS.png",
+    "id": "TEAM #1",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "xJMaRcox",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "xJMaRcox",
+      "AdriMau",
+      "MBSILVEIRA",
+      "Perobande",
+      "⏳"
+    ]
+  },
+  {
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/XUXA.png",
-    "id": "TEAM #1",
+    "id": "TEAM #2",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "koszz",
@@ -21,7 +39,7 @@
     "nome": "PINGREEN",
     "tag": "pingreen",
     "logo": "imagens/times/PINGREEN.png",
-    "id": "TEAM #2",
+    "id": "TEAM #3",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "STRAT_FPS",
@@ -39,7 +57,7 @@
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
     "logo": "imagens/times/PINGYELLOW.png",
-    "id": "TEAM #3",
+    "id": "TEAM #4",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "TEXAS3006",
@@ -57,7 +75,7 @@
     "nome": "FALCON",
     "tag": "falcon",
     "logo": "imagens/times/FALCON.png",
-    "id": "TEAM #4",
+    "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "Racha_Cuca_AWM",
@@ -75,7 +93,7 @@
     "nome": "CAPIVARAS PUBG",
     "tag": "capivaras_pubg",
     "logo": "imagens/times/CAPIVARAS PUBG.jpg",
-    "id": "TEAM #5",
+    "id": "TEAM #6",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "* Leandro",
@@ -87,24 +105,6 @@
       "* Noob",
       "* Alison",
       "* Fidalgo"
-    ]
-  },
-  {
-    "nome": "TÓXICOS",
-    "tag": "toxicos",
-    "logo": "imagens/times/TÓXICOS.png",
-    "id": "TEAM #6",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "xJMaRcox",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      "xJMaRcox",
-      "AdriMau",
-      "MBSILVEIRA",
-      "⏳",
-      "Perobande"
     ]
   }
 ]
