@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+    /* seu CSS (mantive o seu código) */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -134,9 +135,7 @@
       gap: 20px;
       flex-wrap: wrap;
       padding-bottom: 20px;
-      /* Remove overflow-x */
       overflow-x: visible;
-      /* ou só remova essa propriedade */
     }
 
     .dia-card {
@@ -156,7 +155,6 @@
       align-items: center;
     }
 
-    /* Responsivo: em telas pequenas, cards ocupam 100% da largura */
     @media (max-width: 1800px) {
       .dia-card {
         flex: 1 1 100%;
@@ -177,7 +175,6 @@
       opacity: 0.8;
     }
 
-    /* Lista horizontal dos mapas */
     .mapas-lista {
       display: flex;
       gap: 12px;
@@ -202,7 +199,6 @@
       white-space: nowrap;
     }
 
-    /* Scrollbar estilos para mapas */
     .mapas-lista::-webkit-scrollbar {
       height: 6px;
     }
@@ -245,82 +241,101 @@
     </div>
   </div>
 
-  <!-- Novo conteúdo com dias e mapas -->
+  <!-- Novo conteúdo com dias e mapas (gerado por JS) -->
   <section id="novo-conteudo">
     <h1>Calendário do Campeonato</h1>
     <p class="info-horario">
       O início dos jogos é sempre às <strong>21h</strong>. Os jogos seguintes são realizados consecutivamente, considerando duração média de <strong>50 minutos</strong> por mapa.
     </p>
-    <div class="dias-campeonato">
-
-      <!-- Dia 1 -->
-      <div class="dia-card">
-        <h2>DAY 1</h2>
-        <p class="data">16 de agosto (sábado)</p>
-        <div class="mapas-lista">
-          <div class="mapa-item">Erangel</div>
-          <div class="mapa-item">Miramar</div>
-          <div class="mapa-item">Sanhok</div>
-        </div>
-      </div>
-
-      <!-- Dia 2 -->
-      <div class="dia-card">
-        <h2>DAY 2</h2>
-        <p class="data">23 de agosto (sábado)</p>
-        <div class="mapas-lista">
-          <div class="mapa-item">Erangel</div>
-          <div class="mapa-item">Vikendi</div>
-          <div class="mapa-item">Sanhok</div>
-        </div>
-      </div>
-
-      <!-- Dia 3 -->
-      <div class="dia-card">
-        <h2>DAY 3</h2>
-        <p class="data">30 de agosto (sábado)</p>
-        <div class="mapas-lista">
-          <div class="mapa-item">Miramar</div>
-          <div class="mapa-item">Sanhok</div>
-          <div class="mapa-item">Vikendi</div>
-        </div>
-      </div>
-
-      <!-- Dia 4 -->
-      <div class="dia-card">
-        <h2>DAY 4</h2>
-        <p class="data">06 de setembro (sábado) – FINAL 🏆</p>
-        <div class="mapas-lista">
-          <div class="mapa-item">Erangel</div>
-          <div class="mapa-item">Miramar</div>
-          <div class="mapa-item">Vikendi</div>
-        </div>
-      </div>
-
+    <div class="dias-campeonato" id="dias-campeonato">
+      <!-- Dias e mapas serão inseridos aqui via JS -->
     </div>
   </section>
 
   <!-- Scripts -->
   <script type="module">
-    // Variáveis de horário base
-    const horarioPadrao = 21; // 21h início dos dias
-    const duracaoMapaLongo = 50; // minutos
-
+    import { DIAS, mapas } from './js/configGlobal.js';
     import { startCountdown } from './js/countdown.js';
-    startCountdown('2025-08-16T21:00:00', 'countdown');
 
-    // Atualizar o card de calendário com data fixa
-    const dataFixa = new Date('2025-08-16T21:00:00');
-    const meses = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
-    const diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    // Data base do campeonato (sábado 16/08/2025)
+    const dataBase = new Date('2025-08-16T21:00:00');
 
-    document.getElementById('month').innerText = meses[dataFixa.getMonth()];
-    document.getElementById('day').innerText = diasSemana[dataFixa.getDay()];
-    document.getElementById('date').innerText = dataFixa.getDate();
-    document.getElementById('year').innerText = dataFixa.getFullYear();
+    // Função para formatar data para "16 de agosto (sábado)"
+    function formatarData(d) {
+      const meses = [
+        'janeiro', 'fevereiro', 'março', 'abril',
+        'maio', 'junho', 'julho', 'agosto',
+        'setembro', 'outubro', 'novembro', 'dezembro'
+      ];
+      const diasSemana = [
+        'domingo', 'segunda-feira', 'terça-feira',
+        'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'
+      ];
+      const dia = d.getDate();
+      const mes = meses[d.getMonth()];
+      const diaSemana = diasSemana[d.getDay()];
+      return `${dia} de ${mes} (${diaSemana})`;
+    }
+
+    // Inserir dias e mapas no container
+    const container = document.getElementById('dias-campeonato');
+
+    DIAS.forEach((dia, i) => {
+      // Calcular data do sábado + i semanas
+      const dataDia = new Date(dataBase);
+      dataDia.setDate(dataDia.getDate() + i * 7);
+
+      // Criar card do dia
+      const diaCard = document.createElement('div');
+      diaCard.classList.add('dia-card');
+
+      // Título DAY1, DAY2...
+      const titulo = document.createElement('h2');
+      titulo.textContent = dia.replace('DAY', 'DAY ');
+      diaCard.appendChild(titulo);
+
+      // Parágrafo com data formatada
+      const pData = document.createElement('p');
+      pData.classList.add('data');
+
+      // Se for o último dia (DAY4), adicionar "– FINAL 🏆"
+      if (i === DIAS.length - 1) {
+        pData.textContent = formatarData(dataDia) + ' – FINAL 🏆';
+      } else {
+        pData.textContent = formatarData(dataDia);
+      }
+      diaCard.appendChild(pData);
+
+      // Div dos mapas
+      const mapasLista = document.createElement('div');
+      mapasLista.classList.add('mapas-lista');
+
+      // Inserir mapas do dia
+      mapas[dia].forEach(mapa => {
+        const mapaItem = document.createElement('div');
+        mapaItem.classList.add('mapa-item');
+        mapaItem.textContent = mapa;
+        mapasLista.appendChild(mapaItem);
+      });
+
+      diaCard.appendChild(mapasLista);
+      container.appendChild(diaCard);
+    });
+
+    // Atualiza o card do calendário com a data base
+    const mesesCard = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
+    const diasSemanaCard = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+
+    document.getElementById('month').innerText = mesesCard[dataBase.getMonth()];
+    document.getElementById('day').innerText = diasSemanaCard[dataBase.getDay()];
+    document.getElementById('date').innerText = dataBase.getDate();
+    document.getElementById('year').innerText = dataBase.getFullYear();
+
+    // Iniciar countdown para a data base
+    startCountdown(dataBase.toISOString(), 'countdown');
   </script>
 
-  <!-- Script para detectar direção da rolagem e esconder/mostrar banner -->
+  <!-- Script para esconder/mostrar banner na rolagem -->
   <script>
     const banner = document.getElementById('banner');
     let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -329,10 +344,8 @@
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
       if (scrollTop > lastScrollTop) {
-        // Scroll pra baixo - esconde banner puxando pra cima
         banner.classList.add('escondido');
       } else {
-        // Scroll pra cima - mostra banner descendo
         banner.classList.remove('escondido');
       }
 
