@@ -202,7 +202,7 @@ async function loadTeamDetails(tag) {
 
     const html = `
       <section style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-        <img src="${time.logo}" alt="Logo do time ${time.nome}" style="width: 105px; height: 150px; object-fit: contain; border-radius: 8px; border: 1px solid #ccc;" />
+        <img src="${time.logo}" alt="Logo do time ${time.nome}" style="width: 105px; height: 150px; object-fit: contain;" />
         <div>
           <h1>${time.nome}</h1><br>
           <p>${iconCapitao} <strong>Capitão:</strong> ${time.capitao || 'Não definido'}</p>
