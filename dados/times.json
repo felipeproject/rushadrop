@@ -2,7 +2,7 @@
   {
     "nome": "ESPARTANOS",
     "tag": "espartanos",
-    "logo": "imagens/times/ESPARTANOS.png",
+    "logo": "imagens/times/sf/ESPARTANOS.png",
     "id": "TEAM #1",
     "statusInscricao": "Inscrito ✅",
     "descricao": "",
@@ -20,7 +20,7 @@
   {
     "nome": "XUXA",
     "tag": "xuxa",
-    "logo": "imagens/times/XUXA.png",
+    "logo": "imagens/times/sf/XUXA.png",
     "id": "TEAM #2",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -38,7 +38,7 @@
   {
     "nome": "PINGREEN",
     "tag": "pingreen",
-    "logo": "imagens/times/PINGREEN.png",
+    "logo": "imagens/times/sf/PINGREEN.png",
     "id": "TEAM #3",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -56,7 +56,7 @@
   {
     "nome": "CAPIVARAS PUBG",
     "tag": "capivaras_pubg",
-    "logo": "imagens/times/CAPIVARAS PUBG.jpg",
+    "logo": "imagens/times/sf/CAPIVARAS PUBG.jpg",
     "id": "TEAM #4",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -74,7 +74,7 @@
   {
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
-    "logo": "imagens/times/PINGYELLOW.png",
+    "logo": "imagens/times/sf/PINGYELLOW.png",
     "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -92,7 +92,7 @@
   {
     "nome": "FALCON",
     "tag": "falcon",
-    "logo": "imagens/times/FALCON.png",
+    "logo": "imagens/times/sf/FALCON.png",
     "id": "TEAM #6",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
