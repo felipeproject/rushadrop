@@ -40,8 +40,7 @@ async function fetchCSV(url) {
     const response = await fetch(url);
     if (!response.ok) return null;
     const text = await response.text();
-    if (!text.trim()) return null;
-    return text;
+    return text.trim() ? text : null;
   } catch {
     return null;
   }
@@ -51,58 +50,59 @@ function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
   if (lines.length < 2) return null;
   const headers = lines[0].split(',');
-  const data = [];
-  for (let i = 1; i < lines.length; i++) {
-    const row = lines[i].split(',');
-    if (row.length !== headers.length) continue;
-    const entry = {};
-    for (let j = 0; j < headers.length; j++) {
-      entry[headers[j].trim()] = row[j].trim();
-    }
-    data.push(entry);
-  }
-  return data;
+  return lines.slice(1).map(line => {
+    const row = line.split(',');
+    if (row.length !== headers.length) return null;
+    return headers.reduce((obj, h, i) => {
+      obj[h.trim()] = row[i].trim();
+      return obj;
+    }, {});
+  }).filter(Boolean);
 }
 
 async function carregarTodosJogadores() {
   const jogadoresMap = new Map();
-  for (const day of Object.keys(rodadas)) {
-    for (const arquivo of rodadas[day]) {
-      const csvText = await fetchCSV(arquivo);
-      if (!csvText) continue;
-      const jogadores = parseCSV(csvText);
-      if (!jogadores) continue;
-      for (const jogador of jogadores) {
-        const nome = jogador.Name;
-        const kills = parseInt(jogador.Kills) || 0;
-        const damage = parseInt(jogador['Damage Dealt']) || 0;
-        const assists = parseInt(jogador.Assists) || 0;
-        const winPlace = parseInt(jogador['Win Place']) || Infinity;
-        const timeSurvived = parseInt(jogador['Time Survived']) || 0;
-        const headshotKills = parseInt(jogador['Headshot Kills']) || 0;
+  const arquivos = Object.values(rodadas).flat();
 
-        if (!jogadoresMap.has(nome)) {
-          jogadoresMap.set(nome, {
-            nick: nome,
-            kills,
-            danos: damage,
-            assistencias: assists,
-            bestWinPlace: winPlace,
-            timeSurvived,
-            headshotKills,
-          });
-        } else {
-          const j = jogadoresMap.get(nome);
-          j.kills += kills;
-          j.danos += damage;
-          j.assistencias += assists;
-          j.bestWinPlace = Math.min(j.bestWinPlace, winPlace);
-          j.timeSurvived += timeSurvived;
-          j.headshotKills += headshotKills;
-        }
+  const resultados = await Promise.all(
+    arquivos.map(async (arquivo) => {
+      const csv = await fetchCSV(arquivo);
+      return csv ? parseCSV(csv) : null;
+    })
+  );
+
+  for (const jogadores of resultados.filter(Boolean)) {
+    for (const jogador of jogadores) {
+      const nome = jogador.Name;
+      const kills = parseInt(jogador.Kills) || 0;
+      const damage = parseInt(jogador['Damage Dealt']) || 0;
+      const assists = parseInt(jogador.Assists) || 0;
+      const winPlace = parseInt(jogador['Win Place']) || Infinity;
+      const timeSurvived = parseInt(jogador['Time Survived']) || 0;
+      const headshotKills = parseInt(jogador['Headshot Kills']) || 0;
+
+      if (!jogadoresMap.has(nome)) {
+        jogadoresMap.set(nome, {
+          nick: nome,
+          kills,
+          danos: damage,
+          assistencias: assists,
+          bestWinPlace: winPlace,
+          timeSurvived,
+          headshotKills,
+        });
+      } else {
+        const j = jogadoresMap.get(nome);
+        j.kills += kills;
+        j.danos += damage;
+        j.assistencias += assists;
+        j.bestWinPlace = Math.min(j.bestWinPlace, winPlace);
+        j.timeSurvived += timeSurvived;
+        j.headshotKills += headshotKills;
       }
     }
   }
+
   return Array.from(jogadoresMap.values()).sort((a, b) => a.bestWinPlace - b.bestWinPlace);
 }
 
@@ -113,18 +113,10 @@ const iconSaida = '↙️';
 
 function formatTempoSobrevivido(segundos) {
   if (segundos <= 0) return '0s';
-
   const horas = Math.floor(segundos / 3600);
   const minutos = Math.floor((segundos % 3600) / 60);
   const segs = segundos % 60;
-
-  let resultado = '';
-  if (horas > 0) resultado += `${horas}h `;
-  if (minutos > 0) resultado += `${minutos}min `;
-  // mostrar segundos somente se não tiver horas
-  if (segs > 0 && horas === 0) resultado += `${segs}s`;
-
-  return resultado.trim();
+  return `${horas ? `${horas}h ` : ''}${minutos ? `${minutos}min ` : ''}${segs && !horas ? `${segs}s` : ''}`.trim();
 }
 
 async function loadTeamDetails(tag) {
@@ -142,63 +134,38 @@ async function loadTeamDetails(tag) {
     const jogadoresDetalhados = await carregarTodosJogadores();
     const jogadoresDoTime = time.jogadores.map(j => j.replace(/\s*\(.*?\)/g, '').trim());
     const jogadoresFiltrados = jogadoresDetalhados.filter(j =>
-      jogadoresDoTime.some(nomeTime => nomeTime.toLowerCase() === j.nick.toLowerCase())
+      jogadoresDoTime.some(n => n.toLowerCase() === j.nick.toLowerCase())
     );
     const dadosMap = new Map(jogadoresFiltrados.map(j => [j.nick.toLowerCase(), j]));
 
-    const linhasTabela = jogadoresDoTime.map(nomeJogador => {
-      if (nomeJogador.includes('⏳')) {
-        return `
-          <tr>
-            <td style="text-align:center; font-weight: 500; color: #ddd;">${nomeJogador}</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-          </tr>`;
-      }
-      const j = dadosMap.get(nomeJogador.toLowerCase());
-      if (j) {
-        const link = createOpggLink(j.nick);
-        return `
-          <tr>
-            <td style="text-align:center; font-weight: 500; color: #ddd;">${link.outerHTML}</td>
-            <td style="text-align:center;">${j.kills}</td>
-            <td style="text-align:center;">${j.assistencias}</td>
-            <td style="text-align:center;">${j.danos}</td>
-            <td style="text-align:center;">${formatTempoSobrevivido(j.timeSurvived)}</td>
-            <td style="text-align:center;">${j.headshotKills}</td>
-          </tr>`;
-      } else {
-        return `
-          <tr>
-            <td style="text-align:center; font-weight: 500; color: #ddd;">${nomeJogador}</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-            <td style="text-align:center;">0</td>
-          </tr>`;
-      }
+    const linhasTabela = jogadoresDoTime.map(nome => {
+      const nomeLimpo = nome.replace('⏳', '').trim();
+      const j = dadosMap.get(nomeLimpo.toLowerCase());
+      const link = j ? createOpggLink(j.nick).outerHTML : nome;
+
+      return `
+        <tr>
+          <td style="text-align:center; font-weight: 500; color: #ddd;">${link}</td>
+          <td style="text-align:center;">${j?.kills || 0}</td>
+          <td style="text-align:center;">${j?.assistencias || 0}</td>
+          <td style="text-align:center;">${j?.danos || 0}</td>
+          <td style="text-align:center;">${formatTempoSobrevivido(j?.timeSurvived || 0)}</td>
+          <td style="text-align:center;">${j?.headshotKills || 0}</td>
+        </tr>`;
     }).join('');
 
     const status = time.statusInscricao || '';
-    let statusColor = '';
-    switch (status.toLowerCase()) {
-      case 'inscrito ✅': statusColor = 'green'; break;
-      case 'aguardando pagamento.. ⏳': statusColor = 'orange'; break;
-      case 'não inscrito❌':
-      case 'nao inscrito❌': statusColor = 'red'; break;
-      default: statusColor = '#ccc';
-    }
+    let statusColor = {
+      'inscrito ✅': 'green',
+      'aguardando pagamento.. ⏳': 'orange',
+      'não inscrito❌': 'red',
+      'nao inscrito❌': 'red',
+    }[status.toLowerCase()] || '#ccc';
 
-    const substituicoesCount = Array.isArray(time.entradasSaidas) ? time.entradasSaidas.length : 0;
     const substituicoesHTML = (time.entradasSaidas || []).map(sub => `
       <p style="margin-left: 30px; font-size: 0.95rem;">
         ${iconEntrada} Entrada: <strong>${sub.entrada}</strong> &nbsp; - &nbsp; ${iconSaida} Saída: <strong>${sub.saida}</strong>
-      </p>
-    `).join('');
+      </p>`).join('');
 
     const html = `
       <section style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
@@ -206,7 +173,7 @@ async function loadTeamDetails(tag) {
         <div>
           <h1>${time.nome}</h1><br>
           <p>${iconCapitao} <strong>Capitão:</strong> ${time.capitao || 'Não definido'}</p>
-          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${substituicoesCount} de 2</p>
+          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${(time.entradasSaidas || []).length} de 2</p>
           ${substituicoesHTML}
           <p>${time.descricao || ''}</p>
           ${time.linkSite ? `<p><br><a href="${time.linkSite}" target="_blank" rel="noopener noreferrer" style="color:#9ae6b4;">Site do time</a></p>` : ''}
@@ -230,22 +197,50 @@ async function loadTeamDetails(tag) {
             <th style="padding: 0.75rem; text-align: center;">Headshot</th>
           </tr>
         </thead>
-        <tbody>
-          ${linhasTabela}
-        </tbody>
+        <tbody>${linhasTabela}</tbody>
       </table>
 
       ${time.galeria ? `
-        <section aria-label="Galeria de imagens do time ${time.nome}" style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
+        <section style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
           ${time.galeria.map(img => `<img src="${img}" alt="Imagem do time ${time.nome}" loading="lazy" style="max-width: 150px; border-radius: 5px;" />`).join('')}
         </section>
       ` : ''}
     `;
 
     modalBody.innerHTML = html;
+    aplicarEstilosResponsivosInline(); // aplica responsividade se for mobile
   } catch (e) {
     modalBody.innerHTML = `<p>Erro ao carregar detalhes do time.</p>`;
     console.error(e);
+  }
+}
+
+function aplicarEstilosResponsivosInline() {
+  if (window.innerWidth > 768) return; // apenas mobile
+
+  modalBody.parentElement.style.padding = '10px';
+  modalBody.parentElement.style.maxWidth = '95%';
+  modalBody.parentElement.style.margin = '0 auto';
+  modalBody.parentElement.style.overflowY = 'auto';
+  modalBody.parentElement.style.maxHeight = '90vh';
+
+  const section = modalBody.querySelector('section');
+  if (section) {
+    section.style.flexDirection = 'column';
+    section.style.alignItems = 'center';
+    section.style.textAlign = 'center';
+  }
+
+  const logo = modalBody.querySelector('section img');
+  if (logo) {
+    logo.style.width = '80px';
+    logo.style.height = '100px';
+  }
+
+  const table = modalBody.querySelector('table');
+  if (table) {
+    table.style.fontSize = '0.8rem';
+    table.style.overflowX = 'auto';
   }
 }
 
