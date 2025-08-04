@@ -8,30 +8,21 @@
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* seu CSS (mantive o seu código) */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #121212;
       color: white;
+      overflow-y: auto;
     }
 
     .banner-container {
       position: relative;
       text-align: center;
       margin-top: 70px;
-      display: inline-block;
-      max-width: 100%;
-      width: auto;
-
-      transition: transform 0.5s ease;
-      will-change: transform;
-      z-index: 10;
       background: black;
-    }
-
-    .banner-container.escondido {
-      transform: translateY(-10%);
+      overflow: hidden;
+      z-index: 10;
     }
 
     .banner-container img {
@@ -47,208 +38,228 @@
       right: 5%;
       transform: translateY(-50%);
       background: rgba(0, 0, 0, 0.7);
-      padding: 20px 25px;
+      padding: 1.25rem 1.5rem;
       border-radius: 10px;
       color: white;
       font-weight: bold;
       width: 220px;
+      max-width: 90vw;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      font-family: Arial, sans-serif;
       pointer-events: none;
+      box-sizing: border-box;
     }
 
     .cronometro-overlay h2 {
-      margin: 0 0 10px 0;
-      font-size: 1.6rem;
+      margin: 0 0 0.6rem;
+      font-size: clamp(1rem, 2vw, 1.6rem);
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 0.6rem;
+      flex-wrap: wrap;
     }
 
     .cronometro-overlay #countdown {
-      font-size: 2rem;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
       font-weight: 800;
       letter-spacing: 1px;
     }
 
-    .calendar-card {
-      position: absolute;
-      top: 50%;
-      right: 25%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      width: 100px;
-      text-align: center;
-      padding: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      font-family: Arial, sans-serif;
-      color: white;
-      pointer-events: none;
-    }
-
-    .calendar-card #month {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-
-    .calendar-card #day {
-      font-size: 0.8rem;
-    }
-
-    .calendar-card #date {
-      font-size: 2.5rem;
-      font-weight: bold;
-    }
-
-    .calendar-card #year {
-      font-size: 0.8rem;
-    }
-
     #novo-conteudo {
-      padding: 40px 20px 60px;
+      padding: 2.5rem 1rem 3.5rem;
       text-align: center;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     #novo-conteudo h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 1.25rem;
       font-weight: 700;
     }
 
-    #novo-conteudo p.info-horario {
-      margin-bottom: 30px;
+    #novo-conteudo .info-horario {
       font-weight: 600;
       color: #ccc;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      margin-bottom: 1.75rem;
     }
 
-    .dias-campeonato {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding-bottom: 20px;
-      overflow-x: visible;
+    .carousel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      justify-items: center;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0 0.625rem;
     }
 
     .dia-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 15px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      padding: 20px;
-
-      min-width: 150px;
-      max-width: 100%;
-      flex: 1 1 200px;
-
-      color: #f0f0f0;
+      padding: 1.25rem 1.25rem;
+      width: 100%;
+      max-width: 280px;
+      color: white;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    @media (max-width: 1800px) {
-      .dia-card {
-        flex: 1 1 100%;
-        min-width: auto;
-      }
+    .dia-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(255, 217, 0, 0.4);
     }
 
     .dia-card h2 {
-      margin: 0 0 10px 0;
-      font-weight: 700;
       font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
     .dia-card p.data {
-      margin: 0 0 15px 0;
-      font-weight: 500;
-      font-size: 1rem;
-      opacity: 0.8;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
+    .dia-card.final {
+      border: 2px solid rgba(255, 217, 0, 0.3);
+      box-shadow: 0 0 15px rgba(255, 217, 0, 0.3);
+    }
+
+    .dia-card.final h2::after {
+      content: " 🏆";
     }
 
     .mapas-lista {
       display: flex;
-      gap: 12px;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      width: 100%;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       justify-content: center;
     }
 
     .mapa-item {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
-      padding: 10px 15px;
-      min-width: 120px;
-      text-align: center;
+      background-color: rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      font-size: 0.95rem;
       user-select: none;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      cursor: default;
       white-space: nowrap;
+      transition: background-color 0.3s ease;
+      cursor: default;
     }
 
-    .mapas-lista::-webkit-scrollbar {
-      height: 6px;
+    .barra-vertical {
+      display: none;
     }
 
-    .mapas-lista::-webkit-scrollbar-thumb {
-      background-color: #666;
-      border-radius: 3px;
+    /* RESPONSIVO */
+    @media (max-width: 767px) {
+      .carousel {
+        gap: 3.25rem;
+        max-width: 100%;
+        margin: 0 auto 2.5rem;
+        padding: 0 1rem;
+      }
+
+      .dia-card {
+        max-width: 100%;
+        padding: 1.125rem 1rem;
+        font-size: 1rem;
+        border-radius: 12px;
+      }
+
+      .dia-card:hover {
+        transform: none;
+        box-shadow: 0 0 12px rgba(255, 217, 0, 0.25);
+      }
+
+      .mapa-item {
+        font-size: 1rem;
+        padding: 0.625rem 0.875rem;
+      }
+
+      .cronometro-overlay {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem auto 2rem;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
     }
 
-    .mapas-lista::-webkit-scrollbar-track {
-      background: transparent;
+    @media (max-width: 360px) {
+      #novo-conteudo h1 {
+        font-size: 1.6rem;
+      }
+
+      .cronometro-overlay h2 {
+        font-size: 1rem;
+      }
+
+      .cronometro-overlay #countdown {
+        font-size: 1.2rem;
+      }
+
+      .dia-card h2 {
+        font-size: 1.1rem;
+      }
+
+      .dia-card p.data {
+        font-size: 0.85rem;
+      }
+
+      .mapa-item {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Navbar injetada via JavaScript -->
+  <!-- Navbar -->
   <script type="module">
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
 
-  <!-- Banner com cronômetro e calendário -->
+  <!-- Banner -->
   <div class="banner-container" id="banner">
     <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
+  </div>
 
-    <!-- Cronômetro -->
+  <!-- cronometro -->
+  <div>
     <div class="cronometro-overlay">
-      <h2><i class="fas fa-trophy"></i> Início do Campeonato</h2>
+      <h2><i class="fas fa-trophy"></i>Início do Campeonato</h2>
       <div id="countdown"></div>
-    </div>
-
-    <!-- Cartão de calendário -->
-    <div class="calendar-card">
-      <div id="month"></div>
-      <div id="day"></div>
-      <div id="date"></div>
-      <div id="year"></div>
     </div>
   </div>
 
-  <!-- Novo conteúdo com dias e mapas (gerado por JS) -->
+  <!-- Novo Conteúdo -->
   <section id="novo-conteudo">
     <h1>Calendário do Campeonato</h1>
     <p class="info-horario">
-      O início dos jogos é sempre às <strong>21h</strong>. Os jogos seguintes são realizados consecutivamente, considerando duração média de <strong>50 minutos</strong> por mapa.
+      
+      Jogos começam às <strong>21h</strong>. Cada mapa dura em média <strong>50 minutos</strong>.
     </p>
-    <div class="dias-campeonato" id="dias-campeonato">
-      <!-- Dias e mapas serão inseridos aqui via JS -->
+    
+    
+    <div class="carousel" id="dias-campeonato">
     </div>
   </section>
 
@@ -257,60 +268,36 @@
     import { DIAS, mapas } from './js/configGlobal.js';
     import { startCountdown } from './js/countdown.js';
 
-    // Data base do campeonato (sábado 16/08/2025)
     const dataBase = new Date('2025-08-16T21:00:00');
 
-    // Função para formatar data para "16 de agosto (sábado)"
     function formatarData(d) {
-      const meses = [
-        'janeiro', 'fevereiro', 'março', 'abril',
-        'maio', 'junho', 'julho', 'agosto',
-        'setembro', 'outubro', 'novembro', 'dezembro'
-      ];
-      const diasSemana = [
-        'domingo', 'segunda-feira', 'terça-feira',
-        'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'
-      ];
-      const dia = d.getDate();
-      const mes = meses[d.getMonth()];
-      const diaSemana = diasSemana[d.getDay()];
-      return `${dia} de ${mes} (${diaSemana})`;
+      const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+      const diasSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+      return `${d.getDate()} de ${meses[d.getMonth()]} (${diasSemana[d.getDay()]})`;
     }
 
-    // Inserir dias e mapas no container
     const container = document.getElementById('dias-campeonato');
 
     DIAS.forEach((dia, i) => {
-      // Calcular data do sábado + i semanas
       const dataDia = new Date(dataBase);
-      dataDia.setDate(dataDia.getDate() + i * 7);
+      dataDia.setDate(dataBase.getDate() + i * 7);
 
-      // Criar card do dia
       const diaCard = document.createElement('div');
       diaCard.classList.add('dia-card');
+      if (i === DIAS.length - 1) diaCard.classList.add('final');
 
-      // Título DAY1, DAY2...
       const titulo = document.createElement('h2');
       titulo.textContent = dia.replace('DAY', 'DAY ');
       diaCard.appendChild(titulo);
 
-      // Parágrafo com data formatada
       const pData = document.createElement('p');
       pData.classList.add('data');
-
-      // Se for o último dia (DAY4), adicionar "– FINAL 🏆"
-      if (i === DIAS.length - 1) {
-        pData.textContent = formatarData(dataDia) + ' – FINAL 🏆';
-      } else {
-        pData.textContent = formatarData(dataDia);
-      }
+      pData.textContent = formatarData(dataDia);
       diaCard.appendChild(pData);
 
-      // Div dos mapas
       const mapasLista = document.createElement('div');
       mapasLista.classList.add('mapas-lista');
 
-      // Inserir mapas do dia
       mapas[dia].forEach(mapa => {
         const mapaItem = document.createElement('div');
         mapaItem.classList.add('mapa-item');
@@ -322,33 +309,16 @@
       container.appendChild(diaCard);
     });
 
-    // Atualiza o card do calendário com a data base
-    const mesesCard = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
-    const diasSemanaCard = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-
-    document.getElementById('month').innerText = mesesCard[dataBase.getMonth()];
-    document.getElementById('day').innerText = diasSemanaCard[dataBase.getDay()];
-    document.getElementById('date').innerText = dataBase.getDate();
-    document.getElementById('year').innerText = dataBase.getFullYear();
-
-    // Iniciar countdown para a data base
     startCountdown(dataBase.toISOString(), 'countdown');
   </script>
 
-  <!-- Script para esconder/mostrar banner na rolagem -->
   <script>
     const banner = document.getElementById('banner');
     let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     window.addEventListener('scroll', () => {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (scrollTop > lastScrollTop) {
-        banner.classList.add('escondido');
-      } else {
-        banner.classList.remove('escondido');
-      }
-
+      banner.classList.toggle('escondido', scrollTop > lastScrollTop);
       lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
   </script>
