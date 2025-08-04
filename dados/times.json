@@ -18,10 +18,46 @@
     ]
   },
   {
+    "nome": "PINGREEN",
+    "tag": "pingreen",
+    "logo": "imagens/times/sf/PINGREEN.png",
+    "id": "TEAM #2",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "STRAT_FPS",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "STRAT_FPS",
+      "MESTRE-MCS",
+      "BLANKSZ1",
+      "AllbertWesker",
+      "IIBLAST"
+    ]
+  },
+  {
+    "nome": "EL MATADORES DE NOB",
+    "tag": "ELMDN",
+    "logo": "imagens/times/sf/.png",
+    "id": "TEAM #3",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "The Bill",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "The Bill",
+      "El_gasolino",
+      "LuckLose",
+      "Dexxx777",
+      "MateusCenourao"
+    ]
+  },
+  {
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/sf/XUXA.png",
-    "id": "TEAM #2",
+    "id": "TEAM #4",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "koszz",
@@ -36,28 +72,10 @@
     ]
   },
   {
-    "nome": "PINGREEN",
-    "tag": "pingreen",
-    "logo": "imagens/times/sf/PINGREEN.png",
-    "id": "TEAM #3",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "STRAT_FPS",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      "STRAT_FPS",
-      "MESTRE-MCS",
-      "BLANKSZ1",
-      "AllbertWesker",
-      "IIBLAST"
-    ]
-  },
-  {
     "nome": "CAPIVARAS PUBG",
     "tag": "capivaras_pubg",
     "logo": "imagens/times/sf/CAPIVARAS PUBG.jpg",
-    "id": "TEAM #4",
+    "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "nuuub404",
@@ -74,7 +92,7 @@
     "nome": "PINGYELLOW",
     "tag": "pingyellow",
     "logo": "imagens/times/sf/PINGYELLOW.png",
-    "id": "TEAM #5",
+    "id": "TEAM #6",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "TEXAS3006",
@@ -92,7 +110,7 @@
     "nome": "FALCON",
     "tag": "falcon",
     "logo": "imagens/times/sf/FALCON.png",
-    "id": "TEAM #6",
+    "id": "TEAM #7",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "Racha_Cuca_AWM",
@@ -101,6 +119,24 @@
     "jogadores": [
       "Racha_Cuca_AWM",
       "JASONVOORHEES13K",
+      "⏳",
+      "⏳",
+      "⏳"
+    ]
+  },
+  {
+    "nome": "Em breve",
+    "tag": "Em breve",
+    "logo": "imagens/times/sf/.png",
+    "id": "TEAM #8",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "⏳",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "⏳",
+      "⏳",
       "⏳",
       "⏳",
       "⏳"
