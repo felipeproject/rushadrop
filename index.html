@@ -348,6 +348,17 @@
     Continue se inscrevendo para aumentar o prêmio!
   </p>
 </section>
+<script type="module">
+  import { DIAS, mapas } from './js/configGlobal.js';
+  import { renderCalendario } from './js/Calendario.js';
+  import { startCountdown } from './js/countdown.js';
+
+  const dataBaseISO = '2025-08-16T21:00:00';
+
+  renderCalendario('dias-campeonato', dataBaseISO, DIAS, mapas);
+
+  startCountdown(dataBaseISO, 'countdown');
+</script>
 
 <script>
   const equipesInscritas = 1;
