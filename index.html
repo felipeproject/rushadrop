@@ -241,6 +241,35 @@
   <div class="banner-container" id="banner">
     <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
   </div>
+<!-- Navbar fixa -->
+<nav id="navbar" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1f1f1fcc;
+  backdrop-filter: saturate(180%) blur(10px);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 1000;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  user-select: none;
+">
+  <a href="#banner" style="color: #FFD700; text-decoration: none; transition: color 0.3s;">Home</a>
+  <a href=".cronometro-overlay" style="color: white; text-decoration: none; transition: color 0.3s;">Início</a>
+  <a href="inscricao.html" target="_blank" style="color: white; text-decoration: none; transition: color 0.3s;">Inscrição</a>
+  <a href="https://discord.gg/Gdxza8h8MU" target="_blank" style="color: #5865F2; text-decoration: none; transition: color 0.3s;">Discord</a>
+  <a href="iframe[src*='twitch']" style="color: white; text-decoration: none; transition: color 0.3s;" onclick="document.querySelector('iframe').scrollIntoView({behavior: 'smooth'}); return false;">Live</a>
+  <a href="#novo-conteudo" style="color: white; text-decoration: none; transition: color 0.3s;">Calendário</a>
+  <a href="#premios" style="color: white; text-decoration: none; transition: color 0.3s;">Prêmios</a>
+  <a href="#arrecadacao" style="color: #22c55e; text-decoration: none; transition: color 0.3s;">Arrecadação</a>
+</nav>
+
+<!-- Espaço extra para compensar a navbar fixa -->
+<div style="height: 56px;"></div>
 
   <!-- cronometro -->
   <div>
@@ -284,26 +313,59 @@
     <div class="carousel" id="dias-campeonato">
     </div>
     <!-- Prêmios do Campeonato -->
-<section id="premios" style="max-width: 700px; margin: 3rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; color: #FFD700; text-align: center;">
-  <h2><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
-  <p style="margin-top: 1rem; font-size: 1.1rem;">
-    O valor total do prêmio será calculado com base no total arrecadado pelas inscrições.
-  </p>
-  <p style="font-size: 1rem; margin: 0.5rem 0;">
-    Cada equipe paga <strong>R$ 50,00</strong> na inscrição.
-  </p>
-  <p style="font-size: 1rem; margin: 0.5rem 0;">
-    O prêmio será distribuído da seguinte forma:
-  </p>
-  <ul style="list-style: none; padding: 0; font-size: 1rem;">
-    <li><strong>50%</strong> do valor arrecadado para o <span style="color:#FFD700;">Campeão 🏆</span></li>
-    <li><strong>30%</strong> para o <span style="color:#C0C0C0;">Vice-campeão 🥈</span></li>
-    <li><strong>20%</strong> para o <span style="color:#cd7f32;">3º lugar 🥉</span></li>
-  </ul>
-  <p style="margin-top: 1rem; font-style: italic; color: #ccc;">
-    *O valor final depende do número de equipes inscritas.
-  </p>
-</section>
+    <section id="premios"
+      style="max-width: 700px; margin: 3rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; color: #FFD700; text-align: center;">
+      <h2><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
+      <p style="margin-top: 1rem; font-size: 1.1rem;">
+        O valor total do prêmio será calculado com base no total arrecadado pelas inscrições.
+      </p>
+      <p style="font-size: 1rem; margin: 0.5rem 0;">
+        Cada equipe paga <strong>R$ 50,00</strong> na inscrição.
+      </p>
+      <p style="font-size: 1rem; margin: 0.5rem 0;">
+        O prêmio será distribuído da seguinte forma:
+      </p>
+      <ul style="list-style: none; padding: 0; font-size: 1rem;">
+        <li><strong>50%</strong> do valor arrecadado para o <span style="color:#FFD700;">Campeão 🏆</span></li>
+        <li><strong>30%</strong> para o <span style="color:#C0C0C0;">Vice-campeão 🥈</span></li>
+        <li><strong>20%</strong> para o <span style="color:#cd7f32;">3º lugar 🥉</span></li>
+      </ul>
+      <p style="margin-top: 1rem; font-style: italic; color: #ccc;">
+        *O valor final depende do número de equipes inscritas.
+      </p>
+    </section>
+    <!-- Arrecadação Atual -->
+    <section id="arrecadacao"
+      style="max-width: 700px; margin: 2rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 15px; color: #22c55e; text-align: center;">
+      <h2><i class="fas fa-wallet"></i> Arrecadação Atual</h2>
+      <p style="margin-top: 1rem; font-size: 1.1rem;">
+        Até o momento, já foram inscritas <strong id="numEquipes">0</strong> equipes.
+      </p>
+      <p style="font-size: 1rem; margin: 0.5rem 0;">
+        Total arrecadado: <strong id="valorArrecadado">R$ 0,00</strong>
+      </p>
+      <p style="font-style: italic; color: #ccc; margin-top: 1rem;">
+        Continue se inscrevendo para aumentar o prêmio!
+      </p>
+    </section>
+
+    <script>
+      // Simule a quantidade de equipes inscritas aqui:
+      const equipesInscritas = 12; // Exemplo: 12 equipes já inscritas
+
+      // Valor fixo da inscrição por equipe
+      const valorInscricao = 50;
+
+      // Cálculo do total arrecadado
+      const totalArrecadado = equipesInscritas * valorInscricao;
+
+      // Formatar valor em real (BRL)
+      const formatarBRL = valor => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+      // Atualiza o conteúdo na página
+      document.getElementById('numEquipes').textContent = equipesInscritas;
+      document.getElementById('valorArrecadado').textContent = formatarBRL(totalArrecadado);
+    </script>
 
   </section>
 
