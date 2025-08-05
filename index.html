@@ -240,40 +240,13 @@
     injectNavbar();
   </script>
 
+
   <!-- Banner -->
   <div class="banner-container" id="banner">
     <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
   </div>
 
-  <!-- Navbar fixa -->
-  <nav id="navbar" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #1f1f1fcc;
-    backdrop-filter: saturate(180%) blur(10px);
-    padding: 0.75rem 1.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    z-index: 1000;
-    font-weight: 600;
-    font-family: Arial, sans-serif;
-    user-select: none;
-  ">
-    <a href="#banner" style="color: #FFD700; text-decoration: none; transition: color 0.3s;">Home</a>
-    <a href=".cronometro-overlay" style="color: white; text-decoration: none; transition: color 0.3s;">Início</a>
-    <a href="inscricao.html" target="_blank"
-      style="color: white; text-decoration: none; transition: color 0.3s;">Inscrição</a>
-    <a href="https://discord.gg/Gdxza8h8MU" target="_blank"
-      style="color: #5865F2; text-decoration: none; transition: color 0.3s;">Discord</a>
-    <a href="iframe[src*='twitch']" style="color: white; text-decoration: none; transition: color 0.3s;"
-      onclick="document.querySelector('iframe').scrollIntoView({behavior: 'smooth'}); return false;">Live</a>
-    <a href="#novo-conteudo" style="color: white; text-decoration: none; transition: color 0.3s;">Calendário</a>
-    <a href="#premios" style="color: white; text-decoration: none; transition: color 0.3s;">Prêmios</a>
-    <a href="#arrecadacao" style="color: #22c55e; text-decoration: none; transition: color 0.3s;">Arrecadação</a>
-  </nav>
+
 
   <!-- Espaço extra para compensar a navbar fixa -->
   <div style="height: 56px;"></div>
@@ -315,7 +288,6 @@
     </p>
   </section>
 
-
   <div class="carousel" id="dias-campeonato"></div>
 
   <!-- Prêmios do Campeonato -->
@@ -353,7 +325,6 @@
       Total arrecadado: <strong id="valorArrecadado">R$ 0,00</strong>
     </p>
     <p style="font-style: italic; color: #ccc; margin-top: 1rem;">
-      Não perca! Ainda há tempo para garantir a vaga do seu time. </p>
   </section>
   <script type="module">
     import { DIAS, mapas } from './js/configGlobal.js';
@@ -367,18 +338,33 @@
     startCountdown(dataBaseISO, 'countdown');
   </script>
 
+  <section id="arrecadacao"
+    style="max-width: 700px; margin: 2rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 15px; color: #22c55e; text-align: center;">
+
+    <div style="margin-top: 2rem; font-size: 1rem; color: #ffd700;">
+      <p><strong>🏆 Campeão:</strong> <span id="premio1">R$ 0,00</span> (50%)</p>
+      <p><strong>🥈 Vice-campeão:</strong> <span id="premio2">R$ 0,00</span> (30%)</p>
+      <p><strong>🥉 3º lugar:</strong> <span id="premio3">R$ 0,00</span> (20%)</p>
+    </div>
+  </section>
+
   <script>
     const equipesInscritas = 3;
-
     const valorInscricao = 50;
-
-    // Cálculo do total arrecadado
     const totalArrecadado = equipesInscritas * valorInscricao;
 
-    // Formatar valor em real (BRL)
-    const formatarBRL = valor => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const premio1 = totalArrecadado * 0.5;
+    const premio2 = totalArrecadado * 0.3;
+    const premio3 = totalArrecadado * 0.2;
 
-    // Atualiza o conteúdo na página
+    const formatarBRL = valor => valor.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+
     document.getElementById('numEquipes').textContent = equipesInscritas;
     document.getElementById('valorArrecadado').textContent = formatarBRL(totalArrecadado);
+    document.getElementById('premio1').textContent = formatarBRL(premio1);
+    document.getElementById('premio2').textContent = formatarBRL(premio2);
+    document.getElementById('premio3').textContent = formatarBRL(premio3);
   </script>
