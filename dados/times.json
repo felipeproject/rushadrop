@@ -141,5 +141,23 @@
       "⏳",
       "⏳"
     ]
+  },
+  {
+    "nome": "Em breve",
+    "tag": "Em breve",
+    "logo": "imagens/times/sf/d.png",
+    "id": "TEAM #9",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "",
+      "⏳",
+      "⏳",
+      "⏳",
+      "⏳"
+    ]
   }
 ]
