@@ -36,10 +36,28 @@
     ]
   },
   {
+    "nome": "PINGYELLOW",
+    "tag": "pingyellow",
+    "logo": "imagens/times/sf/PINGYELLOW.png",
+    "id": "TEAM #3",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "TEXAS3006",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "TEXAS3006",
+      "XxWarlockLFxX",
+      "Lukyne_marth3",
+      "⏳",
+      "⏳"
+    ]
+  },
+  {
     "nome": "XUXA",
     "tag": "xuxa",
     "logo": "imagens/times/sf/XUXA.png",
-    "id": "TEAM #3",
+    "id": "TEAM #4",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "koszz",
@@ -57,7 +75,7 @@
     "nome": "CAPIVARAS PUBG",
     "tag": "capivaras_pubg",
     "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
-    "id": "TEAM #4",
+    "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "nuuub404",
@@ -68,24 +86,6 @@
       "Mago12k",
       "Os300hifen",
       "* Fidalgo"
-    ]
-  },
-  {
-    "nome": "PINGYELLOW",
-    "tag": "pingyellow",
-    "logo": "imagens/times/sf/PINGYELLOW.png",
-    "id": "TEAM #5",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "TEXAS3006",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      "TEXAS3006",
-      "XxWarlockLFxX",
-      "Lukyne_marth3",
-      "⏳",
-      "⏳"
     ]
   },
   {
@@ -143,7 +143,25 @@
     ]
   },
   {
-    "nome": "Em breve",
+    "nome": "Fabio",
+    "tag": "Em breve",
+    "logo": "imagens/times/sf/d.png",
+    "id": "TEAM #9",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "",
+      "⏳",
+      "⏳",
+      "⏳",
+      "⏳"
+    ]
+  },
+    {
+    "nome": "Caoz",
     "tag": "Em breve",
     "logo": "imagens/times/sf/d.png",
     "id": "TEAM #9",
