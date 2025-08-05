@@ -46,7 +46,6 @@
       float: right;
     }
 
-
     .team-logo {
       max-width: 150px;
       border-radius: 8px;
@@ -57,9 +56,7 @@
       flex: 1;
     }
 
-    th,
-
-    td {
+    th, td {
       border: 1px solid rgba(83, 83, 83, 0.89);
       padding: 0.5rem;
       text-align: left;
@@ -78,6 +75,15 @@
       display: inline-block;
       margin-top: 0.5rem;
     }
+
+    #free-agents-section {
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+    }
+
+    #free-agents-section.visible {
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -85,23 +91,76 @@
   <main class="p-4">
     <input type="search" id="search-bar" placeholder="Buscar time ou jogador..." autocomplete="off"
       class="w-full max-w-2xl mb-6 px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white" />
+
     <div id="times-container" aria-live="polite" aria-busy="true">
       Carregando times...
     </div>
+
     <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
 
     <!-- Botão de Mostrar/Ocultar Jogadores -->
     <button id="toggle-free-agents"
-      class="mt-10 mb-4 ml-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2">
-      Mostrar Jogadores Disponíveis <span id="badge-count"
-        class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold">0</span>
+      class="mt-10 mb-4 ml-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-lg transition">
+      <i class="fa-solid fa-users-line text-white"></i> Jogadores Disponíveis
+      <span id="badge-count"
+        class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>
     </button>
 
     <!-- Seção de Jogadores Sem Time -->
-    <section id="free-agents-section" class="hidden p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
-      <h2 class="text-xl font-bold mb-4">💪🏻 Jogadores Disponíveis para Recrutamento</h2>
-      <ul id="free-agents-list" class="space-y-2">
-        <!-- Lista dinâmica de jogadores será inserida aqui -->
+    <section id="free-agents-section"
+      style="display: none; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
+      <h2
+        style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #00FA9A; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+        💪🏻 Jogadores Disponíveis para Recrutamento
+      </h2>
+
+      <p style="font-size: 0.95rem; color: #ccc; margin-bottom: 1rem;">
+        Abaixo estão listados os jogadores que <span style="color: #FFD700;">ainda não foram recrutados</span> por
+        nenhum time. Recrutadores podem entrar em contato diretamente!
+      </p>
+
+      <ul id="free-agents-list"
+        style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+
+        <!-- Exemplo de jogador -->
+        <li
+          style="background-color: #1f1f1f; border: 1px solid #333; padding: 0.75rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <p style="font-weight: bold; color: #ffffff; margin: 0;">🎮 João "SniperX"</p>
+            <p style="font-size: 0.85rem; color: #bbb; margin-top: 0.25rem;">Função: <span style="color:#7FFF00;">Atirador</span></p>
+          </div>
+          <button
+            style="background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: bold; border: none; cursor: pointer;">
+            Convidar
+          </button>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- Observações -->
+    <section
+      style="margin-top: 2.5rem; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
+      <h2
+        style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 1px solid #444; padding-bottom: 0.5rem;">
+        🔔 Observações Importantes</h2>
+      <ul style="list-style: none; padding-left: 0; font-size: 0.95rem; line-height: 1.6;">
+        <li style="margin-bottom: 0.75rem;">
+          <span style="color: #ffffff; font-weight: bold;">*</span>
+          <span> → Jogador ainda <span style="color:#FF6B6B;">não enviou</span> o nick.</span>
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <span style="color: #00BFFF; font-weight: bold;">🔎</span>
+          <span> → Jogador está com nick <span style="color:#FFA500;">em análise</span>.</span>
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <span style="color: #A020F0; font-weight: bold;">⏳</span>
+          <span> → Aguardando o <span style="color:#87CEEB;">envio do nick</span> pelo time.</span>
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <span style="color: #7FFF00; font-weight: bold;">🆔</span>
+          <span> → <span style="color:#90EE90;">"ID do time: TEAM #1"</span> indica o slot fixo na sala personalizada.</span>
+        </li>
       </ul>
     </section>
   </main>
@@ -116,47 +175,32 @@
     </div>
   </div>
 
-  <!-- Observações -->
-  <!-- Observações -->
-  <section
-    style="margin-top: 2.5rem; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
-    <h2
-      style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 1px solid #444; padding-bottom: 0.5rem;">
-      🔔 Observações Importantes</h2>
-    <ul style="list-style: none; padding-left: 0; font-size: 0.95rem; line-height: 1.6;">
-
-      <li style="margin-bottom: 0.75rem;">
-        <span style="color: #ffffff; font-weight: bold;">*</span>
-        <span> → Jogador ainda <span style="color:#FF6B6B;">não enviou</span> o nick.</span>
-      </li>
-
-      <li style="margin-bottom: 0.75rem;">
-        <span style="color: #00BFFF; font-weight: bold;">🔎</span>
-        <span> → Jogador está com nick <span style="color:#FFA500;">em análise</span>.</span>
-      </li>
-
-      <li style="margin-bottom: 0.75rem;">
-        <span style="color: #A020F0; font-weight: bold;">⏳</span>
-        <span> → Aguardando o <span style="color:#87CEEB;">envio do nick</span> pelo time.</span>
-      </li>
-
-      <li style="margin-bottom: 0.75rem;">
-        <span style="color: #7FFF00; font-weight: bold;">🆔</span>
-        <span> → <span style="color:#90EE90;">"ID do time: TEAM #1"</span> indica o slot fixo na sala
-          personalizada.</span>
-      </li>
-
-    </ul>
-  </section>
-
-
   <!-- Scripts -->
   <script type="module">
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
+
   <script type="module" src="js/times.js"></script>
   <script type="module" src="js/jogadoresDisponiveis.js"></script>
+
+  <!-- Mostrar/Ocultar Jogadores -->
+  <script>
+    const toggleButton = document.getElementById('toggle-free-agents');
+    const freeAgentsSection = document.getElementById('free-agents-section');
+
+    toggleButton.addEventListener('click', () => {
+      if (freeAgentsSection.style.display === 'none') {
+        freeAgentsSection.style.display = 'block';
+        setTimeout(() => freeAgentsSection.classList.add('visible'), 10);
+        toggleButton.innerHTML = '<i class="fa-solid fa-users-slash text-white"></i> Ocultar Jogadores <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>';
+      } else {
+        freeAgentsSection.classList.remove('visible');
+        setTimeout(() => freeAgentsSection.style.display = 'none', 300);
+        toggleButton.innerHTML = '<i class="fa-solid fa-users-line text-white"></i> Jogadores Disponíveis <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>';
+      }
+    });
+  </script>
 
 </body>
 
