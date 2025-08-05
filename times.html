@@ -117,19 +117,38 @@
   </div>
 
   <!-- Observações -->
-  <section class="mt-10 p-4 bg-gray-950 text-white rounded-lg w-full max-w-2xl ml-auto">
-    <h2 class="text-lg font-semibold mb-3">Observações</h2>
-    <ul class="list-disc list-inside text-sm space-y-1">
-      <li><strong></strong> Nome com <code>*</code> indica que o jogador ainda não enviou o nick.</li>
-      <li><strong></strong> Nome com <code>🔎</code> indica que está em análise.</li>
-      <li><strong></strong> Lista com <code>⏳</code> indica que está aguardando o envio do nick.</li>
+  <!-- Observações -->
+  <section
+    style="margin-top: 2.5rem; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
+    <h2
+      style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 1px solid #444; padding-bottom: 0.5rem;">
+      🔔 Observações Importantes</h2>
+    <ul style="list-style: none; padding-left: 0; font-size: 0.95rem; line-height: 1.6;">
+
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #ffffff; font-weight: bold;">*</span>
+        <span> → Jogador ainda <span style="color:#FF6B6B;">não enviou</span> o nick.</span>
+      </li>
+
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #00BFFF; font-weight: bold;">🔎</span>
+        <span> → Jogador está com nick <span style="color:#FFA500;">em análise</span>.</span>
+      </li>
+
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #A020F0; font-weight: bold;">⏳</span>
+        <span> → Aguardando o <span style="color:#87CEEB;">envio do nick</span> pelo time.</span>
+      </li>
+
+      <li style="margin-bottom: 0.75rem;">
+        <span style="color: #7FFF00; font-weight: bold;">🆔</span>
+        <span> → <span style="color:#90EE90;">"ID do time: TEAM #1"</span> indica o slot fixo na sala
+          personalizada.</span>
+      </li>
+
     </ul>
-    <p class="mt-4 text-sm">
-      Clique no <strong>time</strong> para ver mais informações. <br>
-      Clique no <strong>jogador</strong> para abrir o status no <a href="https://www.op.gg" target="_blank"
-        class="underline text-blue-300 hover:text-blue-400">op.gg</a>.
-    </p>
   </section>
+
 
   <!-- Scripts -->
   <script type="module">
@@ -137,7 +156,7 @@
     injectNavbar();
   </script>
   <script type="module" src="js/times.js"></script>
-    <script type="module" src="js/jogadoresDisponiveis.js"></script>
+  <script type="module" src="js/jogadoresDisponiveis.js"></script>
 
 </body>
 
