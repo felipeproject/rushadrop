@@ -1,3 +1,4 @@
 auto_commit.bat
 server.bat
 .env
+app.py
