@@ -125,7 +125,7 @@
     ]
   },
   {
-    "nome": "Em breve",
+    "nome": "CAOS",
     "tag": "Em breve",
     "logo": "imagens/times/sf/d.png",
     "id": "TEAM #8",
@@ -142,40 +142,41 @@
       "⏳"
     ]
   },
-  {
-    "nome": "Fabio",
+    }
+    {
+    "nome": "CAOZ",
     "tag": "Em breve",
     "logo": "imagens/times/sf/d.png",
     "id": "TEAM #9",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "",
+    "capitao": "Spawnsbg",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "",
+      "Spawnsbg",
       "⏳",
       "⏳",
       "⏳",
       "⏳"
     ]
   },
-    {
-    "nome": "Caoz",
+  {
+    "nome": "FB",
     "tag": "Em breve",
     "logo": "imagens/times/sf/d.png",
     "id": "TEAM #9",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "",
+    "capitao": "Fabio",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "",
+      "Fabio",
       "⏳",
       "⏳",
       "⏳",
       "⏳"
     ]
-  }
 ]
+
