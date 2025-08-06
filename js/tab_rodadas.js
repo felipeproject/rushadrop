@@ -119,7 +119,7 @@ function criarBarraDetalhes() {
 
   const nomeMapa = mapas[rodadaAtual]?.[jogoIndexAtual] || 'Desconhecido';
   const imgMapa = document.createElement('img');
-  imgMapa.src = `imagens/mapas/${nomeMapa.toLowerCase()}.png`;
+  imgMapa.src = `imagens/mapas/${nomeMapa.toLowerCase()}.jpg`;
   imgMapa.alt = nomeMapa;
   imgMapa.title = nomeMapa;
   imgMapa.style.cssText = `
