@@ -1,7 +1,7 @@
 [
   {
     "nome": "ESPARTANOS",
-    "tag": "espartanos",
+    "tag": "ESPN",
     "logo": "imagens/times/sf/ESPARTANOS.png",
     "id": "TEAM #1",
     "statusInscricao": "Inscrito ✅",
@@ -9,11 +9,17 @@
     "capitao": "xJMaRcox",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["xJMaRcox", "AdriMau", "MBSILVEIRA", "Perobande", "*"]
+    "jogadores": [
+      "xJMaRcox",
+      "AdriMau",
+      "MBSILVEIRA",
+      "Perobande",
+      "*"
+    ]
   },
   {
     "nome": "PINGREEN",
-    "tag": "pingreen",
+    "tag": "PNGR",
     "logo": "imagens/times/sf/PINGREEN.png",
     "id": "TEAM #2",
     "statusInscricao": "Inscrito ✅",
@@ -21,11 +27,17 @@
     "capitao": "STRAT_FPS",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["STRAT_FPS", "MESTRE-MCS", "BLANKSZ1", "AllbertWesker", "IIBLAST"]
+    "jogadores": [
+      "STRAT_FPS",
+      "MESTRE-MCS",
+      "BLANKSZ1",
+      "AllbertWesker",
+      "IIBLAST"
+    ]
   },
   {
     "nome": "PINGYELLOW",
-    "tag": "pingyellow",
+    "tag": "PNGY",
     "logo": "imagens/times/sf/PINGYELLOW.png",
     "id": "TEAM #3",
     "statusInscricao": "Inscrito ✅",
@@ -33,11 +45,17 @@
     "capitao": "TEXAS3006",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["TEXAS3006", "XxWarlockLFxX", "Lukyne_marth3", "*", "*"]
+    "jogadores": [
+      "TEXAS3006",
+      "XxWarlockLFxX",
+      "Lukyne_marth3",
+      "*",
+      "*"
+    ]
   },
   {
     "nome": "XUXA",
-    "tag": "xuxa",
+    "tag": "XUX",
     "logo": "imagens/times/sf/XUXA.png",
     "id": "TEAM #4",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -45,11 +63,17 @@
     "capitao": "koszz",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["koszz", "vim_do_lite", "llLordSparkll", "Oboneco", "Hugo197"]
+    "jogadores": [
+      "koszz",
+      "vim_do_lite",
+      "llLordSparkll",
+      "Oboneco",
+      "Hugo197"
+    ]
   },
   {
     "nome": "CAPIVARAS PUBG",
-    "tag": "capivaras_pubg",
+    "tag": "CPVR",
     "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
     "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -57,11 +81,16 @@
     "capitao": "nuuub404",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["nuuub404", "Mago12k", "Os300hifen", "*"]
+    "jogadores": [
+      "nuuub404",
+      "Mago12k",
+      "Os300hifen",
+      "*"
+    ]
   },
   {
     "nome": "FALCON",
-    "tag": "falcon",
+    "tag": "FLCN",
     "logo": "imagens/times/sf/FALCON.png",
     "id": "TEAM #6",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -69,11 +98,17 @@
     "capitao": "Racha_Cuca_AWM",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Racha_Cuca_AWM", "JASONVOORHEES13K", "J4P4XX", "PHILLROX", "*"]
+    "jogadores": [
+      "Racha_Cuca_AWM",
+      "JASONVOORHEES13K",
+      "J4P4XX",
+      "PHILLROX",
+      "*"
+    ]
   },
   {
     "nome": "EL MATADORES DE NOB",
-    "tag": "elmdn",
+    "tag": "EMDN",
     "logo": "imagens/times/sf/load.png",
     "id": "TEAM #7",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -81,23 +116,35 @@
     "capitao": "The-BiIL",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["The-BiIL", "El_gasolino", "LuckLose", "*", "MateusCenourao"]
+    "jogadores": [
+      "The-BiIL",
+      "El_gasolino",
+      "LuckLose",
+      "DEXXX777",
+      "MateusCenourao"
+    ]
   },
   {
-    "nome": "CAOS",
-    "tag": "caos",
+    "nome": "THE GHOSTS",
+    "tag": "TGH",
     "logo": "imagens/times/sf/load.png",
     "id": "TEAM #8",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "LaygO_0",
+    "capitao": "BielCalvo00",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["LaygO_0", "*", "*", "*", "*"]
+    "jogadores": [
+      "BielCalvo00",
+      "LaygO_0",
+      "decops12",
+      "sevenmaalkkj",
+      "SAMURUCUCA"
+    ]
   },
   {
     "nome": "CAOZ",
-    "tag": "caoz",
+    "tag": "CZ",
     "logo": "imagens/times/sf/load.png",
     "id": "TEAM #9",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -105,11 +152,17 @@
     "capitao": "Spawnsbg",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Spawnsbg", "*", "*", "*", "*"]
+    "jogadores": [
+      "Spawnsbg",
+      "*",
+      "*",
+      "*",
+      "*"
+    ]
   },
   {
-    "nome": "FB",
-    "tag": "fb",
+    "nome": "FBO",
+    "tag": "FBO",
     "logo": "imagens/times/sf/load.png",
     "id": "TEAM #10",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -117,7 +170,12 @@
     "capitao": "Fabio",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Fabio", "*", "*", "*", "*"]
+    "jogadores": [
+      "Fabio",
+      "*",
+      "*",
+      "*",
+      "*"
+    ]
   }
 ]
-
