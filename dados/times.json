@@ -9,7 +9,7 @@
     "capitao": "xJMaRcox",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["xJMaRcox", "AdriMau", "MBSILVEIRA", "Perobande", "Aguardando envio do nick pelo time"]
+    "jogadores": ["xJMaRcox", "AdriMau", "MBSILVEIRA", "Perobande", "*"]
   },
   {
     "nome": "PINGREEN",
@@ -33,7 +33,7 @@
     "capitao": "TEXAS3006",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["TEXAS3006", "XxWarlockLFxX", "Lukyne_marth3", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time"]
+    "jogadores": ["TEXAS3006", "XxWarlockLFxX", "Lukyne_marth3", "*", "*"]
   },
   {
     "nome": "XUXA",
@@ -69,7 +69,7 @@
     "capitao": "Racha_Cuca_AWM",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Racha_Cuca_AWM", "JASONVOORHEES13K", "J4P4XX", "PHILLROX", "Aguardando envio do nick pelo time"]
+    "jogadores": ["Racha_Cuca_AWM", "JASONVOORHEES13K", "J4P4XX", "PHILLROX", "*"]
   },
   {
     "nome": "EL MATADORES DE NOB",
@@ -93,7 +93,7 @@
     "capitao": "LaygO_0",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["LaygO_0", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time"]
+    "jogadores": ["LaygO_0", "*", "*", "*", "*"]
   },
   {
     "nome": "CAOZ",
@@ -105,7 +105,7 @@
     "capitao": "Spawnsbg",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Spawnsbg", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time"]
+    "jogadores": ["Spawnsbg", "*", "*", "*", "*"]
   },
   {
     "nome": "FB",
@@ -117,6 +117,6 @@
     "capitao": "Fabio",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
-    "jogadores": ["Fabio", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time", "Aguardando envio do nick pelo time"]
+    "jogadores": ["Fabio", "*", "*", "*", "*"]
   }
 ]
