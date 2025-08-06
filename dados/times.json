@@ -50,7 +50,7 @@
   {
     "nome": "CAPIVARAS PUBG",
     "tag": "capivaras_pubg",
-    "logo": "imagens/times/sf/CAPIVARAS_PUBG.png",
+    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
     "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
@@ -120,3 +120,4 @@
     "jogadores": ["Fabio", "*", "*", "*", "*"]
   }
 ]
+
