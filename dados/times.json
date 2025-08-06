@@ -72,27 +72,10 @@
     ]
   },
   {
-    "nome": "CAPIVARAS PUBG",
-    "tag": "CPVR",
-    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
-    "id": "TEAM #5",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "nuuub404",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      "nuuub404",
-      "Mago12k",
-      "Os300hifen",
-      "*"
-    ]
-  },
-  {
     "nome": "FALCON",
     "tag": "FLCN",
     "logo": "imagens/times/sf/FALCON.png",
-    "id": "TEAM #6",
+    "id": "TEAM #5",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "Racha_Cucaa",
@@ -103,14 +86,14 @@
       "JASONVOORHEES13K",
       "J4P4XX",
       "PHILLROX",
-      "*"
+      "Baiano116"
     ]
   },
   {
     "nome": "EL MATADORES DE NOB",
     "tag": "EMDN",
     "logo": "imagens/times/sf/EL MATADORES DE NOB.png",
-    "id": "TEAM #7",
+    "id": "TEAM #6",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "The-BiIL",
@@ -128,7 +111,7 @@
     "nome": "THE GHOSTS",
     "tag": "TGH",
     "logo": "imagens/times/sf/THE GHOSTS.png",
-    "id": "TEAM #8",
+    "id": "TEAM #7",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "BielCalvo00",
@@ -140,6 +123,23 @@
       "decops12",
       "sevenmaalkkj",
       "SAMURUCUCA"
+    ]
+  },
+    {
+    "nome": "CAPIVARAS PUBG",
+    "tag": "CPVR",
+    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
+    "id": "TEAM #8",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "nuuub404",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "nuuub404",
+      "Mago12k",
+      "Os300hifen",
+      "*"
     ]
   },
   {
