@@ -13,7 +13,7 @@ class WebViewer(QMainWindow):
         self.browser = QWebEngineView()
 
         # Caminho absoluto para template/overlay.html
-        caminho_html = os.path.abspath(os.path.join("template", "overlay.html"))
+        caminho_html = os.path.abspath(os.path.join("overlay.html"))
         self.browser.setUrl(QUrl.fromLocalFile(caminho_html))
 
         self.setCentralWidget(self.browser)
