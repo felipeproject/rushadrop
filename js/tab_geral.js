@@ -1,6 +1,6 @@
 // js/tab_geral.js
 const timesJsonUrl = './dados/times.json';
-const DIAS = ['DAY1', 'DAY2', 'DAY3', 'DAY4'];
+const DIAS = ['DIA1', 'DIA2', 'DIA3', 'DIA4'];
 const ARQUIVOS_POR_DIA = 3;
 
 const rodadas = Object.fromEntries(

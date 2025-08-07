@@ -6,8 +6,8 @@ const timesJsonUrl = './dados/times.json';
 // Objeto com as rodadas e os arquivos CSV dos jogos (4 dias, 3 jogos por dia)
 const rodadas = Object.fromEntries(
   Array.from({ length: 4 }, (_, dia) => [
-    `DAY${dia + 1}`,
-    Array.from({ length: 3 }, (_, i) => `csv/DAY${dia + 1}/jogo${i + 1}.csv`)
+    `DIA${dia + 1}`,
+    Array.from({ length: 3 }, (_, i) => `csv/DIA${dia + 1}/jogo${i + 1}.csv`)
   ])
 );
 

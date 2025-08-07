@@ -1,6 +1,6 @@
 // js/configGlobal.js
 
-const DIAS = ['DAY1', 'DAY2', 'DAY3', 'DAY4'];
+const DIAS = ['DIA1', 'DIA2', 'DIA3', 'DIA4'];
 const MAPAS_POR_DIA = [
   ['Erangel', 'Taego', 'Miramar'],
   ['Deston', 'Vikendi', 'Erangel'],
