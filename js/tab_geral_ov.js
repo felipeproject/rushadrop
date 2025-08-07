@@ -80,7 +80,7 @@ async function criarTabelaGeral() {
 
 function renderizarTabela(container, dados) {
   const table = document.createElement('table');
-  const colunas = ['Rank', 'Time', 'Kills', 'Pontos'];
+  const colunas = ['Time', 'Kills', 'Pontos'];
 
   const thead = document.createElement('thead');
   const trHead = document.createElement('tr');
@@ -93,17 +93,16 @@ function renderizarTabela(container, dados) {
   table.appendChild(thead);
 
   const tbody = document.createElement('tbody');
-  dados.forEach((item, idx) => {
+  dados.forEach((item) => {
     const tr = document.createElement('tr');
 
     [
-      idx + 1,
       gerarCelulaTime(item.time),
       formatarNumero(item.kills),
       formatarNumero(item.pontos)
     ].forEach((conteudo, i) => {
       const td = document.createElement('td');
-      if (i === 1 && conteudo instanceof HTMLElement) {
+      if (i === 0 && conteudo instanceof HTMLElement) {
         td.appendChild(conteudo);
       } else {
         td.textContent = conteudo;
@@ -120,26 +119,10 @@ function renderizarTabela(container, dados) {
 }
 
 function gerarCelulaTime(nomeTime) {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('time-wrapper');
-
-  const img = document.createElement('img');
-  img.src = `imagens/times/sf/${nomeTime}.png`;
-  img.alt = nomeTime;
-  img.classList.add('time-img');
-
-  img.onerror = () => {
-    img.onerror = null;
-    img.src = `imagens/times/sf/${nomeTime}.jpg`;
-  };
-
   const span = document.createElement('span');
   span.textContent = nomeTime;
   span.classList.add('time-nome');
-
-  wrapper.appendChild(img);
-  wrapper.appendChild(span);
-  return wrapper;
+  return span;
 }
 
 criarTabelaGeral();
