@@ -19,7 +19,7 @@
   },
   {
     "nome": "PINGREEN",
-    "tag": "PNGR",
+    "tag": "PGRE",
     "logo": "imagens/times/sf/PINGREEN.png",
     "id": "TEAM #2",
     "statusInscricao": "Inscrito ✅",
@@ -37,7 +37,7 @@
   },
   {
     "nome": "PINGYELLOW",
-    "tag": "PNGY",
+    "tag": "PYEL",
     "logo": "imagens/times/sf/PINGYELLOW.png",
     "id": "TEAM #3",
     "statusInscricao": "Inscrito ✅",
@@ -73,7 +73,7 @@
   },
   {
     "nome": "XUXA",
-    "tag": "XUX",
+    "tag": "XUXA",
     "logo": "imagens/times/sf/XUXA.png",
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",
@@ -180,7 +180,7 @@
   },
   {
     "nome": "CAOZ",
-    "tag": "CZ",
+    "tag": "CAOZ",
     "logo": "imagens/times/sf/CAOZ.png",
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",

@@ -4,71 +4,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tabela Geral - Overlay Compacto</title>
+  <title>Overlay Compacto - Ranking</title>
   <style>
-    /* Fundo chroma key verde transparente para overlay */
     body {
       margin: 0;
       padding: 0;
       background-color: #00ff00;
       font-family: 'Consolas', monospace;
-      color: #a6ffb0;
       user-select: none;
     }
 
-    #geral-container {
+    #overlay-container {
       position: fixed;
       top: 50%;
       left: 10px;
       transform: translateY(-50%);
-      max-width: 300px;
-      padding: 10px;
-      border-radius: 8px;
-      background-color: rgba(0, 255, 0, 0.2);
-      font-size: 12px;
-      font-weight: 600;
       z-index: 9999;
-      text-align: left;
+    }
+
+    .card-overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      padding: 8px;
+      width: 220px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      text-align: center;
+    }
+
+    .logo-overlay {
+      width: 80%;
+      max-width: 120px;
+      margin-bottom: 6px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .titulo-jogo {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 6px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 0;
-      font-size: 12px;
+      font-size: 11px;
+      color: #a6ffb0;
+      margin: 0 auto;
+    }
+
+    th,
+    td {
+      padding: 3px 2px;
+      text-align: center;
+      font-weight: bold;
     }
 
     thead {
       background-color: transparent;
     }
 
-    th,
-    td {
-      padding: 6px 4px;
-      border: none;
-      text-align: left;
-      color: #a6ffb0;
-      font-weight: 600;
-    }
-
     tbody tr:nth-child(odd) {
-      background-color: rgba(0, 0, 0, 0.15);
+      background-color: rgba(0, 0, 0, 0.2);
     }
 
     tbody tr:nth-child(even) {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .time-nome {
-      /* Só texto do time, sem imagem */
+      font-weight: bold;
+      display: inline-block;
+      max-width: 4ch;
+      overflow: hidden;
+      white-space: nowrap;
     }
   </style>
 </head>
 
 <body>
-  <div id="geral-container">Carregando...</div>
 
-  <!-- Biblioteca PapaParse para CSV -->
+  <div id="overlay-container">
+    <div class="card-overlay">
+      <img src="logo.png" alt="Logo do Campeonato" class="logo-overlay" />
+      <div class="titulo-jogo">DIA 1 - JOGO 2/3 - MIRAMAR</div>
+      <div id="geral-container">Carregando...</div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
@@ -95,7 +121,7 @@
     };
 
     const encontrarTime = (jogador, times) =>
-      times.find(t => t.jogadores.includes(jogador))?.nome || null;
+      times.find(t => t.jogadores.includes(jogador))?.tag || null;
 
     async function processarCSV(arquivo, times, geral) {
       try {
@@ -122,6 +148,7 @@
             melhorPos[time] = pos;
           }
         });
+
         for (const time in killsJogo) {
           if (killsJogo[time] > 0) {
             const pos = melhorPos[time];
@@ -138,7 +165,7 @@
       container.textContent = 'Carregando...';
 
       const times = await carregarTimes();
-      const geral = Object.fromEntries(times.map(t => [t.nome, { kills: 0, pontos: 0 }]));
+      const geral = Object.fromEntries(times.map(t => [t.tag, { kills: 0, pontos: 0 }]));
 
       const arquivos = Object.values(rodadas).flat();
       for (const arquivo of arquivos) {
@@ -154,7 +181,7 @@
 
     function renderizarTabela(container, dados) {
       const table = document.createElement('table');
-      const colunas = ['Time', 'Kills', 'Pontos'];
+      const colunas = ['Time', 'K', 'Pts'];
 
       const thead = document.createElement('thead');
       const trHead = document.createElement('tr');
