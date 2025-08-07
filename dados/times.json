@@ -67,7 +67,7 @@
       "M4KTu1",
       "playerVNC",
       "xSINISTRO",
-      "*",
+      "Viniciusribeiro",
       "*"
     ]
   },
@@ -163,6 +163,24 @@
   {
     "nome": "CAOZ",
     "tag": "CZ",
+    "logo": "imagens/times/sf/CAOZ.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "Spawnsbg",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "Spawnsbg",
+      "*",
+      "*",
+      "*",
+      "*"
+    ]
+  },
+    {
+    "nome": "STRAFE",
+    "tag": "STFE",
     "logo": "imagens/times/sf/CAOZ.png",
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",
