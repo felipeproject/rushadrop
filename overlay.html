@@ -44,7 +44,6 @@
       text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     }
 
-
     #geral-container {
       background-color: lab(9.82% 0.47 0.16);
       max-width: 600px;
@@ -92,6 +91,25 @@
         padding: 8px;
       }
     }
+
+    /* CSS movido do JS */
+    .time-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .time-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-right: 12px;
+      display: block;
+    }
+
+    .time-nome {
+      font-weight: 600;
+      font-size: 1rem;
+    }
   </style>
 </head>
 
@@ -108,7 +126,7 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="js/tab_geral.js"></script>
+  <script src="js/tab_geral_ov.js"></script>
 
 </body>
 
