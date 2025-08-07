@@ -143,57 +143,57 @@
       "SAMURUCUCA"
     ]
   },
-{
-  "nome": "STRAFE",
-  "tag": "STFE",
-  "logo": "imagens/times/sf/STRAFE.png",
-  "id": "TEAM #",
-  "statusInscricao": "Aguardando pagamento ⏳",
-  "descricao": "",
-  "capitao": "WF_PROZIN",
-  "substituicoesFeitas": 0,
-  "entradasSaidas": [],
-  "jogadores": [
-    "WF_PROZIN",
-    "Spawnsbg",
-    "furacaobr",
-    "Paulao23",
-    "EdlyCruz"
-  ]
-},
   {
-  "nome": "CAPIVARAS PUBG",
-  "tag": "CPVR",
-  "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
-  "id": "TEAM #",
-  "statusInscricao": "Aguardando pagamento ⏳",
-  "descricao": "",
-  "capitao": "nuuub404",
-  "substituicoesFeitas": 0,
-  "entradasSaidas": [],
-  "jogadores": [
-    "nuuub404",
-    "Mago12k",
-    "Os300hifen",
-    "*"
-  ]
-},
-{
-  "nome": "CAOZ",
-  "tag": "CZ",
-  "logo": "imagens/times/sf/CAOZ.png",
-  "id": "TEAM #",
-  "statusInscricao": "Aguardando pagamento ⏳",
-  "descricao": "",
-  "capitao": "Spawnsbg",
-  "substituicoesFeitas": 0,
-  "entradasSaidas": [],
-  "jogadores": [
-    "Spawnsbg",
-    "*",
-    "*",
-    "*",
-    "*"
-  ]
-}
+    "nome": "STRAFE",
+    "tag": "STFE",
+    "logo": "imagens/times/sf/STRAFE.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "WF_PROZIN",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "WF_PROZIN",
+      "Spawnsbg",
+      "furacaobr",
+      "Paulao23",
+      "EdlyCruz"
+    ]
+  },
+  {
+    "nome": "CAPIVARAS PUBG",
+    "tag": "CPVR",
+    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "nuuub404",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "nuuub404",
+      "Mago12k",
+      "Os300hifen",
+      "*"
+    ]
+  },
+  {
+    "nome": "CAOZ",
+    "tag": "CZ",
+    "logo": "imagens/times/sf/CAOZ.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "Spawnsbg",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "Spawnsbg",
+      "*",
+      "*",
+      "*",
+      "*"
+    ]
+  }
 ]
