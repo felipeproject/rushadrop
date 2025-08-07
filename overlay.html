@@ -15,10 +15,6 @@
       text-align: center;
     }
 
-    .header-campeonato {
-      margin-bottom: 30px;
-    }
-
     .logo {
       max-width: 180px;
       height: auto;
@@ -28,6 +24,18 @@
       margin-top: 10px;
       font-size: 22px;
       font-weight: 600;
+    }
+
+    .card-header {
+      background-color: #111111;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     #geral-container {
@@ -86,8 +94,8 @@
 
 <body>
 
-  <!-- TOPO: Logo + Título -->
-  <div class="header-campeonato">
+  <!-- CARD COM LOGO E TÍTULO DO EVENTO -->
+  <div class="card-header">
     <img src="logo.png" alt="Logo do Campeonato" class="logo" />
     <div class="titulo-jogo">DIA 1 - JOGO 2 - MAPA MIRAMAR</div>
   </div>
