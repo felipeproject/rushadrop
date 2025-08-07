@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tabela Geral - Ranking E-Sports</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    background-color: #00ff00;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+  }
+  #geral-container {
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 8px 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #444;
+  }
+  th {
+    font-weight: 700;
+    background-color: #222;
+  }
+  tbody tr:hover {
+    background-color: #444111;
+  }
+  td:nth-child(2) {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  td:nth-child(2) img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="geral-container">Carregando...</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="../js/tab_geral.js"></script>
+  
+</body>
+</html>

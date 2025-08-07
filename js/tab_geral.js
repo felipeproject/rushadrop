@@ -49,7 +49,6 @@ async function processarCSV(arquivo, times, geral) {
         melhorPos[time] = pos;
       }
     });
-
     for (const time in killsJogo) {
       if (killsJogo[time] > 0) {
         const pos = melhorPos[time];
