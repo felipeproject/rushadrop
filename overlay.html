@@ -23,19 +23,16 @@
     }
 
     .card-overlay {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.76);
       border-radius: 10px;
       padding: 8px;
-      width: 220px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.15);
       text-align: center;
     }
 
     .logo-overlay {
       width: 80%;
-      max-width: 120px;
-      margin-bottom: 6px;
+      max-width: 200px;
+      margin-bottom: 12px;
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -43,16 +40,16 @@
 
     .titulo-jogo {
       color: #ffffff;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 15px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 11px;
-      color: #a6ffb0;
+      font-size: 14px;
+      color: #ffffff;
       margin: 0 auto;
     }
 
@@ -68,11 +65,11 @@
     }
 
     tbody tr:nth-child(odd) {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(255, 0, 0, 0.11);
     }
 
     tbody tr:nth-child(even) {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(0, 60, 255, 0.075);
     }
 
     .time-nome {
@@ -82,6 +79,11 @@
       overflow: hidden;
       white-space: nowrap;
     }
+
+    /* Transição suave ao alterar valores */
+    td {
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
   </style>
 </head>
 
@@ -90,7 +92,9 @@
   <div id="overlay-container">
     <div class="card-overlay">
       <img src="logo.png" alt="Logo do Campeonato" class="logo-overlay" />
+      <div class="titulo-jogo">CAMPEONATO FPP - RUSHADROP</div>
       <div class="titulo-jogo">DIA 1 - JOGO 2/3 - MIRAMAR</div>
+
       <div id="geral-container">Carregando...</div>
     </div>
   </div>
@@ -98,6 +102,10 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
+    let timesCache = null;
+    const pontosAnteriores = {}; // para acompanhar pontos e evitar piscar
+    const tableRef = { header: null, body: null, cells: {} }; // guarda referências da tabela e células
+
     const timesJsonUrl = './dados/times.json';
     const DIAS = ['DIA1', 'DIA2', 'DIA3', 'DIA4'];
     const ARQUIVOS_POR_DIA = 3;
@@ -160,63 +168,106 @@
       }
     }
 
-    async function criarTabelaGeral() {
+    async function atualizarTabela() {
       const container = document.getElementById('geral-container');
-      container.textContent = 'Carregando...';
 
-      const times = await carregarTimes();
-      const geral = Object.fromEntries(times.map(t => [t.tag, { kills: 0, pontos: 0 }]));
+      if (!timesCache) {
+        try {
+          timesCache = await carregarTimes();
+        } catch {
+          container.textContent = 'Erro ao carregar times.';
+          return;
+        }
+      }
 
+      const geral = Object.fromEntries(timesCache.map(t => [t.tag, { kills: 0, pontos: 0 }]));
       const arquivos = Object.values(rodadas).flat();
+
       for (const arquivo of arquivos) {
-        await processarCSV(arquivo, times, geral);
+        await processarCSV(arquivo, timesCache, geral);
       }
 
       const geralArray = Object.entries(geral)
         .map(([time, stats]) => ({ time, ...stats }))
         .sort((a, b) => b.pontos - a.pontos);
 
-      renderizarTabela(container, geralArray);
+      // Se a tabela ainda não foi criada, criar e guardar referências
+      if (!tableRef.header) {
+        criarTabela(geralArray);
+      } else {
+        atualizarTabelaExistente(geralArray);
+      }
     }
 
-    function renderizarTabela(container, dados) {
-      const table = document.createElement('table');
-      const colunas = ['Time', 'K', 'Pts'];
+    function criarTabela(dados) {
+      const container = document.getElementById('geral-container');
 
-      const thead = document.createElement('thead');
+      const table = document.createElement('table');
+      tableRef.header = document.createElement('thead');
+      tableRef.body = document.createElement('tbody');
+
+      // Cabeçalho
       const trHead = document.createElement('tr');
-      colunas.forEach(col => {
+      ['Time', 'K', 'Pts'].forEach(col => {
         const th = document.createElement('th');
         th.textContent = col;
         trHead.appendChild(th);
       });
-      thead.appendChild(trHead);
-      table.appendChild(thead);
+      tableRef.header.appendChild(trHead);
+      table.appendChild(tableRef.header);
 
-      const tbody = document.createElement('tbody');
+      // Corpo
       dados.forEach((item) => {
         const tr = document.createElement('tr');
 
-        [
-          gerarCelulaTime(item.time),
-          formatarNumero(item.kills),
-          formatarNumero(item.pontos)
-        ].forEach((conteudo, i) => {
-          const td = document.createElement('td');
-          if (i === 0 && conteudo instanceof HTMLElement) {
-            td.appendChild(conteudo);
-          } else {
-            td.textContent = conteudo;
-          }
-          tr.appendChild(td);
-        });
+        const timeTd = gerarCelulaTime(item.time);
+        const killsTd = document.createElement('td');
+        const pontosTd = document.createElement('td');
 
-        tbody.appendChild(tr);
+        // guarda referência às células
+        if (!tableRef.cells[item.time]) {
+          tableRef.cells[item.time] = {};
+        }
+        tableRef.cells[item.time]['kills'] = killsTd;
+        tableRef.cells[item.time]['pontos'] = pontosTd;
+
+        // inicializa valores
+        killsTd.textContent = formatarNumero(item.kills);
+        pontosTd.textContent = formatarNumero(item.pontos);
+
+        tr.appendChild(timeTd);
+        tr.appendChild(killsTd);
+        tr.appendChild(pontosTd);
+
+        tableRef.body.appendChild(tr);
       });
 
-      table.appendChild(tbody);
+      table.appendChild(tableRef.body);
       container.textContent = '';
       container.appendChild(table);
+    }
+
+    function atualizarTabelaExistente(dados) {
+      // Atualiza somente os valores das células
+      dados.forEach((item) => {
+        const time = item.time;
+        const killsTd = tableRef.cells[time]?.['kills'];
+        const pontosTd = tableRef.cells[time]?.['pontos'];
+
+        if (killsTd && pontosTd) {
+          // Para evitar piscamento, só atualiza se o valor mudou
+          const valorKills = formatarNumero(item.kills);
+          const valorPontos = formatarNumero(item.pontos);
+
+          if (killsTd.textContent !== valorKills) {
+            killsTd.textContent = valorKills;
+          }
+
+          if (pontosTd.textContent !== valorPontos) {
+            pontosTd.textContent = valorPontos;
+          }
+        }
+      });
     }
 
     function gerarCelulaTime(nomeTime) {
@@ -226,8 +277,11 @@
       return span;
     }
 
-    criarTabelaGeral();
+    // Executa logo e depois a cada 2s
+    atualizarTabela();
+    setInterval(atualizarTabela, 2000);
   </script>
+
 </body>
 
 </html>

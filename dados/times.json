@@ -1,7 +1,7 @@
 [
   {
     "nome": "ESPARTANOS",
-    "tag": "ESPN",
+    "tag": "ESPA",
     "logo": "imagens/times/sf/ESPARTANOS.png",
     "id": "TEAM #1",
     "statusInscricao": "Inscrito ✅",
@@ -55,7 +55,7 @@
   },
   {
     "nome": "SHIROGOHAN",
-    "tag": "SRGN",
+    "tag": "SHIRO",
     "logo": "imagens/times/sf/SHIROGOHAN.png",
     "id": "TEAM #4",
     "statusInscricao": "Inscrito ✅",
