@@ -181,15 +181,15 @@
     {
     "nome": "STRAFE",
     "tag": "STFE",
-    "logo": "imagens/times/sf/CAOZ.png",
+    "logo": "imagens/times/sf/.png",
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "Spawnsbg",
+    "capitao": "",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "Spawnsbg",
+      "",
       "*",
       "*",
       "*",
