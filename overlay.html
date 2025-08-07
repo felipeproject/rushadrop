@@ -9,46 +9,77 @@
     body {
       margin: 0;
       padding: 20px;
-      background-color: #00ff00;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
+      background-color: #00ff00; /* CHROMA KEY GREEN */
+      color: #ffffff;
       text-align: center;
     }
 
     .header-campeonato {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .logo {
-      max-width: 200px;
+      max-width: 180px;
       height: auto;
     }
 
     .titulo-jogo {
       margin-top: 10px;
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 22px;
+      font-weight: 600;
     }
 
     #geral-container {
-      background: rgb(20, 20, 20);
+      background-color: #111111; /* FUNDO SÓLIDO ESCURO */
       max-width: 600px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    thead {
+      background-color: #222222;
     }
 
     th,
     td {
+      padding: 12px;
+      border-bottom: 1px solid #333333;
       text-align: center;
+      font-size: 14px;
     }
 
-    th.rank,
-    th,
-    td.kills,
-    th.kills,
-    td.pontos,
-    th.pontos {
-      width: 40px;
+    th {
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #00ff88;
+    }
+
+    tr:hover {
+      background-color: #1a1a1a;
+    }
+
+    @media (max-width: 480px) {
+      #geral-container {
+        padding: 15px;
+      }
+
+      .titulo-jogo {
+        font-size: 18px;
+      }
+
+      th, td {
+        font-size: 12px;
+        padding: 8px;
+      }
     }
   </style>
 </head>
@@ -64,6 +95,7 @@
   <!-- TABELA -->
   <div id="geral-container">Carregando...</div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="js/tab_geral.js"></script>
 
