@@ -12,12 +12,29 @@
       background-color: #00ff00;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
+      text-align: center;
+    }
+
+    .header-campeonato {
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .titulo-jogo {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
     }
 
     #geral-container {
-      background: rgba(20, 20, 20, 0.85);
+      background: rgb(20, 20, 20);
       max-width: 600px;
-      display: inline-block;
+      margin: 0 auto;
+      padding: 20px;
     }
 
     th,
@@ -32,13 +49,19 @@
     td.pontos,
     th.pontos {
       width: 40px;
-      /* Tamanho fixo para kills e pontos */
     }
   </style>
 </head>
 
 <body>
 
+  <!-- TOPO: Logo + Título -->
+  <div class="header-campeonato">
+    <img src="logo.png" alt="Logo do Campeonato" class="logo" />
+    <div class="titulo-jogo">DIA 1 - JOGO 2 - MAPA MIRAMAR</div>
+  </div>
+
+  <!-- TABELA -->
   <div id="geral-container">Carregando...</div>
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
