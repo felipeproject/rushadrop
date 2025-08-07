@@ -54,6 +54,24 @@
     ]
   },
   {
+    "nome": "SHIROGOHAN",
+    "tag": "SRGN",
+    "logo": "imagens/times/sf/SHIROGOHAN.png",
+    "id": "TEAM #",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "M4KTu1",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      "M4KTu1",
+      "playerVNC",
+      "*",
+      "*",
+      "*"
+    ]
+  },
+  {
     "nome": "XUXA",
     "tag": "XUX",
     "logo": "imagens/times/sf/XUXA.png",
@@ -125,7 +143,7 @@
       "SAMURUCUCA"
     ]
   },
-    {
+  {
     "nome": "CAPIVARAS PUBG",
     "tag": "CPVR",
     "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
@@ -154,24 +172,6 @@
     "entradasSaidas": [],
     "jogadores": [
       "Spawnsbg",
-      "*",
-      "*",
-      "*",
-      "*"
-    ]
-  },
-  {
-    "nome": "FBO",
-    "tag": "FBO",
-    "logo": "imagens/times/sf/load.png",
-    "id": "TEAM #10",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "Fabio",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      "Fabio",
       "*",
       "*",
       "*",
