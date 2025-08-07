@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel Ranking Estilo E-Sports</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #00ff00;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+  }
+  #ranking {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 280px;
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 12px;
+    padding: 10px;
+  }
+  #ranking header {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 5px;
+    letter-spacing: 1.2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 4px 6px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  th.rank, td.rank {
+    width: 24px;
+    font-weight: 900;
+  }
+  td.team {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  td.team img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 1px solid #333;
+  }
+  td.alive {
+    width: 50px;
+  }
+  .bars {
+    display: inline-flex;
+    gap: 2px;
+    justify-content: center;
+  }
+  .bar {
+    width: 6px;
+    height: 14px;
+    background-color: #555;
+    border-radius: 2px;
+  }
+  .bar.alive {
+    background-color: #0099ff;
+  }
+  tr.highlight {
+    background-color: #444111;
+  }
+  td.kills {
+    width: 32px;
+    font-weight: 700;
+    color: #ff4444;
+  }
+  td.pts {
+    width: 40px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+</style>
+</head>
+<body>
+  <div id="ranking">
+    <header>FINAL STAGE - MATCH 14</header>
+    <table>
+      <thead>
+        <tr>
+          <th class="rank">#</th>
+          <th>TEAM</th>
+          <th class="alive">ALIVE</th>
+          <th class="pts">PTS</th>
+          <th class="kills">KILLS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank">1</td>
+          <td class="team"><img src="https://flagcdn.com/w20/vn.png" alt="VIE" /> VIE</td>
+          <td class="alive">
+            <div class="bars">
+              <div class="bar alive"></div><div class="bar alive"></div><div class="bar alive"></div>
+            </div>
+          </td>
+          <td class="pts">162</td>
+          <td class="kills">2</td>
+        </tr>
+        <tr>
+          <td class="rank">2</td>
+          <td class="team"><img src="https://flagcdn.com/w20/cn.png" alt="CHN" /> CHN</td>
+          <td class="alive">
+            <div class="bars">
+              <div class="bar alive"></div><div class="bar alive"></div><div class="bar alive"></div>
+            </div>
+          </td>
+          <td class="pts">124</td>
+          <td class="kills">0</td>
+        </tr>
+        <tr>
+          <td class="rank">3</td>
+          <td class="team"><img src="https://flagcdn.com/w20/th.png" alt="THA" /> THA</td>
+          <td class="alive">
+            <div class="bars">
+              <div class="bar alive"></div><div class="bar alive"></div>
+            </div>
+          </td>
+          <td class="pts">105</td>
+          <td class="kills">2</td>
+        </tr>
+        <tr class="highlight">
+          <td class="rank">4</td>
+          <td class="team"><img src="https://flagcdn.com/w20/kr.png" alt="KOR" /> KOR</td>
+          <td class="alive">
+            <div class="bars">
+              <div class="bar alive"></div><div class="bar alive"></div>
+            </div>
+          </td>
+          <td class="pts">96</td>
+          <td class="kills">3</td>
+        </tr>
+        <!-- mais linhas aqui -->
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
