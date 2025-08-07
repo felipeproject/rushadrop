@@ -10,32 +10,40 @@
       margin: 0;
       padding: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #00ff00; /* CHROMA KEY GREEN */
+      background-color: #00ff00;
+      /* CHROMA KEY GREEN */
       color: #ffffff;
       text-align: center;
     }
 
-    .logo {
-      max-width: 180px;
-      height: auto;
-    }
-
-    .titulo-jogo {
-      margin-top: 10px;
-      font-size: 22px;
-      font-weight: 600;
-    }
-
     .card-header {
-      background-color: lab(9.82% 0.47 0.16);
+      background: linear-gradient(135deg, #144d20, #0a2b12);
       max-width: 600px;
       margin: 0 auto 20px;
-      padding: 20px;
+      padding: 25px 20px;
       border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     }
+
+    .logo {
+      max-width: 160px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 15px;
+    }
+
+    .titulo-jogo {
+      margin-top: 0;
+      font-size: 26px;
+      font-weight: 700;
+      color: #a6ffb0;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    }
+
 
     #geral-container {
       background-color: lab(9.82% 0.47 0.16);
@@ -78,7 +86,8 @@
         font-size: 18px;
       }
 
-      th, td {
+      th,
+      td {
         font-size: 12px;
         padding: 8px;
       }
