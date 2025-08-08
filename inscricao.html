@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inscrição - Rusha Drop PUBG</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
@@ -101,8 +102,19 @@
     .section {
       margin-top: 2rem;
     }
+
+    footer {
+      background-color: #121212;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      color: #6b7280;
+      width: 100%;
+    }
   </style>
 </head>
+
 <body>
   <header>Rusha Drop PUBG - Inscrição Oficial</header>
   <main>
@@ -144,13 +156,19 @@
       <button type="button" class="btn btn-discord" disabled>Enviar via Discord (em breve)</button>
     </form>
   </main>
+  <!-- Rodapé -->
+  <footer
+    style="background-color: #080808; color: #f9fafb; text-align: center; padding: 1rem; font-size: 0.9rem; font-family: Arial, sans-serif;">
+    <span style="display: block;">Rusha Drop eSports © 2025 – Todos os direitos reservados.</span>
+  </footer>
 
-    <script type="module">
+
+  <script type="module">
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
 
-  
+
   <script>
     const campos = ["nome-time", "capitao", "titular2", "titular3", "titular4", "reserva"];
     campos.forEach(id => {
@@ -220,4 +238,5 @@
     });
   </script>
 </body>
+
 </html>
