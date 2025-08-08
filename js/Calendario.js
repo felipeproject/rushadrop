@@ -8,7 +8,7 @@ export function renderCalendario(containerId, dataBaseISO, DIAS, mapas) {
   function formatarData(d) {
     const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
     const diasSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-    return `${d.getDate()} de ${meses[d.getMonth()]} (${diasSemana[d.getDIA()]})`;
+    return `${d.getDate()} de ${meses[d.getMonth()]} (${diasSemana[d.getDay()]})`;
   }
 
   container.innerHTML = ''; // limpa container

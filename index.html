@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rusha Drop - PUBG</title>
-  <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    body {
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: white;
-      overflow-y: auto;
+      padding: 0;
     }
 
+    body {
+      background: #1a1a1a; /* cinza escuro elegante */
+      color: #f0f0f0;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    /* Banner */
     .banner-container {
       position: relative;
       text-align: center;
       margin-top: 70px;
-      background: black;
       overflow: hidden;
       z-index: 10;
-      transition: opacity 0.3s ease;
-    }
-
-    .banner-container.escondido {
-      opacity: 0;
-      pointer-events: none;
     }
 
     .banner-container img {
       max-width: 100%;
       height: auto;
       filter: brightness(90%);
-      display: block;
+      border-radius: 8px;
     }
 
+    /* Cronômetro */
     .cronometro-overlay {
       position: absolute;
       top: 50%;
@@ -46,192 +46,150 @@
       background: rgba(0, 0, 0, 0.7);
       padding: 1.25rem 1.5rem;
       border-radius: 10px;
-      color: white;
-      font-weight: bold;
       width: 220px;
-      max-width: 90vw;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      pointer-events: none;
-      box-sizing: border-box;
       z-index: 20;
     }
 
     .cronometro-overlay h2 {
-      margin: 0 0 0.6rem;
-      font-size: clamp(1rem, 2vw, 1.6rem);
-      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
     }
 
-    .cronometro-overlay #countdown {
-      font-size: clamp(1.2rem, 2.5vw, 2rem);
-      font-weight: 800;
-      letter-spacing: 1px;
+    #countdown {
+      font-size: 2rem;
+      font-weight: bold;
     }
 
-    #novo-conteudo {
-      padding: 2.5rem 1rem 3.5rem;
-      text-align: center;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Seções gerais */
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
     }
 
-    #novo-conteudo h1 {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      margin-bottom: 1.25rem;
-      font-weight: 700;
-    }
-
-    #novo-conteudo .info-horario {
-      font-weight: 600;
-      color: #ccc;
-      font-size: clamp(1rem, 2.5vw, 1.1rem);
-      margin-bottom: 1.75rem;
-    }
-
-    .carousel {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      justify-items: center;
-      max-width: 650px;
-      margin: 0 auto;
-      padding: 0 0.625rem;
-    }
-
-    .dia-card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 1.25rem 1.25rem;
-      width: 100%;
-      max-width: 280px;
-      color: white;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .dia-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 20px rgba(255, 217, 0, 0.4);
-    }
-
-    .dia-card h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .dia-card p.data {
-      font-size: 0.95rem;
+    /* Títulos */
+    section h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
-      opacity: 0.85;
-    }
-
-    .dia-card.final {
-      border: 2px solid rgba(255, 217, 0, 0.3);
-      box-shadow: 0 0 15px rgba(255, 217, 0, 0.3);
-    }
-
-    .dia-card.final h2::after {
-      content: " 🏆";
-    }
-
-    .mapas-lista {
+      color: #fff;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      align-items: center;
+    }
+
+    section h2 i {
+      margin-right: 0.5rem;
+    }
+
+    /* Lista de detalhes */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    /* Botões CTA */
+    a.cta-principal {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #ffc107, #ff9800);
+      color: black;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px #ffc107;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    a.cta-principal:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ffc107;
+    }
+
+    /* Prêmios */
+    #arrecadacao {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 15px;
+      color: #00ff5e;
+      text-align: center;
+    }
+
+    #arrecadacao h2 {
+      display: flex;
+      align-items: center;
       justify-content: center;
+      margin-bottom: 1rem;
     }
 
-    .mapa-item {
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      user-select: none;
-      white-space: nowrap;
-      transition: background-color 0.3s ease;
-      cursor: default;
+    #arrecadacao h2 i {
+      margin-right: 0.5rem;
     }
 
-    /* RESPONSIVO */
-    @media (max-width: 767px) {
-      .carousel {
-        gap: 3.25rem;
-        max-width: 100%;
-        margin: 0 auto 2.5rem;
-        padding: 0 1rem;
-      }
+    /* Barra de progresso personalizada */
+    #barraProgressoContainer {
+      width: 100%;
+      height: 30px;
+      background: #333;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-top: 1rem;
+      position: relative;
+    }
 
-      .dia-card {
-        max-width: 100%;
-        padding: 1.125rem 1rem;
-        font-size: 1rem;
-        border-radius: 12px;
-      }
+    #barraProgresso {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #00ff5e, #00c853);
+      transition: width 1.5s ease-in-out;
+    }
 
-      .dia-card:hover {
-        transform: none;
-        box-shadow: 0 0 12px rgba(255, 217, 0, 0.25);
-      }
+    /* Marcações de | na barra */
+    #marcacoes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      padding: 0 5px;
+      pointer-events: none;
+    }
 
-      .mapa-item {
-        font-size: 1rem;
-        padding: 0.625rem 0.875rem;
+    /* Responsividade */
+    @media(max-width: 768px){
+      body {
+        padding: 10px;
       }
-
       .cronometro-overlay {
         position: static;
         transform: none;
+        width: 90%;
+        margin: 1rem auto;
+      }
+      iframe {
         width: 100%;
-        max-width: 100%;
-        margin: 1rem auto 2rem;
-        padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      }
-    }
-
-    @media (max-width: 360px) {
-      #novo-conteudo h1 {
-        font-size: 1.6rem;
-      }
-
-      .cronometro-overlay h2 {
-        font-size: 1rem;
-      }
-
-      .cronometro-overlay #countdown {
-        font-size: 1.2rem;
-      }
-
-      .dia-card h2 {
-        font-size: 1.1rem;
-      }
-
-      .dia-card p.data {
-        font-size: 0.85rem;
-      }
-
-      .mapa-item {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.6rem;
+        height: auto;
       }
     }
   </style>
 </head>
-
 <body>
 
   <!-- Navbar -->
@@ -240,143 +198,141 @@
     injectNavbar();
   </script>
 
-
   <!-- Banner -->
   <div class="banner-container" id="banner">
     <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
   </div>
 
-  <div style="height: 56px;"></div>
-
   <!-- Cronômetro -->
-  <div>
-    <div class="cronometro-overlay" role="timer" aria-live="polite" aria-atomic="true">
-      <h2><i class="fas fa-trophy" aria-hidden="true"></i>Início do Campeonato</h2>
-      <div id="countdown" aria-label="Contador regressivo para início do campeonato"></div>
-    </div>
+  <div class="cronometro-overlay">
+    <h2><i class="fas fa-trophy"></i> Início do Campeonato</h2>
+    <div id="countdown"></div>
   </div>
 
-  <!-- Botões de Inscrição e Discord -->
-  <div style="text-align: center; margin: 2rem 0;">
-    <a href="inscricao.html" class="botao-link"
-      style="margin: 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; background-color: #ffc107; color: black; border-radius: 8px; font-weight: bold; text-decoration: none;">Inscreva
-      seu time aqui!</a>
+  <!-- Proposta de Valor -->
+  <section style="text-align: center;">
+    <h2 style="color: #00ff5e;">Por que participar do Rusha Drop?</h2>
+    <p style="font-size: 1.1rem;">
+      Teste suas habilidades, dispute prêmios em dinheiro e entre para a história do PUBG competitivo. Uma experiência intensa, divertida e cheia de adrenalina!
+    </p>
+  </section>
 
-    <a href="https://discord.gg/Gdxza8h8MU" target="_blank" class="botao-link"
-      style="margin: 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; background-color: #5865F2; color: white; border-radius: 8px; font-weight: bold; text-decoration: none;">
-      <i class="fab fa-discord" aria-hidden="true"></i> Entrar no Discord
+  <!-- Botões -->
+  <div style="text-align: center; margin: 2rem 0;">
+    <a href="inscricao.html" class="cta-principal">Inscreva seu time agora!</a>
+    <a href="https://discord.gg/Gdxza8h8MU" target="_blank" style="margin-left: 1rem; padding: 0.75rem 1.5rem; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+      <i class="fab fa-discord"></i> Entrar no Discord
     </a>
   </div>
 
-  <!-- Embed da Live Twitch -->
+  <!-- Twitch -->
   <div style="text-align: center; margin-bottom: 3rem;">
-    <h2>Acompanhe a Live</h2>
-    <iframe src="https://player.twitch.tv/?channel=andreviz_&parent=localhost" frameborder="0" allowfullscreen="true"
-      scrolling="no" height="378" width="620" style="max-width: 100%; border-radius: 12px;"
-      title="Player Twitch ao vivo"></iframe>
+    <h2><i class="fab fa-twitch"></i> Acompanhe a Live</h2>
+    <iframe src="https://player.twitch.tv/?channel=andreviz_&parent=localhost" frameborder="0" allowfullscreen scrolling="no" height="378" width="620" style="max-width: 100%; border-radius: 12px;"></iframe>
   </div>
 
-  <!-- Novo Conteúdo -->
-  <section id="novo-conteudo">
-    <h1>Calendário do Campeonato</h1>
-    <p class="info-horario">
-      Os jogos começam às <strong>21h</strong>, com 3 partidas consecutivas de aproximadamente <strong>50
-        minutos</strong> cada. Inícios previstos: <strong>21h00</strong>, <strong>21h50</strong> e
-      <strong>22h40</strong>.
-    </p>
-  </section>
-  <div class="carousel" id="dias-campeonato"></div>
-  <!-- Prêmios do Campeonato -->
-  <section id="premios"
-    style="max-width: 700px; margin: 3rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; color: #FFD700; text-align: center;">
-    <h2><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
-    <p style="margin-top: 1rem; font-size: 1.1rem;">
-      O valor total do prêmio será calculado com base no total arrecadado pelas inscrições.
-    </p>
-    <p style="font-size: 1rem; margin: 0.5rem 0;">
-      Cada equipe paga <strong>R$ 50,00</strong> na inscrição.
-    </p>
-    <p style="font-size: 1rem; margin: 0.5rem 0;">
-      O prêmio será distribuído da seguinte forma:
-    </p>
-    <ul style="list-style: none; padding: 0; font-size: 1rem;">
-      <li><strong>50%</strong> do valor arrecadado para o <span style="color:#FFD700;">Campeão 🏆</span></li>
-      <li><strong>30%</strong> para o <span style="color:#C0C0C0;">Vice-campeão 🥈</span></li>
-      <li><strong>20%</strong> para o <span style="color:#cd7f32;">3º lugar 🥉</span></li>
+  <!-- Detalhes do Campeonato -->
+  <section>
+    <h2 style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Detalhes do Campeonato</h2>
+    <ul>
+      <li>📅 <strong>Data de início:</strong> 16 de agosto de 2025</li>
+      <li>🕘 <strong>Horário:</strong> 21h (3 partidas consecutivas)</li>
+      <li>💰 <strong>Inscrição:</strong> R$ 50,00 por equipe</li>
+      <li>🏆 <strong>Premiação:</strong> até 50% do valor arrecadado</li>
     </ul>
-    <p style="margin-top: 1rem; font-style: italic; color: #ccc;">
-      *O valor final depende do número de equipes inscritas.
-    </p>
   </section>
 
-  <!-- Arrecadação Atual -->
-  <section id="arrecadacao"
-    style="max-width: 700px; margin: 2rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 15px; color: #22c55e; text-align: center;">
-    <h2><i class="fas fa-wallet"></i> Arrecadação Atual</h2>
-    <p style="margin-top: 1rem; font-size: 1.1rem;">
-      Até o momento, já foram inscritas <strong id="numEquipes">0</strong> equipes.
-    </p>
-    <p style="font-size: 1rem; margin: 0.5rem 0;">
-      Total arrecadado: <strong id="valorArrecadado">R$ 0,00</strong>
-    </p>
-    <p style="font-style: italic; color: #ccc; margin-top: 1rem;">
+  <!-- Calendário -->
+  <section style="margin-top: 2rem;">
+    <h1 style="text-align: center; margin-bottom: 1rem;">Calendário do Campeonato</h1>
+    <p style="text-align: center;">Os jogos começam às <strong>21h</strong>, com 3 partidas consecutivas de aproximadamente 50 minutos cada.</p>
   </section>
+  <div class="carousel" id="dias-campeonato" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; margin-top:1rem;"></div>
+
+  <!-- Prêmios -->
+  <section>
+    <h2 style="margin-bottom: 1rem; text-align: center;"><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
+    <p style="text-align: center;">Cada equipe paga <strong>R$ 50,00</strong> na inscrição.</p>
+    <ul style="list-style:none; padding:0; max-width: 400px; margin: 0 auto;">
+      <li style="margin-bottom:0.75rem;"> <strong>50%</strong> para o Campeão 🏆</li>
+      <li style="margin-bottom:0.75rem;"> <strong>30%</strong> para o Vice 🥈</li>
+      <li style="margin-bottom:0.75rem;"> <strong>20%</strong> para o 3º lugar 🥉</li>
+    </ul>
+    <p style="font-style:italic;text-align:center;">*O valor final depende do número de equipes inscritas.</p>
+  </section>
+
+  <!-- Arrecadação com barra de progresso -->
+  <section id="arrecadacao" style="margin-top: 3rem; padding: 1.5rem;">
+    <h2><i class="fas fa-wallet"></i> Arrecadação Atual</h2>
+    <p>Meta 16 times: <strong id="meta-arrecadacao">R$ 800,00</strong></p>
+    <p>Até o momento, já foram inscritas: <strong id="num-equipes">0</strong> de <strong>11</strong> equipes.</p>
+    <p>Já arrecadado: <strong id="valor-arrecadado">R$ 0,00</strong></p>
+    <!-- Barra de progresso com marcações -->
+    <div id="barraProgressoContainer">
+      <div id="barraProgresso"></div>
+      <div id="marcacoes"></div>
+    </div>
+    <p style="margin-top: 1rem;">Progresso da arrecadação</p>
+  </section>
+
+  <!-- Scripts -->
   <script type="module">
     import { DIAS, mapas } from './js/configGlobal.js';
     import { renderCalendario } from './js/Calendario.js';
     import { startCountdown } from './js/countdown.js';
 
     const dataBaseISO = '2025-08-16T21:00:00';
-
     renderCalendario('dias-campeonato', dataBaseISO, DIAS, mapas);
-
     startCountdown(dataBaseISO, 'countdown');
-  </script>
 
-  <section id="arrecadacao"
-    style="max-width: 700px; margin: 2rem auto; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 15px; color: #22c55e; text-align: center;">
+    const valorPorTime = 50;
+    const metaTimes = 16;
+    const metaTotal = valorPorTime * metaTimes;
 
-    <div style="margin-top: 2rem; font-size: 1rem; color: #ffd700;">
-      <p><strong>🏆 Campeão:</strong> <span id="premio1">R$ 0,00</span> (50%)</p>
-      <p><strong>🥈 Vice-campeão:</strong> <span id="premio2">R$ 0,00</span> (30%)</p>
-      <p><strong>🥉 3º lugar:</strong> <span id="premio3">R$ 0,00</span> (20%)</p>
-    </div>
-  </section>
+    // Função para atualizar a quantidade de times inscritas e o progresso
+    async function fetchTimes() {
+      const response = await fetch('dados/times.json');
+      const times = await response.json();
+      return times;
+    }
 
-  <script>
-    const valorInscricao = 50;
-
-    const formatarBRL = valor => valor.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    });
-
-    async function calcularArrecadacao() {
+    // Atualiza a barra e os dados
+    async function atualizarDados() {
       try {
-        const response = await fetch('dados/times.json');
-        if (!response.ok) throw new Error('Erro ao carregar times.json');
+        const times = await fetchTimes();
+        const equipeInscritas = times.filter(t => t.statusInscricao === 'Inscrito ✅').length;
+        const arrecadado = equipeInscritas * valorPorTime;
 
-        const times = await response.json();
+        document.getElementById("num-equipes").textContent = equipeInscritas;
+        document.getElementById("valor-arrecadado").textContent = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL'}).format(arrecadado);
+        document.getElementById("meta-arrecadacao").textContent = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL'}).format(metaTotal);
 
-        const equipesInscritas = times.filter(time => time.statusInscricao === 'Inscrito ✅').length;
-        const totalArrecadado = equipesInscritas * valorInscricao;
+        // Calcula porcentagem do progresso
+        const porcentagem = Math.min((arrecadado / metaTotal) * 100, 100);
+        document.getElementById("barraProgresso").style.width = porcentagem + "%";
 
-        const premio1 = totalArrecadado * 0.5;
-        const premio2 = totalArrecadado * 0.3;
-        const premio3 = totalArrecadado * 0.2;
+        // Atualiza as marcações '|'
+        const totalMarks = 16; // meta de times
+        const marksContainer = document.getElementById('marcacoes');
+        // Limpa as marcações
+        marksContainer.innerHTML = '';
 
-        document.getElementById('numEquipes').textContent = equipesInscritas;
-        document.getElementById('valorArrecadado').textContent = formatarBRL(totalArrecadado);
-        document.getElementById('premio1').textContent = formatarBRL(premio1);
-        document.getElementById('premio2').textContent = formatarBRL(premio2);
-        document.getElementById('premio3').textContent = formatarBRL(premio3);
-      } catch (error) {
-        console.error('Erro ao calcular arrecadação:', error);
+        for (let i = 0; i < totalMarks; i++) {
+          const mark = document.createElement('div');
+          mark.textContent = '|';
+          mark.style.color = i < equipeInscritas ? '#00ff5e' : '#555';
+          marksContainer.appendChild(mark);
+        }
+      } catch (err) {
+        console.error('Erro ao atualizar dados:', err);
       }
     }
 
-    calcularArrecadacao();
+    // Executa ao carregar
+    atualizarDados();
+
+    // Opcional: atualizar periodicamente
+    // setInterval(atualizarDados, 30000);
   </script>
 </body>
-
 </html>
