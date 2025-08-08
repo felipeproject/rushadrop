@@ -56,7 +56,8 @@
       flex: 1;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid rgba(83, 83, 83, 0.89);
       padding: 0.5rem;
       text-align: left;
@@ -98,29 +99,6 @@
 
     <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
 
-    <!-- Botão de Mostrar/Ocultar Jogadores -->
-    <button id="toggle-free-agents"
-      class="mt-10 mb-4 ml-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-lg transition">
-      <i class="fa-solid fa-users-line text-white"></i> Jogadores Disponíveis
-      <span id="badge-count"
-        class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>
-    </button>
-
-    <!-- Seção de Jogadores Sem Time -->
-    <section id="free-agents-section"
-      style="display: none; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
-      <h2
-        style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #00FA9A; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
-        💪🏻 Jogadores Disponíveis para Recrutamento
-      </h2>
-
-      <p style="font-size: 0.95rem; color: #ccc; margin-bottom: 1rem;">
-        Abaixo estão listados os jogadores que <span style="color: #FFD700;">ainda não foram recrutados</span> por
-        nenhum time. Recrutadores podem entrar em contato diretamente!
-      </p>
-
-    </section>
-
     <!-- Observações -->
     <section
       style="margin-top: 2.5rem; padding: 1rem; background-color: #0f0f0f; color: #ffffff; border-radius: 0.5rem; width: 100%; max-width: 42rem; margin-left: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.4); font-family: Arial, sans-serif;">
@@ -138,7 +116,8 @@
         </li>
         <li style="margin-bottom: 0.75rem;">
           <span style="color: #7FFF00; font-weight: bold;">🆔</span>
-          <span> → <span style="color:#90EE90;">"ID do time: TEAM #1"</span> indica o slot fixo na sala personalizada.</span>
+          <span> → <span style="color:#90EE90;">ID do time: TEAM #1</span> indica o slot fixo na sala
+            personalizada.</span>
         </li>
       </ul>
     </section>
@@ -161,24 +140,7 @@
   </script>
 
   <script type="module" src="js/times.js"></script>
-  <script type="module" src="js/jogadoresDisponiveis.js"></script>
 
-  <!-- Mostrar/Ocultar Jogadores -->
-  <script>
-    const toggleButton = document.getElementById('toggle-free-agents');
-    const freeAgentsSection = document.getElementById('free-agents-section');
-
-    toggleButton.addEventListener('click', () => {
-      if (freeAgentsSection.style.display === 'none') {
-        freeAgentsSection.style.display = 'block';
-        setTimeout(() => freeAgentsSection.classList.add('visible'), 10);
-        toggleButton.innerHTML = '<i class="fa-solid fa-users-slash text-white"></i> Ocultar Jogadores <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>';
-      } else {
-        freeAgentsSection.classList.remove('visible');
-        setTimeout(() => freeAgentsSection.style.display = 'none', 300);
-        toggleButton.innerHTML = '<i class="fa-solid fa-users-line text-white"></i> Jogadores Disponíveis <span id="badge-count" class="bg-red-600 text-white rounded-full px-2 py-0.5 text-sm font-semibold shadow-inner">0</span>';
-      }
-    });
   </script>
 
 </body>
