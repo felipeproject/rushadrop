@@ -259,7 +259,8 @@
   <!-- Botões de Inscrição e Discord -->
   <div style="text-align: center; margin: 2rem 0;">
     <a href="inscricao.html" class="botao-link"
-      style="margin: 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; background-color: #ffc107; color: black; border-radius: 8px; font-weight: bold; text-decoration: none;">Inscreva seu time aqui!</a>
+      style="margin: 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; background-color: #ffc107; color: black; border-radius: 8px; font-weight: bold; text-decoration: none;">Inscreva
+      seu time aqui!</a>
 
     <a href="https://discord.gg/Gdxza8h8MU" target="_blank" class="botao-link"
       style="margin: 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; background-color: #5865F2; color: white; border-radius: 8px; font-weight: bold; text-decoration: none;">
@@ -343,22 +344,39 @@
   </section>
 
   <script>
-    const equipesInscritas = 3;
     const valorInscricao = 50;
-    const totalArrecadado = equipesInscritas * valorInscricao;
-
-    const premio1 = totalArrecadado * 0.5;
-    const premio2 = totalArrecadado * 0.3;
-    const premio3 = totalArrecadado * 0.2;
 
     const formatarBRL = valor => valor.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     });
 
-    document.getElementById('numEquipes').textContent = equipesInscritas;
-    document.getElementById('valorArrecadado').textContent = formatarBRL(totalArrecadado);
-    document.getElementById('premio1').textContent = formatarBRL(premio1);
-    document.getElementById('premio2').textContent = formatarBRL(premio2);
-    document.getElementById('premio3').textContent = formatarBRL(premio3);
+    async function calcularArrecadacao() {
+      try {
+        const response = await fetch('dados/times.json');
+        if (!response.ok) throw new Error('Erro ao carregar times.json');
+
+        const times = await response.json();
+
+        const equipesInscritas = times.filter(time => time.statusInscricao === 'Inscrito ✅').length;
+        const totalArrecadado = equipesInscritas * valorInscricao;
+
+        const premio1 = totalArrecadado * 0.5;
+        const premio2 = totalArrecadado * 0.3;
+        const premio3 = totalArrecadado * 0.2;
+
+        document.getElementById('numEquipes').textContent = equipesInscritas;
+        document.getElementById('valorArrecadado').textContent = formatarBRL(totalArrecadado);
+        document.getElementById('premio1').textContent = formatarBRL(premio1);
+        document.getElementById('premio2').textContent = formatarBRL(premio2);
+        document.getElementById('premio3').textContent = formatarBRL(premio3);
+      } catch (error) {
+        console.error('Erro ao calcular arrecadação:', error);
+      }
+    }
+
+    calcularArrecadacao();
   </script>
+</body>
+
+</html>
