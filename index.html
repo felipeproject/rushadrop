@@ -3,372 +3,252 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rusha Drop - PUBG</title>
+  <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    /* Reset básico */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    footer {
-      background-color: #121212;
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 1.5rem 0;
-      margin-top: 3rem;
-      color: #6b7280;
-      width: 100%;
-    }
-
-    body {
-      background: #1a1a1a;
-      /* cinza escuro elegante */
-      color: #f0f0f0;
-      font-family: 'Montserrat', sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-    }
-
-    /* Banner */
-    .banner-container {
-      position: relative;
-      text-align: center;
-      margin-top: 70px;
-      overflow: hidden;
-      z-index: 10;
-    }
-
-    .banner-container img {
-      max-width: 100%;
-      height: auto;
-      filter: brightness(90%);
-      border-radius: 8px;
-    }
-
-    /* Cronômetro */
-    .cronometro-overlay {
-      position: absolute;
-      top: 50%;
-      right: 5%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1.25rem 1.5rem;
-      border-radius: 10px;
-      width: 220px;
-      text-align: center;
-      z-index: 20;
-    }
-
-    .cronometro-overlay h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #countdown {
-      font-size: 2rem;
-      font-weight: bold;
-    }
-
-    /* Seções gerais */
-    section {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    /* Títulos */
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-    }
-
-    section h2 i {
-      margin-right: 0.5rem;
-    }
-
-    /* Lista de detalhes */
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    ul li {
-      margin-bottom: 0.75rem;
-      font-size: 1.1rem;
-    }
-
-    /* Botões CTA */
-    a.cta-principal {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background: linear-gradient(45deg, #ffc107, #ff9800);
-      color: black;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      box-shadow: 0 0 10px #ffc107;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    a.cta-principal:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #ffc107;
-    }
-
-    /* Prêmios */
-    #arrecadacao {
-      max-width: 700px;
-      margin: 3rem auto;
-      padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 15px;
-      color: #00ff5e;
-      text-align: center;
-    }
-
-    #arrecadacao h2 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    #arrecadacao h2 i {
-      margin-right: 0.5rem;
-    }
-
-    /* Barra de progresso personalizada */
-    #barraProgressoContainer {
-      width: 100%;
-      height: 30px;
-      background: #333;
-      border-radius: 15px;
-      overflow: hidden;
-      margin-top: 1rem;
-      position: relative;
-    }
-
-    #barraProgresso {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, #00ff5e, #00c853);
-      transition: width 1.5s ease-in-out;
-    }
-
-    /* Marcações de | na barra */
-    #marcacoes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      padding: 0 5px;
-      pointer-events: none;
-    }
-
-    /* Responsividade */
-    @media(max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      .cronometro-overlay {
-        position: static;
-        transform: none;
-        width: 90%;
-        margin: 1rem auto;
-      }
-
-      iframe {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
 </head>
 
 <body>
-
-  <!-- Navbar -->
   <script type="module">
     import { injectNavbar } from './js/navbar.js';
     injectNavbar();
   </script>
 
-  <!-- Banner -->
-  <div class="banner-container" id="banner">
-    <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
-  </div>
+  <main>
+    <!-- Banner -->
+    <section class="banner-container">
+      <img src="imagens/Rushadrop.png" alt="Banner Rusha Drop" loading="lazy" />
+      <div class="cronometro-overlay">
+        <h2><i class="fas fa-trophy"></i> Início do Campeonato</h2>
+        <div id="countdown"></div>
+      </div>
+    </section>
 
-  <!-- Cronômetro -->
-  <div class="cronometro-overlay">
-    <h2><i class="fas fa-trophy"></i> Início do Campeonato</h2>
-    <div id="countdown"></div>
-  </div>
+    <!-- CTA -->
+    <section class="cta-container">
+      <a href="inscricao.html" class="cta-principal">Inscreva seu time agora!</a>
+      <a href="https://discord.gg/Gdxza8h8MU" target="_blank" class="cta-discord">
+        <i class="fab fa-discord"></i> Entrar no Discord
+      </a>
+    </section>
 
-  <!-- Proposta de Valor -->
-  <section style="text-align: center;">
+    <!-- Live Twitch -->
+    <section class="twitch">
+      <h2><i class="fab fa-twitch"></i> Acompanhe a Live</h2>
+      <iframe src="https://player.twitch.tv/?channel=andreviz_&parent=localhost" frameborder="0" allowfullscreen
+        scrolling="no"></iframe>
+    </section>
 
-    <p style="font-size: 1.1rem;">
-      É hora de colocar seu squad pra disputar! Prêmio em dinheiro para os 3 melhores times.
-    </p>
-  </section>
+    <!-- Detalhes -->
+    <section>
+      <h2><i class="fas fa-info-circle"></i> Detalhes do Campeonato</h2>
+      <ul>
+        <li>📅 <strong>Data de início:</strong> 16 de agosto de 2025</li>
+        <li>🕘 <strong>Horário:</strong> 21h (3 partidas consecutivas)</li>
+        <li>💰 <strong>Inscrição:</strong> R$ 50,00 por equipe</li>
+        <li>🏆 <strong>Premiação:</strong> até 50% do valor arrecadado</li>
+      </ul>
+    </section>
 
-  <!-- Botões -->
-  <div style="text-align: center; margin: 2rem 0;">
-    <a href="inscricao.html" class="cta-principal">Inscreva seu time agora!</a><br><br>
-    <a href="https://discord.gg/Gdxza8h8MU" target="_blank"
-      style="margin-left: 1rem; padding: 0.75rem 1.5rem; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
-      <i class="fab fa-discord"></i> Entrar no Discord
+
+    <!-- Data Limite -->
+<section class="alerta-inscricao">
+  <h2>Inscrições até: 13/08 (Quarta-feira)<h2>
+
+  <!-- Botão de contato -->
+  <button id="btnContato" class="btn-contato">
+    📩 Entre em contato
+  </button>
+</section>
+
+<!-- Popup de contato -->
+<div id="popupContato" class="popup-contato">
+  <h3>Contato</h3>
+  <p>
+    <a href="https://wa.me/5554992767447" target="_blank" class="link-whatsapp" rel="noopener noreferrer">
+      📱 WhatsApp: 55 (54) 99276-7447
     </a>
-  </div>
+  </p>
+  <p>
+    <a href="https://discord.gg/andreviz" target="_blank" class="link-discord" rel="noopener noreferrer">
+      💬 Discord: andreviz
+    </a>
+  </p>
+  <button id="btnFechar" class="btn-fechar">Fechar</button>
+</div>
 
-  <!-- Twitch -->
-  <div style="text-align: center; margin-bottom: 3rem;">
-    <h2><i class="fab fa-twitch"></i> Acompanhe a Live</h2>
-    <iframe src="https://player.twitch.tv/?channel=andreviz_&parent=localhost" frameborder="0" allowfullscreen
-      scrolling="no" height="378" width="620" style="max-width: 100%; border-radius: 12px;"></iframe>
-  </div>
+<!-- Fundo escurecido quando o popup abrir -->
+<div id="fundoPopup" class="fundo-popup"></div>
 
-  <!-- Detalhes do Campeonato -->
-  <section>
-    <h2 style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Detalhes do Campeonato</h2>
-    <ul>
-      <li>📅 <strong>Data de início:</strong> 16 de agosto de 2025</li>
-      <li>🕘 <strong>Horário:</strong> 21h (3 partidas consecutivas)</li>
-      <li>💰 <strong>Inscrição:</strong> R$ 50,00 por equipe</li>
-      <li>🏆 <strong>Premiação:</strong> até 50% do valor arrecadado</li>
-    </ul>
-  </section>
+<style>
+  .alerta-inscricao {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-  <!-- Calendário -->
-  <section style="margin-top: 2rem;">
-    <h1 style="text-align: center; margin-bottom: 1rem;">Calendário do Campeonato</h1>
-    <p style="text-align: center;">Os jogos começam às <strong>21h</strong>, com 3 partidas consecutivas de
-      aproximadamente 50 minutos cada.</p>
-  </section>
-  <div class="carousel" id="dias-campeonato"
-    style="display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; margin-top:1rem;"></div>
+  .btn-contato {
+    background-color: #25311a; /* verde WhatsApp */
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4);
+  }
 
-  <!-- Data limite para inscrições -->
-  <section style="margin-top: 2rem;">
-    <div
-      style="background-color: #ffe5e5; padding: 1rem; text-align: center; border-radius: 8px; border: 1px solid #ff4d4d;">
-      <strong style="color: #cc0000;">Inscrições até: 13/08 (Quarta-feira)</strong>
-    </div>
-    </h2>
+  .btn-contato:hover {
+    background-color: #1ebe5a;
+    box-shadow: 0 6px 12px rgba(27, 182, 81, 0.6);
+  }
 
-  </section>
+  /* Popup */
+  .popup-contato {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111a21;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    z-index: 1000;
+    width: 320px;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    animation: popupFadeIn 0.3s ease forwards;
+  }
 
-  <!-- Prêmios -->
-  <section>
-    <h2 style="margin-bottom: 1rem; text-align: center;"><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
-    <p style="text-align: center;">Cada equipe paga <strong>R$ 50,00</strong> na inscrição.</p>
-    <ul style="list-style:none; padding:0; max-width: 400px; margin: 0 auto;">
-      <li style="margin-bottom:0.75rem;"> <strong>50%</strong> para o Campeão 🏆</li>
-      <li style="margin-bottom:0.75rem;"> <strong>30%</strong> para o Vice 🥈</li>
-      <li style="margin-bottom:0.75rem;"> <strong>20%</strong> para o 3º lugar 🥉</li>
-    </ul>
-    <p style="font-style:italic;text-align:center;">*O valor final depende do número de equipes inscritas.</p>
-  </section>
+  @keyframes popupFadeIn {
+    from {opacity: 0; transform: translate(-50%, -60%) scale(0.9);}
+    to {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+  }
 
-  <!-- Arrecadação com barra de progresso -->
-  <section id="arrecadacao" style="margin-top: 3rem; padding: 1.5rem;">
-    <h2><i class="fas fa-wallet"></i> Arrecadação Atual</h2>
-    <p>Meta 16 times: <strong id="meta-arrecadacao">R$ 800,00</strong></p>
-    <p>Até o momento, já foram inscritas: <strong id="num-equipes">0</strong> de <strong>11</strong> equipes.</p>
-    <p>Já arrecadado: <strong id="valor-arrecadado">R$ 0,00</strong></p>
-    <!-- Barra de progresso com marcações -->
-    <div id="barraProgressoContainer">
-      <div id="barraProgresso"></div>
-      <div id="marcacoes"></div>
-    </div>
-    <p style="margin-top: 1rem;">Progresso da arrecadação</p>
-  </section>
+  .popup-contato h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #ffffff;
+  }
 
-  <footer
-    style="background-color: #080808; color: #f9fafb; text-align: center; padding: 1rem; font-size: 0.9rem; font-family: Arial, sans-serif;">
-    <span style="display: block;">Rusha Drop eSports © 2025 – Todos os direitos reservados.</span>
+  .popup-contato p {
+    margin: 12px 0;
+    font-size: 18px;
+  }
+
+  .popup-contato a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .link-whatsapp {
+    color: #25D366;
+    transition: color 0.3s ease;
+  }
+  .link-whatsapp:hover {
+    color: #1ebe5a;
+    text-decoration: underline;
+  }
+
+  .link-discord {
+    color: #7289DA;
+    transition: color 0.3s ease;
+  }
+  .link-discord:hover {
+    color: #5b6eae;
+    text-decoration: underline;
+  }
+
+  .btn-fechar {
+    margin-top: 20px;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    background-color: #333;
+    color: #eee;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-fechar:hover {
+    background-color: #555;
+  }
+
+  /* Fundo escurecido */
+  .fundo-popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 900;
+  }
+</style>
+
+<script>
+  const btnContato = document.getElementById('btnContato');
+  const popupContato = document.getElementById('popupContato');
+  const btnFechar = document.getElementById('btnFechar');
+  const fundoPopup = document.getElementById('fundoPopup');
+
+  btnContato.addEventListener('click', () => {
+    popupContato.style.display = 'block';
+    fundoPopup.style.display = 'block';
+  });
+
+  btnFechar.addEventListener('click', () => {
+    popupContato.style.display = 'none';
+    fundoPopup.style.display = 'none';
+  });
+
+  // Fecha o popup se clicar fora dele
+  fundoPopup.addEventListener('click', () => {
+    popupContato.style.display = 'none';
+    fundoPopup.style.display = 'none';
+  });
+</script>
+
+
+
+    <!-- Premiação -->
+    <section>
+      <h2><i class="fas fa-coins"></i> Prêmios do Campeonato</h2>
+      <p>Cada equipe paga <strong>R$ 50,00</strong> na inscrição.</p>
+      <ul class="premios">
+        <li><strong>50%</strong> para o Campeão 🏆</li>
+        <li><strong>30%</strong> para o Vice 🥈</li>
+        <li><strong>20%</strong> para o 3º lugar 🥉</li>
+      </ul>
+      <p class="nota">*O valor final depende do número de equipes inscritas.</p>
+    </section>
+
+    <!-- Arrecadação -->
+    <section id="arrecadacao">
+      <h2><i class="fas fa-wallet"></i> Arrecadação Atual</h2>
+      <p>Meta 16 times: <strong id="meta-arrecadacao">R$ 800,00</strong></p>
+      <p>Equipes inscritas: <strong id="num-equipes">0</strong> de <strong>16</strong></p>
+      <p>Valor arrecadado: <strong id="valor-arrecadado">R$ 0,00</strong></p>
+      <div id="barraProgressoContainer">
+        <div id="barraProgresso"></div>
+        <div id="marcacoes"></div>
+      </div>
+      <p>Progresso da arrecadação</p>
+    </section>
+  </main>
+
+  <footer>
+    Rusha Drop eSports © 2025 – Todos os direitos reservados.
   </footer>
 
-
-  <!-- Scripts -->
-  <script type="module">
-    import { DIAS, mapas } from './js/configGlobal.js';
-    import { renderCalendario } from './js/Calendario.js';
-    import { startCountdown } from './js/countdown.js';
-
-    const dataBaseISO = '2025-08-16T21:00:00';
-    renderCalendario('dias-campeonato', dataBaseISO, DIAS, mapas);
-    startCountdown(dataBaseISO, 'countdown');
-
-    const valorPorTime = 50;
-    const metaTimes = 16;
-    const metaTotal = valorPorTime * metaTimes;
-
-    // Função para atualizar a quantidade de times inscritas e o progresso
-    async function fetchTimes() {
-      const response = await fetch('dados/times.json');
-      const times = await response.json();
-      return times;
-    }
-
-    // Atualiza a barra e os dados
-    async function atualizarDados() {
-      try {
-        const times = await fetchTimes();
-        const equipeInscritas = times.filter(t => t.statusInscricao === 'Inscrito ✅').length;
-        const arrecadado = equipeInscritas * valorPorTime;
-
-        document.getElementById("num-equipes").textContent = equipeInscritas;
-        document.getElementById("valor-arrecadado").textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(arrecadado);
-        document.getElementById("meta-arrecadacao").textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(metaTotal);
-
-        // Calcula porcentagem do progresso
-        const porcentagem = Math.min((arrecadado / metaTotal) * 100, 100);
-        document.getElementById("barraProgresso").style.width = porcentagem + "%";
-
-        // Atualiza as marcações '|'
-        const totalMarks = 16; // meta de times
-        const marksContainer = document.getElementById('marcacoes');
-        // Limpa as marcações
-        marksContainer.innerHTML = '';
-
-        for (let i = 0; i < totalMarks; i++) {
-          const mark = document.createElement('div');
-          mark.textContent = '|';
-          mark.style.color = i < equipeInscritas ? '#00ff5e' : '#555';
-          marksContainer.appendChild(mark);
-        }
-      } catch (err) {
-        console.error('Erro ao atualizar dados:', err);
-      }
-    }
-
-    // Executa ao carregar
-    atualizarDados();
-
-    // Opcional: atualizar periodicamente
-    // setInterval(atualizarDados, 30000);
-  </script>
+  <script type="module" src="js/index.js"></script>
 </body>
 
 </html>

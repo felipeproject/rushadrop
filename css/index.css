@@ -1,0 +1,308 @@
+:root {
+    --bg-dark: #121212;
+    --bg-light: rgba(255, 255, 255, 0.03);
+    --accent: #ffc107;
+    --accent-dark: #ff9800;
+    --green: #00ff5e;
+    --green-dark: #00c853;
+    --discord: #5865F2;
+    --text: #f0f0f0;
+    --text-muted: #6b7280;
+    --danger-bg: #ffe5e5;
+    --danger: #cc0000;
+    --radius: 12px;
+    --gap: 2rem;
+}
+
+/* ================= Reset ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 1.5rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+/* ================= Tipografia e Hierarquia ================= */
+h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+ul li {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+
+
+
+/* ================= Seções ================= */
+section {
+    padding: 2rem;
+    background: var(--bg-light);
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+}
+
+.divisor {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 2rem 0;
+}
+
+/* ================= Banner ================= */
+/* Banner full width e destaque absoluto */
+.banner-container {
+    position: relative;
+    width: 100vw;
+    /* ocupa 100% da viewport horizontal */
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    /* centraliza a imagem esticada */
+    overflow: hidden;
+    border-radius: 0;
+    /* sem borda arredondada no banner */
+}
+
+.banner-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    /* garante que a imagem cubra o container sem distorcer */
+    filter: brightness(90%);
+    border-radius: 0;
+    /* remove borda arredondada */
+}
+
+/* Remove background do banner para não sobrepor */
+.banner-container,
+.banner-container>img {
+    background: none;
+    box-shadow: none;
+}
+
+/* Cronômetro permanece sobreposto */
+.cronometro-overlay {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    border-radius: var(--radius);
+    width: 240px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* As outras seções continuam com fundo translúcido para destacar */
+section:not(.banner-container) {
+    background: var(--bg-light);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text);
+}
+
+
+.cronometro-overlay {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    border-radius: var(--radius);
+    width: 240px;
+    text-align: center;
+    z-index: 10;
+}
+
+#countdown {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* ================= CTA ================= */
+.cta-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.cta-principal,
+.cta-discord {
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cta-principal {
+    background: linear-gradient(45deg, var(--accent), var(--accent-dark));
+    color: black;
+}
+
+.cta-principal:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.cta-discord {
+    background: var(--discord);
+    color: white;
+}
+
+/* ================= Twitch ================= */
+.twitch iframe {
+    width: 100%;
+    max-width: 100%;
+    height: 378px;
+    border-radius: var(--radius);
+    border: none;
+}
+
+/* ================= Arrecadação ================= */
+#arrecadacao {
+    text-align: center;
+    color: var(--green);
+}
+
+#barraProgressoContainer {
+    background: #333;
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 30px;
+    margin-top: 1rem;
+    position: relative;
+}
+
+#barraProgresso {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--green), var(--green-dark));
+    transition: width 1.5s ease-in-out;
+}
+
+#marcacoes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 0 5px;
+    pointer-events: none;
+}
+
+/* ================= Alerta ================= */
+.alerta-inscricao {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid #ff4d4d;
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ================= Footer ================= */
+footer {
+    background-color: #080808;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+}
+
+/* ================= Responsivo ================= */
+@media (max-width: 768px) {
+    .cronometro-overlay {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .cta-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    iframe {
+        height: auto;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    section {
+        padding: 1.5rem;
+    }
+}
+
+main {
+    margin-top: 70px;
+    /* empurra o conteúdo pra baixo da navbar fixa */
+}
