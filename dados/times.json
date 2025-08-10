@@ -140,15 +140,15 @@
     "jogadores": [
       {
         "nome": "koszz",
-        "KD": 0.60
+        "KD": 0.90
       },
       {
         "nome": "vim_do_lite",
-        "KD": 0.80
+        "KD": 0.70
       },
       {
         "nome": "llLordSparkll",
-        "KD": 0.60
+        "KD": 0.70
       },
       {
         "nome": "Oboneco",
@@ -156,7 +156,7 @@
       },
       {
         "nome": "Hugo197",
-        "KD": 0.55
+        "KD": 0.85
       }
     ]
   },
