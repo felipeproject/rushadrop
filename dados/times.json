@@ -260,6 +260,31 @@
     ]
   },
   {
+    "nome": "CAPIVARAS PUBG",
+    "tag": "CPVR",
+    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "MAGO12K",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "MAGO12K",
+        "KD": 1.40
+      },
+      {
+        "nome": "M4T4_BOI",
+        "KD": 1.65
+      },
+      {
+        "nome": "Ibuprofeno_800mg",
+        "KD": 1.35
+      }
+    ]
+  },
+  {
     "nome": "STRAFE",
     "tag": "STFE",
     "logo": "imagens/times/sf/STRAFE.png",
@@ -289,31 +314,6 @@
       {
         "nome": "furacaobr",
         "KD": 0.55
-      }
-    ]
-  },
-  {
-    "nome": "CAPIVARAS PUBG",
-    "tag": "CPVR",
-    "logo": "imagens/times/sf/CAPIVARAS PUBG.png",
-    "id": "TEAM #",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "MAGO12K",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "MAGO12K",
-        "KD": 1.40
-      },
-      {
-        "nome": "M4T4_BOI",
-        "KD": 1.65
-      },
-      {
-        "nome": "Ibuprofeno_800mg",
-        "KD": 1.35
       }
     ]
   },
