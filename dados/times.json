@@ -10,11 +10,22 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "xJMaRcox",
-      "AdriMau",
-      "MBSILVEIRA",
-      "*",
-      "Perobande"
+      {
+        "nome": "xJMaRcox",
+        "KD": 0.40
+      },
+      {
+        "nome": "AdriMau",
+        "KD": 0.30
+      },
+      {
+        "nome": "MBSILVEIRA",
+        "KD": 0.25
+      },
+      {
+        "nome": "Perobande",
+        "KD": 1.75
+      }
     ]
   },
   {
@@ -28,11 +39,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "STRAT_FPS",
-      "MESTRE-MCS",
-      "BLANKSZ1",
-      "AllbertWesker",
-      "IIBLAST"
+      {
+        "nome": "STRAT_FPS",
+        "KD": 1.1
+      },
+      {
+        "nome": "MESTRE-MCS",
+        "KD": 0.30
+      },
+      {
+        "nome": "BLANKSZ1",
+        "KD": 7.65
+      },
+      {
+        "nome": "AllbertWesker",
+        "KD": 0.80
+      },
+      {
+        "nome": "IIBLAST",
+        "KD": 0.50
+      }
     ]
   },
   {
@@ -46,11 +72,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "TEXAS3006",
-      "XxWarlockLFxX",
-      "Lukyne_marth3",
-      "juizofinai",
-      "s33nt7"
+      {
+        "nome": "TEXAS3006",
+        "KD": 0.20
+      },
+      {
+        "nome": "XxWarlockLFxX",
+        "KD": 0.50
+      },
+      {
+        "nome": "Lukyne_marth3",
+        "KD": 0.35
+      },
+      {
+        "nome": "JuizoFinaI",
+        "KD": 1.00
+      },
+      {
+        "nome": "s33nt7",
+        "KD": 0.40
+      }
     ]
   },
   {
@@ -64,11 +105,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "M4KTu1",
-      "playerVNC",
-      "xSINISTRO",
-      "Viniciusribeiro",
-      "DanyloFLY"
+      {
+        "nome": "M4KTu1",
+        "KD": 0.35
+      },
+      {
+        "nome": "playerVNC",
+        "KD": 1.25
+      },
+      {
+        "nome": "xSINISTRO",
+        "KD": 0.40
+      },
+      {
+        "nome": "Viniciusribeiro",
+        "KD": 0.65
+      },
+      {
+        "nome": "DanyloFLY",
+        "KD": 0.60
+      }
     ]
   },
   {
@@ -82,11 +138,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "koszz",
-      "vim_do_lite",
-      "llLordSparkll",
-      "Oboneco",
-      "Hugo197"
+      {
+        "nome": "koszz",
+        "KD": 0.60
+      },
+      {
+        "nome": "vim_do_lite",
+        "KD": 0.80
+      },
+      {
+        "nome": "llLordSparkll",
+        "KD": 0.60
+      },
+      {
+        "nome": "Oboneco",
+        "KD": 0.75
+      },
+      {
+        "nome": "Hugo197",
+        "KD": 0.55
+      }
     ]
   },
   {
@@ -100,11 +171,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "Racha_Cucaa",
-      "JASONVOORHEES13K",
-      "J4P4XX",
-      "PHILLROX",
-      "Baiano116"
+      {
+        "nome": "Racha_Cucaa",
+        "KD": 1.25
+      },
+      {
+        "nome": "JASONVOORHEES13K",
+        "KD": 1.25
+      },
+      {
+        "nome": "J4P4XX",
+        "KD": 0.65
+      },
+      {
+        "nome": "PHILLROX",
+        "KD": 0.35
+      },
+      {
+        "nome": "Baiano116",
+        "KD": 0.80
+      }
     ]
   },
   {
@@ -118,11 +204,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "The-BiIL",
-      "El_gasolino",
-      "LuckLose",
-      "DEXXX777",
-      "MateusCenourao"
+      {
+        "nome": "The-BiIL",
+        "KD": 1.0
+      },
+      {
+        "nome": "El_gasolino",
+        "KD": 0.35
+      },
+      {
+        "nome": "LuckLose",
+        "KD": 0.45
+      },
+      {
+        "nome": "DEXXX777",
+        "KD": 0.65
+      },
+      {
+        "nome": "MateusCenourao",
+        "KD": 0
+      }
     ]
   },
   {
@@ -136,11 +237,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "BielCalvo00",
-      "LaygO_0",
-      "decops12",
-      "sevenmaalkkj",
-      "SAMURUCUCA"
+      {
+        "nome": "BielCalvo00",
+        "KD": 0.15
+      },
+      {
+        "nome": "LaygO_0",
+        "KD": 0.40
+      },
+      {
+        "nome": "decops12",
+        "KD": 0.80
+      },
+      {
+        "nome": "sevenmaalkkj",
+        "KD": 0.60
+      },
+      {
+        "nome": "SAMURUCUCA",
+        "KD": 0.55
+      }
     ]
   },
   {
@@ -154,11 +270,26 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "WF_PROZIN",
-      "Paulao23",
-      "Danielsr2",
-      "EdlyCruz",
-      "furacaobr"
+      {
+        "nome": "WF_PROZIN",
+        "KD": 0.75
+      },
+      {
+        "nome": "Paulao23",
+        "KD": 3.45
+      },
+      {
+        "nome": "Danielsr2",
+        "KD": 1.0
+      },
+      {
+        "nome": "EdlyCruz",
+        "KD": 0.65
+      },
+      {
+        "nome": "furacaobr",
+        "KD": 0.55
+      }
     ]
   },
   {
@@ -172,10 +303,18 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "Mago12k",
-      "Os300hifen",
-      "Ibuprofeno",
-      ""
+      {
+        "nome": "Mago12k",
+        "KD": 1.15
+      },
+      {
+        "nome": "Os300hifen",
+        "KD": 1.10
+      },
+      {
+        "nome": "Ibuprofeno",
+        "KD": 0
+      }
     ]
   },
   {
@@ -189,11 +328,10 @@
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
-      "Spawnsbg",
-      "*",
-      "*",
-      "*",
-      "*"
+      {
+        "nome": "Spawnsbg",
+        "KD": 0.30
+      }
     ]
   }
 ]

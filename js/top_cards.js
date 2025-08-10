@@ -1,6 +1,7 @@
 const cardsContainerId = 'top-cards-container';
 const timesJsonUrl = './dados/times.json';
 
+// Estrutura das rodadas e jogos (4 dias, 3 jogos por dia)
 const rodadas = Object.fromEntries(
   Array.from({ length: 4 }, (_, dia) => [
     `DIA${dia + 1}`,
@@ -8,12 +9,12 @@ const rodadas = Object.fromEntries(
   ])
 );
 
-// Formata números para padrão brasileiro
+// Formata números no padrão brasileiro
 function formatarNumero(num) {
   return Number(num).toLocaleString('pt-BR');
 }
 
-// Busca um arquivo com tratamento de erros
+// Busca um arquivo via fetch com tratamento de erro
 async function fetchComTratamento(url) {
   try {
     const resp = await fetch(url);
@@ -25,19 +26,19 @@ async function fetchComTratamento(url) {
   }
 }
 
-// Carrega o JSON com os times e jogadores
+// Carrega o JSON dos times e jogadores
 async function carregarTimes() {
   const resp = await fetch(timesJsonUrl);
   if (!resp.ok) throw new Error('Erro ao carregar lista de times');
   return await resp.json();
 }
 
-// Encontra o nome do time dado o nome do jogador
+// Encontra o nome do time a partir do nome do jogador
 function encontrarTime(jogador, timesArray) {
   return timesArray.find(t => t.jogadores.includes(jogador))?.nome || 'Desconhecido';
 }
 
-// Verifica se uma imagem existe via requisição HEAD
+// Verifica se a imagem existe fazendo uma requisição HEAD
 async function verificarImagemExiste(src) {
   try {
     const res = await fetch(src, { method: 'HEAD' });
@@ -47,13 +48,13 @@ async function verificarImagemExiste(src) {
   }
 }
 
-// Sanitiza o nome para gerar o nome do arquivo da imagem
+// Sanitiza nome para uso em nome de arquivo (remove acentos, espaços e caracteres inválidos)
 function sanitizarNome(nome) {
   return nome.trim()
     .toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove acentos
-    .replace(/\s+/g, '_')  // substitui espaços por underline
-    .replace(/[^\w\-]/g, ''); // remove caracteres inválidos
+    .replace(/\s+/g, '_')                            // substitui espaços por underline
+    .replace(/[^\w\-]/g, '');                        // remove caracteres inválidos
 }
 
 async function gerarTopCards() {
@@ -71,10 +72,11 @@ async function gerarTopCards() {
     return;
   }
 
+  // Junta todos os arquivos CSV das rodadas
   const todosCsv = Object.values(rodadas).flat();
   const jogadoresMap = new Map();
 
-  // Percorre todos arquivos CSV para acumular dados dos jogadores
+  // Processa cada CSV para acumular stats dos jogadores
   for (const arquivo of todosCsv) {
     const text = await fetchComTratamento(arquivo);
     if (!text) continue;
@@ -105,7 +107,7 @@ async function gerarTopCards() {
 
   const jogadoresArray = Array.from(jogadoresMap.values());
 
-  // Filtra jogadores que tenham dados relevantes
+  // Filtra jogadores que tenham algum dado relevante
   const jogadoresValidos = jogadoresArray.filter(j =>
     j.kills > 0 || j.assists > 0 || j.dano > 0
   );
@@ -115,7 +117,7 @@ async function gerarTopCards() {
     return;
   }
 
-  // Encontra os melhores em cada categoria
+  // Seleciona os melhores jogadores em cada categoria
   const topKills = jogadoresValidos.reduce((a, b) => (a.kills > b.kills ? a : b));
   const topAssists = jogadoresValidos.reduce((a, b) => (a.assists > b.assists ? a : b));
   const topDano = jogadoresValidos.reduce((a, b) => (a.dano > b.dano ? a : b));
@@ -208,5 +210,5 @@ async function gerarTopCards() {
   container.appendChild(wrapper);
 }
 
-// Executa ao carregar
+// Inicia a função assim que o script carregar
 gerarTopCards();

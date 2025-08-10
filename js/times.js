@@ -119,6 +119,165 @@ function formatTempoSobrevivido(segundos) {
   return `${horas ? `${horas}h ` : ''}${minutos ? `${minutos}min ` : ''}${segs && !horas ? `${segs}s` : ''}`.trim();
 }
 
+const colunas = [
+  { key: 'nome', label: 'Jogador', sortable: true, tooltip: '' },
+  { key: 'kills', label: 'Kills', sortable: true, tooltip: '' },
+  { key: 'assistencias', label: 'Assistências', sortable: true, tooltip: '' },
+  { key: 'danos', label: 'Danos', sortable: true, tooltip: '' },
+  { key: 'timeSurvived', label: 'Tempo Sobrevivido', sortable: true, tooltip: '' },
+  { key: 'headshotKills', label: 'Headshot', sortable: true, tooltip: '' },
+  { 
+    key: 'kd', label: 'KD', sortable: true,
+    tooltip: `K/D é a relação entre o número de eliminações (kills) e mortes. Quando o K/D é maior que 1, significa que você elimina mais inimigos do que morre. Essa métrica mostra como você está se saindo nos combates — quanto maior o K/D, melhor seu desempenho.` 
+  }
+];
+
+// Estado para ordenação da tabela
+let sortColIndex = null;
+let sortAsc = true;
+
+// Tooltip
+let tooltipEl;
+let tooltipLocked = false;
+
+function createTooltip() {
+  tooltipEl = document.createElement('div');
+  tooltipEl.style.position = 'absolute';
+  tooltipEl.style.background = 'rgba(0,0,0,0.85)';
+  tooltipEl.style.color = '#fff';
+  tooltipEl.style.padding = '6px 10px';
+  tooltipEl.style.borderRadius = '5px';
+  tooltipEl.style.fontSize = '0.8rem';
+  tooltipEl.style.maxWidth = '220px';
+  tooltipEl.style.zIndex = '9999';
+  tooltipEl.style.pointerEvents = 'none';
+  tooltipEl.style.transition = 'opacity 0.2s ease';
+  tooltipEl.style.opacity = '0';
+  tooltipEl.style.left = '0px';
+  tooltipEl.style.top = '0px';
+  tooltipEl.style.whiteSpace = 'normal';
+  document.body.appendChild(tooltipEl);
+}
+
+function showTooltip(el, text) {
+  if (!tooltipEl) createTooltip();
+  tooltipEl.textContent = text;
+  const rect = el.getBoundingClientRect();
+  tooltipEl.style.left = `${rect.left + rect.width / 2}px`;
+  tooltipEl.style.top = `${rect.top - 32}px`;
+  tooltipEl.style.opacity = '1';
+  tooltipEl.style.pointerEvents = 'auto';
+}
+
+function hideTooltip() {
+  if (tooltipEl) {
+    tooltipEl.style.opacity = '0';
+    tooltipEl.style.pointerEvents = 'none';
+  }
+}
+
+function toggleTooltipClick(event, el) {
+  event.stopPropagation();
+  if (tooltipLocked) {
+    hideTooltip();
+    tooltipLocked = false;
+  } else {
+    showTooltip(el, colunas[6].tooltip);
+    tooltipLocked = true;
+  }
+}
+
+document.body.addEventListener('click', () => {
+  if (tooltipLocked) {
+    hideTooltip();
+    tooltipLocked = false;
+  }
+});
+
+function renderTabela(jogadores) {
+  // Cabeçalho da tabela com colunas clicáveis
+  const theadHTML = `
+    <thead>
+      <tr style="background-color: #1f1f1f; color: #9ae6b4;">
+        ${colunas.map((col, i) => `
+          <th
+            style="padding: 0.75rem; text-align: center; cursor: pointer; user-select:none;"
+            tabindex="0"
+            onclick="handleSort(${i})"
+            onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); handleSort(${i}); }"
+          >
+            ${col.label}
+            ${sortColIndex === i ? (sortAsc ? ' ▲' : ' ▼') : ''}
+          </th>
+        `).join('')}
+      </tr>
+    </thead>
+  `;
+
+  // Corpo da tabela
+  const tbodyHTML = jogadores.map(j => `
+    <tr>
+      <td style="text-align:center; font-weight: 500; color: #ddd;">${j.nome}</td>
+      <td style="text-align:center;">${j.kills}</td>
+      <td style="text-align:center;">${j.assistencias}</td>
+      <td style="text-align:center;">${j.danos}</td>
+      <td style="text-align:center;">${j.timeSurvived}</td>
+      <td style="text-align:center;">${j.headshotKills}</td>
+      <td
+        style="text-align:center; position: relative; cursor: pointer;"
+        onclick="toggleTooltipClick(event, this)"
+        tabindex="0"
+        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); toggleTooltipClick(event, this); }"
+      >${j.kd}</td>
+    </tr>
+  `).join('');
+
+  modalBody.querySelector('#modal-team-table').outerHTML = `
+    <table id="modal-team-table" style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
+      ${theadHTML}
+      <tbody>${tbodyHTML}</tbody>
+    </table>
+  `;
+}
+
+function handleSort(colIndex) {
+  if (sortColIndex === colIndex) {
+    sortAsc = !sortAsc;
+  } else {
+    sortColIndex = colIndex;
+    sortAsc = true;
+  }
+
+  const key = colunas[colIndex].key;
+
+  jogadoresParaTabela.sort((a, b) => {
+    let valA = a[key];
+    let valB = b[key];
+
+    if (key === 'timeSurvived') {
+      valA = a.timeSurvivedRaw;
+      valB = b.timeSurvivedRaw;
+    }
+    if (key === 'kd') {
+      valA = a.kdRaw;
+      valB = b.kdRaw;
+    }
+
+    if (typeof valA === 'string') {
+      valA = valA.toLowerCase();
+      valB = valB.toLowerCase();
+    }
+
+    if (valA < valB) return sortAsc ? -1 : 1;
+    if (valA > valB) return sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  renderTabela(jogadoresParaTabela);
+}
+
+let jogadoresParaTabela = [];
+
 async function loadTeamDetails(tag) {
   const time = timesData.find(t => t.tag.toLowerCase() === tag.toLowerCase());
   if (!time) {
@@ -132,32 +291,38 @@ async function loadTeamDetails(tag) {
 
   try {
     const jogadoresDetalhados = await carregarTodosJogadores();
-    const jogadoresDoTime = time.jogadores.map(j => j.replace(/\s*\(.*?\)/g, '').trim());
-    const jogadoresFiltrados = jogadoresDetalhados.filter(j =>
-      jogadoresDoTime.some(n => n.toLowerCase() === j.nick.toLowerCase())
+
+    // Map de jogadores CSV para fácil busca
+    const dadosMap = new Map(
+      jogadoresDetalhados.map(j => [j.nick.toLowerCase(), j])
     );
-    const dadosMap = new Map(jogadoresFiltrados.map(j => [j.nick.toLowerCase(), j]));
 
-    const linhasTabela = jogadoresDoTime.map(nome => {
-      const nomeLimpo = nome.replace('⏳', '').trim();
-      const j = dadosMap.get(nomeLimpo.toLowerCase());
-      const link = j ? createOpggLink(j.nick).outerHTML : nome;
+    // Prepara jogadores para a tabela (com valores para sort)
+    jogadoresParaTabela = time.jogadores
+      .filter(jogadorTime => jogadorTime.nome && jogadorTime.nome !== '*')
+      .map(jogadorTime => {
+        const nomeLimpo = jogadorTime.nome.trim();
+        const dadosCsv = dadosMap.get(nomeLimpo.toLowerCase());
+        const link = dadosCsv ? createOpggLink(dadosCsv.nick).outerHTML : nomeLimpo;
 
-      return `
-        <tr>
-          <td style="text-align:center; font-weight: 500; color: #ddd;">${link}</td>
-          <td style="text-align:center;">${j?.kills || 0}</td>
-          <td style="text-align:center;">${j?.assistencias || 0}</td>
-          <td style="text-align:center;">${j?.danos || 0}</td>
-          <td style="text-align:center;">${formatTempoSobrevivido(j?.timeSurvived || 0)}</td>
-          <td style="text-align:center;">${j?.headshotKills || 0}</td>
-        </tr>`;
-    }).join('');
+        const kd = jogadorTime.KD ?? 0;
+        return {
+          nome: link,
+          kills: dadosCsv?.kills || 0,
+          assistencias: dadosCsv?.assistencias || 0,
+          danos: dadosCsv?.danos || 0,
+          timeSurvived: formatTempoSobrevivido(dadosCsv?.timeSurvived || 0),
+          timeSurvivedRaw: dadosCsv?.timeSurvived || 0,
+          headshotKills: dadosCsv?.headshotKills || 0,
+          kd: kd.toFixed(2),
+          kdRaw: kd,
+        };
+      });
 
     const status = time.statusInscricao || '';
-    let statusColor = {
+    const statusColor = {
       'inscrito ✅': 'green',
-      'aguardando pagamento.. ⏳': 'orange',
+      'aguardando pagamento ⏳': 'orange',
       'não inscrito❌': 'red',
       'nao inscrito❌': 'red',
     }[status.toLowerCase()] || '#ccc';
@@ -186,18 +351,8 @@ async function loadTeamDetails(tag) {
       </div>
 
       <h2>Jogadores e Estatísticas</h2>
-      <table style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
-        <thead>
-          <tr style="background-color: #1f1f1f; color: #9ae6b4;">
-            <th style="padding: 0.75rem; text-align: center;">Jogador</th>
-            <th style="padding: 0.75rem; text-align: center;">Kills</th>
-            <th style="padding: 0.75rem; text-align: center;">Assistências</th>
-            <th style="padding: 0.75rem; text-align: center;">Danos</th>
-            <th style="padding: 0.75rem; text-align: center;">Tempo Sobrevivido</th>
-            <th style="padding: 0.75rem; text-align: center;">Headshot</th>
-          </tr>
-        </thead>
-        <tbody>${linhasTabela}</tbody>
+      <table id="modal-team-table" style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
+        <!-- tabela será gerada aqui -->
       </table>
 
       ${time.galeria ? `
@@ -208,7 +363,11 @@ async function loadTeamDetails(tag) {
     `;
 
     modalBody.innerHTML = html;
-    aplicarEstilosResponsivosInline(); // aplica responsividade se for mobile
+
+    renderTabela(jogadoresParaTabela);
+
+    aplicarEstilosResponsivosInline();
+
   } catch (e) {
     modalBody.innerHTML = `<p>Erro ao carregar detalhes do time.</p>`;
     console.error(e);
@@ -216,7 +375,7 @@ async function loadTeamDetails(tag) {
 }
 
 function aplicarEstilosResponsivosInline() {
-  if (window.innerWidth > 768) return; // apenas mobile
+  if (window.innerWidth > 768) return;
 
   modalBody.parentElement.style.padding = '10px';
   modalBody.parentElement.style.maxWidth = '95%';
@@ -276,5 +435,9 @@ async function init() {
   container.addEventListener('click', handleCardClick);
   container.addEventListener('keydown', handleCardKeyDown);
 }
+
+// Tornar funções globais para chamada inline no HTML
+window.handleSort = handleSort;
+window.toggleTooltipClick = toggleTooltipClick;
 
 init();

@@ -83,9 +83,9 @@ export function renderTimes(container, times, noResults) {
       margin: '0'
     });
 
-    time.jogadores.forEach(jogadorNome => {
+    time.jogadores.forEach(jogador => {
       const li = document.createElement('li');
-      li.textContent = jogadorNome;
+      li.textContent = typeof jogador === 'string' ? jogador : jogador.nome || '[Nome não definido]';
       ul.appendChild(li);
     });
 
