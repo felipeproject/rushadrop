@@ -126,10 +126,10 @@ const colunas = [
   { key: 'danos', label: 'Danos', sortable: true, tooltip: '' },
   { key: 'timeSurvived', label: 'Tempo Sobrevivido', sortable: true, tooltip: '' },
   { key: 'headshotKills', label: 'Headshot', sortable: true, tooltip: '' },
-  { 
-    key: 'kd', label: 'KD', sortable: true,
-    tooltip: `K/D é a relação entre o número de eliminações (kills) e mortes. Quando o K/D é maior que 1, significa que você elimina mais inimigos do que morre. Essa métrica mostra como você está se saindo nos combates — quanto maior o K/D, melhor seu desempenho.` 
-  }
+  // { 
+  //   key: 'kd', label: 'KD', sortable: true,
+  //   tooltip: `K/D é a relação entre o número de eliminações (kills) e mortes. Quando o K/D é maior que 1, significa que você elimina mais inimigos do que morre. Essa métrica mostra como você está se saindo nos combates — quanto maior o K/D, melhor seu desempenho.` 
+  // }
 ];
 
 // Estado para ordenação da tabela
@@ -314,8 +314,8 @@ async function loadTeamDetails(tag) {
           timeSurvived: formatTempoSobrevivido(dadosCsv?.timeSurvived || 0),
           timeSurvivedRaw: dadosCsv?.timeSurvived || 0,
           headshotKills: dadosCsv?.headshotKills || 0,
-          kd: kd.toFixed(2),
-          kdRaw: kd,
+          // kd: kd.toFixed(2),
+          // kdRaw: kd,
         };
       });
 
