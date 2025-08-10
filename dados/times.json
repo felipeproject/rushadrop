@@ -299,21 +299,25 @@
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "Mago12k",
+    "capitao": "MAGO12K",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
       {
-        "nome": "Mago12k",
-        "KD": 1.15
+        "nome": "MAGO12K",
+        "KD": 1.40
+      },
+      {
+        "nome": "M4T4_BOI",
+        "KD": 1.65
+      },
+      {
+        "nome": "Ibuprofeno_800mg",
+        "KD": 1.35
       },
       {
         "nome": "Os300hifen",
         "KD": 1.10
-      },
-      {
-        "nome": "Ibuprofeno",
-        "KD": 0
       }
     ]
   },
