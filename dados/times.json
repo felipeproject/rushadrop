@@ -164,6 +164,31 @@
       }
     ]
   },
+    {
+    "nome": "STRAFE",
+    "tag": "STFE",
+    "logo": "imagens/times/sf/STRAFE.png",
+    "id": "TEAM #",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "AnDreviZ",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "AnDreviZ"
+      },
+      {
+        "nome": "WF_PROZIN"
+      },
+      {
+        "nome": "SaydomeiOficial"
+      },
+      {
+        "nome": "EdlyCruz"
+      }
+    ]
+  },
   {
     "nome": "FALCON",
     "tag": "FLCN",
@@ -245,31 +270,6 @@
       },
       {
         "nome": "SAMURUCUCA"
-      }
-    ]
-  },
-  {
-    "nome": "STRAFE",
-    "tag": "STFE",
-    "logo": "imagens/times/sf/STRAFE.png",
-    "id": "TEAM #",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "WF_PROZIN",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "WF_PROZIN"
-      },
-      {
-        "nome": "Paulao23"
-      },
-      {
-        "nome": "EdlyCruz"
-      },
-      {
-        "nome": "SaydomeiOficial"
       }
     ]
   },
