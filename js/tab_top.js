@@ -57,13 +57,23 @@ async function carregarTimes() {
 
 /**
  * Encontra o nome do time que contém o jogador
+ * Corrigido para verificar objetos de jogador corretamente
  * @param {string} jogador Nome do jogador
- * @param {Array} timesArray Array de objetos times, com propriedade 'jogadores' (array)
+ * @param {Array} timesArray Array de objetos times, com propriedade 'jogadores' (array de objetos)
  * @returns {string|null} Nome do time ou null se não encontrado
  */
 function encontrarTime(jogador, timesArray) {
-  const timeEncontrado = timesArray.find(t => Array.isArray(t.jogadores) && t.jogadores.includes(jogador));
-  return timeEncontrado ? timeEncontrado.nome : null;
+  const timeEncontrado = timesArray.find(t => 
+    Array.isArray(t.jogadores) && t.jogadores.some(j => j.nome === jogador)
+  );
+  // Log para verificar se o jogador foi encontrado em algum time
+  if (timeEncontrado) {
+    console.log(`Jogador "${jogador}" encontrado no time "${timeEncontrado.nome}"`);
+    return timeEncontrado.nome;
+  }
+  // Log caso o jogador não seja encontrado
+  console.log(`Jogador "${jogador}" NÃO encontrado em nenhum time`);
+  return null;
 }
 
 /**
@@ -124,12 +134,14 @@ async function criarTabelaTop() {
   // Mapa para acumular dados dos jogadores
   const jogadoresMap = new Map();
 
-  // Processar todos os CSVs sequencialmente (pode paralelizar se quiser)
+  // Processar todos os CSVs sequencialmente
   for (const arquivo of todosCsv) {
     const text = await fetchComTratamento(arquivo);
     if (!text) continue;
 
     const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    // Verificação: caso queira debugar, descomente a linha abaixo
+    // console.log(`Processando arquivo: ${arquivo}`, parsed.data);
 
     // Processa cada linha do CSV
     parsed.data.forEach(row => {
@@ -137,7 +149,11 @@ async function criarTabelaTop() {
       if (!jogador) return;
 
       const time = encontrarTime(jogador, times);
-      if (!time) return; // jogador sem time, ignora
+      if (!time) {
+        // Para depuração, descomente a linha abaixo
+        // console.warn(`Jogador "${jogador}" não encontrado em nenhum time`);
+        return; // jogador sem time, ignora
+      }
 
       if (!jogadoresMap.has(jogador)) {
         jogadoresMap.set(jogador, {
@@ -158,6 +174,7 @@ async function criarTabelaTop() {
     });
   }
 
+  // Converte para array
   let jogadoresArray = Array.from(jogadoresMap.values());
 
   // Ordena pelo ranking decrescente (melhor primeiro)
@@ -168,14 +185,14 @@ async function criarTabelaTop() {
     jogador.rank = i + 1;
   });
 
-  // Definição das colunas da tabela e ícones
+  // Colunas da tabela
   const colunas = [
     { label: 'Rank', key: 'rank' },
     { label: 'Jogador', key: 'jogador' },
     { label: 'Time', key: 'time' },
-    { label: 'Kills', key: 'kills', icon: '💀' },
+    { label: 'Kills', key: 'kills', icon: '☠️' },
     { label: 'Assistências', key: 'assists', icon: '🤝' },
-    { label: 'Dano Causado', key: 'dano', icon: '⚡' },
+    { label: 'Dano Causado', key: 'dano', icon: '💥' },
   ];
 
   // Limpa o container antes de montar a tabela
@@ -191,7 +208,7 @@ async function criarTabelaTop() {
     userSelect: 'none',
   });
 
-  // Cabeçalho da tabela
+  // Cabeçalho
   const thead = document.createElement('thead');
   const trHead = document.createElement('tr');
 
@@ -210,7 +227,7 @@ async function criarTabelaTop() {
       userSelect: 'none',
     });
 
-    // Tooltip só para a coluna Rank, explicando a regra do ranking
+    // Tooltip explicativo na coluna Rank
     if (key === 'rank') {
       const tooltip = document.createElement('div');
       tooltip.textContent = 'Ranking prioriza Kills > Assistências > Dano.';
@@ -258,20 +275,18 @@ async function criarTabelaTop() {
       });
     }
 
-    // Evento de clique para ordenar a tabela
+    // Evento para ordenar ao clicar
     th.addEventListener('click', () => {
-      // Alterna entre crescente e decrescente ao clicar
       const crescente = th.dataset.crescente !== 'true';
       th.dataset.crescente = crescente;
 
-      // Ordena de acordo com a coluna clicada
       if (key === 'rank') {
         jogadoresArray = ordenarPorRank(jogadoresArray, crescente);
       } else {
         jogadoresArray = ordenar(jogadoresArray, key, crescente);
       }
 
-      // Atualiza o rank após ordenação
+      // Atualiza rank após ordenação
       jogadoresArray.forEach((jogador, i) => {
         jogador.rank = i + 1;
       });
@@ -285,32 +300,33 @@ async function criarTabelaTop() {
   thead.appendChild(trHead);
   table.appendChild(thead);
 
-  // Corpo da tabela (tbody)
+  // Corpo da tabela
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
 
   /**
-   * Função para montar o corpo da tabela baseado no array jogadoresArray atual
+   * Função para montar o corpo da tabela baseado em jogadoresArray
    */
   function montarCorpoTabela() {
-    tbody.textContent = ''; // limpa corpo da tabela
+    tbody.textContent = ''; // limpa corpo
 
     jogadoresArray.forEach(jogador => {
       const tr = document.createElement('tr');
 
-      // Destaque suave para 1º, 2º e 3º colocados
+      // Destaques
       if (jogador.rank === 1) {
-        tr.style.backgroundColor = 'rgba(43, 255, 0, 0.2)'; // verde suave
+        tr.style.backgroundColor = 'rgba(194, 191, 0, 0.49)';
       } else if (jogador.rank === 2) {
-        tr.style.backgroundColor = 'rgba(0, 255, 179, 0.12)'; // verde mais claro
+        tr.style.backgroundColor = 'rgba(255, 238, 0, 0.25)';
       } else if (jogador.rank === 3) {
-        tr.style.backgroundColor = 'rgba(0, 47, 255, 0.08)'; // azul suave
+        tr.style.backgroundColor = 'rgba(255, 238, 0, 0.11)';
       } else if (jogador.rank % 2 === 0) {
-        tr.style.backgroundColor = '#1a1a1a'; // linhas pares com cor um pouco diferente
+        tr.style.backgroundColor = '#1a1a1a';
       } else {
-        tr.style.backgroundColor = '#111'; // linhas ímpares mais escuras
+        tr.style.backgroundColor = '#111';
       }
 
+      // Colunas
       colunas.forEach(({ key, icon }) => {
         const td = document.createElement('td');
         Object.assign(td.style, {
@@ -326,7 +342,6 @@ async function criarTabelaTop() {
         if (key === 'rank') {
           td.textContent = jogador.rank;
         } else if (icon) {
-          // Mostra o ícone + valor formatado para kills, assists, dano
           td.innerHTML = `<span style="margin-right:6px;">${icon}</span>${formatarNumero(jogador[key], 0)}`;
         } else {
           td.textContent = jogador[key];
@@ -339,12 +354,12 @@ async function criarTabelaTop() {
     });
   }
 
-  // Monta a tabela inicialmente
+  // Monta inicialmente
   montarCorpoTabela();
 
-  // Adiciona tabela ao container
+  // Adiciona a tabela ao container
   container.appendChild(table);
 }
 
-// Executa a função para criar a tabela assim que o script carregar
+// Executa a criação da tabela ao carregar o script
 criarTabelaTop();
