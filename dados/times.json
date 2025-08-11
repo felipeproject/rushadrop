@@ -160,6 +160,39 @@
       }
     ]
   },
+    {
+    "nome": "UDA",
+    "tag": "UDA",
+    "logo": "imagens/times/sf/UDA.png",
+    "id": "TEAM #6",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "MAGO12K",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "MAGO12K",
+        "KD": 1.40
+      },
+      {
+        "nome": "M4T4_BOI",
+        "KD": 1.65
+      },
+      {
+        "nome": "CAPIVARA-CALVA",
+        "KD": "0"
+      },
+      {
+        "nome": "fidalgo",
+        "KD": "0"
+      },
+      {
+        "nome": "Ibuprofeno_800mg",
+        "KD": 1.35
+      }
+    ]
+  },
   {
     "nome": "FALCON",
     "tag": "FLCN",
@@ -260,31 +293,6 @@
     ]
   },
   {
-    "nome": "UDA",
-    "tag": "UDA",
-    "logo": "imagens/times/sf/UDA.png",
-    "id": "TEAM #",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "MAGO12K",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "MAGO12K",
-        "KD": 1.40
-      },
-      {
-        "nome": "M4T4_BOI",
-        "KD": 1.65
-      },
-      {
-        "nome": "Ibuprofeno_800mg",
-        "KD": 1.35
-      }
-    ]
-  },
-  {
     "nome": "STRAFE",
     "tag": "STFE",
     "logo": "imagens/times/sf/STRAFE.png",
@@ -330,4 +338,5 @@
       }
     ]
   }
+
 ]
