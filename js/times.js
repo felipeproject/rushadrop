@@ -14,6 +14,18 @@ const modalBody = document.getElementById('modal-body');
 const modalClose = document.getElementById('modal-close');
 
 let timesData = [];
+let jogadoresParaTabela = [];
+
+// Funções de abrir e fechar modal
+function openModal() {
+  modal.setAttribute('aria-hidden', 'false');
+  modalBody.focus();
+}
+
+function closeModal() {
+  modal.setAttribute('aria-hidden', 'true');
+  modalBody.innerHTML = '';
+}
 
 modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => {
@@ -25,16 +37,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-function openModal() {
-  modal.setAttribute('aria-hidden', 'false');
-  modalBody.focus();
-}
-
-function closeModal() {
-  modal.setAttribute('aria-hidden', 'true');
-  modalBody.innerHTML = '';
-}
-
+// Busca CSV
 async function fetchCSV(url) {
   try {
     const response = await fetch(url);
@@ -46,6 +49,7 @@ async function fetchCSV(url) {
   }
 }
 
+// Parse CSV
 function parseCSV(csvText) {
   const lines = csvText.trim().split('\n');
   if (lines.length < 2) return null;
@@ -60,6 +64,7 @@ function parseCSV(csvText) {
   }).filter(Boolean);
 }
 
+// Carregar todos jogadores
 async function carregarTodosJogadores() {
   const jogadoresMap = new Map();
   const arquivos = Object.values(rodadas).flat();
@@ -106,11 +111,13 @@ async function carregarTodosJogadores() {
   return Array.from(jogadoresMap.values()).sort((a, b) => a.bestWinPlace - b.bestWinPlace);
 }
 
+// Ícones
 const iconCapitao = '⚓';
 const iconSubstituicoes = '🔄';
 const iconEntrada = '↗️';
 const iconSaida = '↙️';
 
+// Formatar tempo
 function formatTempoSobrevivido(segundos) {
   if (segundos <= 0) return '0s';
   const horas = Math.floor(segundos / 3600);
@@ -119,43 +126,40 @@ function formatTempoSobrevivido(segundos) {
   return `${horas ? `${horas}h ` : ''}${minutos ? `${minutos}min ` : ''}${segs && !horas ? `${segs}s` : ''}`.trim();
 }
 
+// Colunas da tabela
 const colunas = [
   { key: 'nome', label: 'Jogador', sortable: true, tooltip: '' },
   { key: 'kills', label: 'Kills', sortable: true, tooltip: '' },
   { key: 'assistencias', label: 'Assistências', sortable: true, tooltip: '' },
   { key: 'danos', label: 'Danos', sortable: true, tooltip: '' },
-  { key: 'timeSurvived', label: 'Tempo Sobrevivido', sortable: true, tooltip: '' },
   { key: 'headshotKills', label: 'Headshot', sortable: true, tooltip: '' },
-  // { 
-  //   key: 'kd', label: 'KD', sortable: true,
-  //   tooltip: `K/D é a relação entre o número de eliminações (kills) e mortes. Quando o K/D é maior que 1, significa que você elimina mais inimigos do que morre. Essa métrica mostra como você está se saindo nos combates — quanto maior o K/D, melhor seu desempenho.` 
-  // }
+  { key: 'timeSurvived', label: 'Tempo Sobrevivido', sortable: true, tooltip: '' },
 ];
 
-// Estado para ordenação da tabela
 let sortColIndex = null;
 let sortAsc = true;
 
-// Tooltip
 let tooltipEl;
 let tooltipLocked = false;
 
 function createTooltip() {
   tooltipEl = document.createElement('div');
-  tooltipEl.style.position = 'absolute';
-  tooltipEl.style.background = 'rgba(0,0,0,0.85)';
-  tooltipEl.style.color = '#fff';
-  tooltipEl.style.padding = '6px 10px';
-  tooltipEl.style.borderRadius = '5px';
-  tooltipEl.style.fontSize = '0.8rem';
-  tooltipEl.style.maxWidth = '220px';
-  tooltipEl.style.zIndex = '9999';
-  tooltipEl.style.pointerEvents = 'none';
-  tooltipEl.style.transition = 'opacity 0.2s ease';
-  tooltipEl.style.opacity = '0';
-  tooltipEl.style.left = '0px';
-  tooltipEl.style.top = '0px';
-  tooltipEl.style.whiteSpace = 'normal';
+  Object.assign(tooltipEl.style, {
+    position: 'absolute',
+    background: 'rgba(0,0,0,0.85)',
+    color: '#fff',
+    padding: '6px 10px',
+    borderRadius: '5px',
+    fontSize: '0.8rem',
+    maxWidth: '220px',
+    zIndex: '9999',
+    pointerEvents: 'none',
+    transition: 'opacity 0.2s ease',
+    opacity: '0',
+    left: '0px',
+    top: '0px',
+    whiteSpace: 'normal',
+  });
   document.body.appendChild(tooltipEl);
 }
 
@@ -176,13 +180,13 @@ function hideTooltip() {
   }
 }
 
-function toggleTooltipClick(event, el) {
-  event.stopPropagation();
+function toggleTooltipClick(e, el) {
+  e.stopPropagation();
   if (tooltipLocked) {
     hideTooltip();
     tooltipLocked = false;
   } else {
-    showTooltip(el, colunas[6].tooltip);
+    showTooltip(el, colunas.find(c => c.key === 'headshotKills').tooltip);
     tooltipLocked = true;
   }
 }
@@ -194,8 +198,8 @@ document.body.addEventListener('click', () => {
   }
 });
 
+// Renderizar tabela
 function renderTabela(jogadores) {
-  // Cabeçalho da tabela com colunas clicáveis
   const theadHTML = `
     <thead>
       <tr style="background-color: #1f1f1f; color: #9ae6b4;">
@@ -213,34 +217,36 @@ function renderTabela(jogadores) {
       </tr>
     </thead>
   `;
-
-  // Corpo da tabela
   const tbodyHTML = jogadores.map(j => `
-    <tr>
-      <td style="text-align:center; font-weight: 500; color: #ddd;">${j.nome}</td>
-      <td style="text-align:center;">${j.kills}</td>
-      <td style="text-align:center;">${j.assistencias}</td>
-      <td style="text-align:center;">${j.danos}</td>
-      <td style="text-align:center;">${j.timeSurvived}</td>
-      <td style="text-align:center;">${j.headshotKills}</td>
-      <td
-        style="text-align:center; position: relative; cursor: pointer;"
-        onclick="toggleTooltipClick(event, this)"
-        tabindex="0"
-        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); toggleTooltipClick(event, this); }"
-      >${j.kd}</td>
-    </tr>
-  `).join('');
+  <tr>
+    <td style="text-align:center; font-weight: 500; color: #ddd;">${j.nome}</td>
+    <td style="text-align:center;">${j.kills}</td>
+    <td style="text-align:center;">${j.assistencias}</td>
+    <td style="text-align:center;">${j.danos}</td>
+    <td style="text-align:center;">${j.headshotKills}</td>
+    <td style="text-align:center;">${j.timeSurvived}</td>
+  </tr>
+`).join('')
 
-  modalBody.querySelector('#modal-team-table').outerHTML = `
-    <table id="modal-team-table" style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
+  const tableHTML = `
+    <table style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
       ${theadHTML}
       <tbody>${tbodyHTML}</tbody>
     </table>
   `;
+
+  // Remove tabela antiga se existir
+  const oldTable = document.querySelector('#modal-team-table');
+  if (oldTable) oldTable.remove();
+
+  const containerTable = document.createElement('div');
+  containerTable.id = 'modal-team-table';
+  containerTable.innerHTML = tableHTML;
+  modalBody.appendChild(containerTable);
 }
 
-function handleSort(colIndex) {
+// Funciona para ordenar
+async function handleSort(colIndex) {
   if (sortColIndex === colIndex) {
     sortAsc = !sortAsc;
   } else {
@@ -249,39 +255,30 @@ function handleSort(colIndex) {
   }
 
   const key = colunas[colIndex].key;
-
   jogadoresParaTabela.sort((a, b) => {
     let valA = a[key];
     let valB = b[key];
-
     if (key === 'timeSurvived') {
       valA = a.timeSurvivedRaw;
       valB = b.timeSurvivedRaw;
     }
-    if (key === 'kd') {
-      valA = a.kdRaw;
-      valB = b.kdRaw;
-    }
-
     if (typeof valA === 'string') {
       valA = valA.toLowerCase();
       valB = valB.toLowerCase();
     }
-
     if (valA < valB) return sortAsc ? -1 : 1;
     if (valA > valB) return sortAsc ? 1 : -1;
     return 0;
   });
-
   renderTabela(jogadoresParaTabela);
 }
 
-let jogadoresParaTabela = [];
-
+// Carregar detalhes do time
 async function loadTeamDetails(tag) {
-  const time = timesData.find(t => t.tag.toLowerCase() === tag.toLowerCase());
+  // Proteção: verifica se a tag existe na lista de times
+  const time = Array.isArray(timesData) && timesData.find(t => t.tag && t.tag.toLowerCase() === tag.toLowerCase());
   if (!time) {
-    modalBody.innerHTML = `<p>Time não encontrado.</p>`;
+    modalBody.innerHTML = `<p>Time não encontrado ou dados incompletos.</p>`;
     openModal();
     return;
   }
@@ -292,110 +289,97 @@ async function loadTeamDetails(tag) {
   try {
     const jogadoresDetalhados = await carregarTodosJogadores();
 
-    // Map de jogadores CSV para fácil busca
     const dadosMap = new Map(
       jogadoresDetalhados.map(j => [j.nick.toLowerCase(), j])
     );
 
-    // Prepara jogadores para a tabela (com valores para sort)
     jogadoresParaTabela = time.jogadores
-      .filter(jogadorTime => jogadorTime.nome && jogadorTime.nome !== '*')
+      .filter(j => j.nome && j.nome !== '*')
       .map(jogadorTime => {
         const nomeLimpo = jogadorTime.nome.trim();
         const dadosCsv = dadosMap.get(nomeLimpo.toLowerCase());
         const link = dadosCsv ? createOpggLink(dadosCsv.nick).outerHTML : nomeLimpo;
 
-        const kd = jogadorTime.KD ?? 0;
         return {
           nome: link,
           kills: dadosCsv?.kills || 0,
           assistencias: dadosCsv?.assistencias || 0,
           danos: dadosCsv?.danos || 0,
-          timeSurvived: formatTempoSobrevivido(dadosCsv?.timeSurvived || 0),
+          timeSurvived: dadosCsv ? formatTempoSobrevivido(dadosCsv.timeSurvived) : '0s',
           timeSurvivedRaw: dadosCsv?.timeSurvived || 0,
           headshotKills: dadosCsv?.headshotKills || 0,
-          // kd: kd.toFixed(2),
-          // kdRaw: kd,
         };
       });
 
-    const status = time.statusInscricao || '';
+    const status = (time.statusInscricao || '').toLowerCase();
     const statusColor = {
       'inscrito ✅': 'green',
       'aguardando pagamento ⏳': 'orange',
       'não inscrito❌': 'red',
       'nao inscrito❌': 'red',
-    }[status.toLowerCase()] || '#ccc';
+    }[status] || '#ccc';
 
     const substituicoesHTML = (time.entradasSaidas || []).map(sub => `
       <p style="margin-left: 30px; font-size: 0.95rem;">
-        ${iconEntrada} Entrada: <strong>${sub.entrada}</strong> &nbsp; - &nbsp; ${iconSaida} Saída: <strong>${sub.saida}</strong>
-      </p>`).join('');
+        ${iconEntrada} <strong>Entrada:</strong> ${sub.entrada} &nbsp; - &nbsp; ${iconSaida} <strong>Saída:</strong> ${sub.saida}
+      </p>
+    `).join('');
 
     const html = `
-      <section style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-start;">
         <img src="${time.logo}" alt="Logo do time ${time.nome}" style="width: 105px; height: 150px; object-fit: contain;" />
         <div>
-          <h1>${time.nome}</h1><br>
+          <h1>${time.nome}</h1>
           <p>${iconCapitao} <strong>Capitão:</strong> ${time.capitao || 'Não definido'}</p>
-          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${(time.entradasSaidas || []).length} de 2</p>
+          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${time.entradasSaidas.length} de 2</p>
           ${substituicoesHTML}
           <p>${time.descricao || ''}</p>
           ${time.linkSite ? `<p><br><a href="${time.linkSite}" target="_blank" rel="noopener noreferrer" style="color:#9ae6b4;">Site do time</a></p>` : ''}
           <p><strong>ID do time:</strong> ${time.id || 'Não informado'}</p>
         </div>
       </section>
-
       <div style="text-align: right; margin-bottom: 10px; font-weight: bold; font-size: 1.1rem; color: ${statusColor};">
-        <strong>Status do time:</strong> ${status}
+        <strong>Status do time:</strong> ${time.statusInscricao}
       </div>
-
       <h2>Jogadores e Estatísticas</h2>
-      <table id="modal-team-table" style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
-        <!-- tabela será gerada aqui -->
-      </table>
-
+      <div id="modal-team-table"></div>
       ${time.galeria ? `
         <section style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
-          ${time.galeria.map(img => `<img src="${img}" alt="Imagem do time ${time.nome}" loading="lazy" style="max-width: 150px; border-radius: 5px;" />`).join('')}
+          ${time.galeria.map(img => `<img src="${img}" alt="Imagem do time ${time.nome}" loading="lazy" style="max-width: 150px; border-radius: 5px;">`).join('')}
         </section>
       ` : ''}
     `;
 
     modalBody.innerHTML = html;
-
     renderTabela(jogadoresParaTabela);
-
     aplicarEstilosResponsivosInline();
 
   } catch (e) {
     modalBody.innerHTML = `<p>Erro ao carregar detalhes do time.</p>`;
-    console.error(e);
   }
 }
 
+// Estilos responsivos
 function aplicarEstilosResponsivosInline() {
   if (window.innerWidth > 768) return;
-
-  modalBody.parentElement.style.padding = '10px';
-  modalBody.parentElement.style.maxWidth = '95%';
-  modalBody.parentElement.style.margin = '0 auto';
-  modalBody.parentElement.style.overflowY = 'auto';
-  modalBody.parentElement.style.maxHeight = '90vh';
-
+  Object.assign(modalBody.parentElement.style, {
+    padding: '10px',
+    maxWidth: '95%',
+    margin: '0 auto',
+    overflowY: 'auto',
+    maxHeight: '90vh',
+  });
   const section = modalBody.querySelector('section');
   if (section) {
     section.style.flexDirection = 'column';
     section.style.alignItems = 'center';
     section.style.textAlign = 'center';
   }
-
   const logo = modalBody.querySelector('section img');
   if (logo) {
     logo.style.width = '80px';
     logo.style.height = '100px';
   }
-
   const table = modalBody.querySelector('table');
   if (table) {
     table.style.fontSize = '0.8rem';
@@ -403,12 +387,13 @@ function aplicarEstilosResponsivosInline() {
   }
 }
 
+// Manipulação clique na carta
 function handleCardClick(e) {
   if (e.target.tagName === 'A') return;
   const card = e.target.closest('.time-card');
   if (!card) return;
   const tag = card.dataset.tag;
-  if (!tag) return;
+  if (!tag) return; // evita erro
   loadTeamDetails(tag);
 }
 
@@ -419,6 +404,7 @@ function handleCardKeyDown(e) {
   }
 }
 
+// Init
 async function init() {
   try {
     timesData = await fetchTimes();
@@ -431,13 +417,13 @@ async function init() {
     const filtered = filterTimes(timesData, searchInput.value);
     renderTimes(container, filtered, noResults);
   });
-
   container.addEventListener('click', handleCardClick);
   container.addEventListener('keydown', handleCardKeyDown);
 }
 
-// Tornar funções globais para chamada inline no HTML
+// Tornar funções globais
 window.handleSort = handleSort;
 window.toggleTooltipClick = toggleTooltipClick;
 
+// Executar
 init();

@@ -83,8 +83,10 @@ export function renderTimes(container, times, noResults) {
       margin: '0'
     });
 
+    // Renderizando jogadores
     time.jogadores.forEach(jogador => {
       const li = document.createElement('li');
+      // Se jogador for uma string ou objeto com nome
       li.textContent = typeof jogador === 'string' ? jogador : jogador.nome || '[Nome não definido]';
       ul.appendChild(li);
     });
@@ -92,31 +94,35 @@ export function renderTimes(container, times, noResults) {
     // === TOOLTIP "Ver mais" ===
     const verMais = document.createElement('div');
     verMais.innerHTML = `Clique para ver mais <span class="seta">→</span>`;
-    verMais.style.position = 'absolute';
-    verMais.style.top = '-20px';
-    verMais.style.left = '10%';
-    verMais.style.transform = 'translateX(-50%)';
-    verMais.style.backgroundColor = 'rgba(0, 0, 0, 0.18)';
-    verMais.style.color = '#fff';
-    verMais.style.padding = '6px 14px';
-    verMais.style.borderRadius = '6px';
-    verMais.style.fontSize = '1rem';
-    verMais.style.fontWeight = '600';
-    verMais.style.textShadow = '1px 1px 3px rgba(0, 0, 0, 0.14)';
-    verMais.style.opacity = '0';
-    verMais.style.transition = 'opacity 0.3s ease';
-    verMais.style.pointerEvents = 'none';
-    verMais.style.userSelect = 'none';
-    verMais.style.display = 'flex';
-    verMais.style.alignItems = 'center';
-    verMais.style.gap = '6px';
-    verMais.style.zIndex = '10';
+    Object.assign(verMais.style, {
+      position: 'absolute',
+      top: '-20px',
+      left: '10%',
+      transform: 'translateX(-50%)',
+      backgroundColor: 'rgba(0, 0, 0, 0.18)',
+      color: '#fff',
+      padding: '6px 14px',
+      borderRadius: '6px',
+      fontSize: '1rem',
+      fontWeight: '600',
+      textShadow: '1px 1px 3px rgba(0, 0, 0, 0.14)',
+      opacity: '0',
+      transition: 'opacity 0.3s ease',
+      pointerEvents: 'none',
+      userSelect: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      zIndex: '10'
+    });
 
     const seta = verMais.querySelector('.seta');
-    seta.style.transition = 'transform 0.3s ease';
-    seta.style.display = 'inline-block';
+    Object.assign(seta.style, {
+      transition: 'transform 0.3s ease',
+      display: 'inline-block'
+    });
 
-    // === Tooltip Interações ===
+    // === Interações do Tooltip ===
     let showTimeoutId;
     let hideTimeoutId;
 
@@ -145,12 +151,13 @@ export function renderTimes(container, times, noResults) {
       }, 100);
     };
 
-    // === MONTA CARD ===
+    // === Monta o card ===
     card.appendChild(logoWrapper);
     card.appendChild(nome);
     card.appendChild(ul);
     card.appendChild(verMais);
 
+    // Eventos de interação
     card.addEventListener('mouseenter', scheduleShow);
     card.addEventListener('mousemove', scheduleShow);
     card.addEventListener('mouseleave', cancelAndHideQuickly);
