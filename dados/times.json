@@ -137,11 +137,30 @@
     ]
   },
   {
+    "nome": "CAPIVARA",
+    "tag": "CAPI",
+    "logo": "imagens/times/sf/CAPIVARAS.png",
+    "id": "TEAM #6",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "CAPIVARA-CALVA",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "CAPIVARA-CALVA"
+      },
+      {
+        "nome": "fidalgo"
+      }
+    ]
+  },
+  {
     "nome": "UDA",
     "tag": "UDA",
     "logo": "imagens/times/sf/UDA.png",
     "id": "TEAM #6",
-    "statusInscricao": "Inscrito ✅",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "MAGO12K",
     "substituicoesFeitas": 0,
@@ -154,22 +173,16 @@
         "nome": "M4T4_BOI"
       },
       {
-        "nome": "CAPIVARA-CALVA"
-      },
-      {
-        "nome": "fidalgo"
-      },
-      {
         "nome": "Ibuprofeno_800mg"
       }
     ]
   },
-    {
+  {
     "nome": "STRAFE",
     "tag": "STFE",
     "logo": "imagens/times/sf/STRAFE.png",
     "id": "TEAM #",
-    "statusInscricao": "Inscrito ✅",
+    "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
     "capitao": "AnDreviZ",
     "substituicoesFeitas": 0,
@@ -286,6 +299,22 @@
     "jogadores": [
       {
         "nome": "Spawnsbg"
+      }
+    ]
+  },
+  {
+    "nome": "YPNUS",
+    "tag": "YPNS",
+    "logo": "imagens/times/sf/YPNUS.png",
+    "id": "TEAM #",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": ""
       }
     ]
   }

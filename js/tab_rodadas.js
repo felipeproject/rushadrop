@@ -1,3 +1,5 @@
+// js/tab_rodadas.js
+
 import { rodadas, mapas, PONTOS_POR_COLOCACAO } from './configGlobal.js';
 
 const PONTOS_PADRAO = 1;
@@ -43,7 +45,8 @@ async function processarJogo(arquivo, times) {
   const text = await resp.text();
   const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
 
-  if (parsed.data.length === 0) throw new Error(`Jogo vazio: ${arquivo}`);
+  if (!parsed || !parsed.data || parsed.data.length === 0)
+    throw new Error(`Jogo vazio ou inválido: ${arquivo}`);
 
   const killsPorTime = {};
   const melhorPosPorTime = {};
@@ -59,6 +62,7 @@ async function processarJogo(arquivo, times) {
 
     killsPorTime[time] = (killsPorTime[time] || 0) + kills;
 
+    // Melhor colocação é a menor posição
     if (!melhorPosPorTime[time] || pos < melhorPosPorTime[time]) {
       melhorPosPorTime[time] = pos;
     }
@@ -69,10 +73,12 @@ async function processarJogo(arquivo, times) {
     const kills = killsPorTime[time];
     const pos = melhorPosPorTime[time];
 
-    // Ignora se nenhum kill foi feito e posição não é válida
-    if (kills === 0 && !pos) continue;
+    // Se a colocação não está entre as chaves de PONTOS_POR_COLOCACAO, aplica padrão ou ignora
+    const pontosColocacao = pontosPorColocacao(pos);
 
-    const pontos = pontosPorColocacao(pos) + kills;
+    // Pontuação = pontos por colocação + kills
+    const pontos = pontosColocacao + kills;
+
     geralJogo[time] = { kills, pontos };
   }
 
