@@ -181,31 +181,6 @@
     ]
   },
   {
-    "nome": "STRAFE",
-    "tag": "STFE",
-    "logo": "imagens/times/sf/STRAFE.png",
-    "id": "TEAM #",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "AnDreviZ",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "AnDreviZ"
-      },
-      {
-        "nome": "WF_PROZIN"
-      },
-      {
-        "nome": "SaydomeiOficial"
-      },
-      {
-        "nome": "EdlyCruz"
-      }
-    ]
-  },
-  {
     "nome": "FALCON",
     "tag": "FLCN",
     "logo": "imagens/times/sf/FALCON.png",
@@ -290,18 +265,24 @@
     ]
   },
   {
-    "nome": "CAOZ",
-    "tag": "CAOZ",
-    "logo": "imagens/times/sf/CAOZ.png",
+    "nome": "BLACK Z HOLE",
+    "tag": "BZH",
+    "logo": "imagens/times/sf/BLACK%20Z%20HOLE.jpg",
     "id": "TEAM #",
     "statusInscricao": "Aguardando pagamento ⏳",
     "descricao": "",
-    "capitao": "Spawnsbg",
+    "capitao": "AnDreviZ",
     "substituicoesFeitas": 0,
     "entradasSaidas": [],
     "jogadores": [
       {
+        "nome": "AnDreviZ"
+      },
+      {
         "nome": "Spawnsbg"
+      },
+      {
+        "nome": "WF_PROZIN"
       }
     ]
   }
