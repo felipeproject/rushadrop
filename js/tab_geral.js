@@ -126,7 +126,7 @@ function gerarCelulaTime(nomeTime) {
   wrapper.style.alignItems = 'center';
 
   const img = document.createElement('img');
-  img.src = `imagens/times/sf/${nomeTime}.png`;
+  img.src = `imagens/times/tb/${nomeTime}.png`;
   img.alt = nomeTime;
   Object.assign(img.style, {
     width: '80px',
@@ -138,7 +138,7 @@ function gerarCelulaTime(nomeTime) {
 
   img.onerror = () => {
     img.onerror = null;
-    img.src = `imagens/times/sf/${nomeTime}.jpg`;
+    img.src = `imagens/times/tb/${nomeTime}.jpg`;
   };
 
   const span = document.createElement('span');
