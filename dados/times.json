@@ -209,6 +209,34 @@
     ]
   },
   {
+    "nome": "ANTA",
+    "tag": "ANTA",
+    "logo": "imagens/times/sf/ANTA.png",
+    "id": "TEAM #9",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "0_justiceiro",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "0_justiceiro"
+      },
+      {
+        "nome": "SargentoPE"
+      },
+      {
+        "nome": "Alex-Lives"
+      },
+      {
+        "nome": "KaduzaoFPS"
+      },
+      {
+        "nome": "PIRATA_FPS"
+      }
+    ]
+  },
+  {
     "nome": "FALCON",
     "tag": "FLCN",
     "logo": "imagens/times/sf/FALCON.png",
