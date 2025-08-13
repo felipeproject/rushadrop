@@ -181,6 +181,28 @@
     ]
   },
   {
+    "nome": "BLACK Z HOLE",
+    "tag": "BZH",
+    "logo": "imagens/times/sf/BLACK Z HOLE.jpg",
+    "id": "TEAM #",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "AnDreviZ",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "AnDreviZ"
+      },
+      {
+        "nome": "Spawnsbg"
+      },
+      {
+        "nome": "WF_PROZIN"
+      }
+    ]
+  },
+  {
     "nome": "FALCON",
     "tag": "FLCN",
     "logo": "imagens/times/sf/FALCON.png",
@@ -261,28 +283,6 @@
       },
       {
         "nome": "SAMURUCUCA"
-      }
-    ]
-  },
-  {
-    "nome": "BLACK Z HOLE",
-    "tag": "BZH",
-    "logo": "imagens/times/sf/BLACK%20Z%20HOLE.jpg",
-    "id": "TEAM #",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "AnDreviZ",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "AnDreviZ"
-      },
-      {
-        "nome": "Spawnsbg"
-      },
-      {
-        "nome": "WF_PROZIN"
       }
     ]
   }
