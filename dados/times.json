@@ -209,62 +209,6 @@
     ]
   },
   {
-    "nome": "ANTA",
-    "tag": "ANTA",
-    "logo": "imagens/times/sf/ANTA.png",
-    "id": "TEAM #9",
-    "statusInscricao": "Inscrito ✅",
-    "descricao": "",
-    "capitao": "0_justiceiro",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "0_justiceiro"
-      },
-      {
-        "nome": "SargentoPE"
-      },
-      {
-        "nome": "Alex-Lives"
-      },
-      {
-        "nome": "KaduzaoFPS"
-      },
-      {
-        "nome": "PIRATA_FPS"
-      }
-    ]
-  },
-  {
-    "nome": "FALCON",
-    "tag": "FLCN",
-    "logo": "imagens/times/sf/FALCON.png",
-    "id": "TEAM #9",
-    "statusInscricao": "Aguardando pagamento ⏳",
-    "descricao": "",
-    "capitao": "Racha_Cucaa",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "Racha_Cucaa"
-      },
-      {
-        "nome": "JASONVOORHEES13K"
-      },
-      {
-        "nome": "J4P4XX"
-      },
-      {
-        "nome": "PHILLROX"
-      },
-      {
-        "nome": "Baiano116"
-      }
-    ]
-  },
-  {
     "nome": "EL MATADORES DE NOOB",
     "tag": "EMDN",
     "logo": "imagens/times/sf/EL MATADORES DE NOOB.png",
@@ -317,6 +261,22 @@
       },
       {
         "nome": "SAMURUCUCA"
+      }
+    ]
+  },
+  {
+    "nome": "Banco de Reservas",
+    "tag": "",
+    "logo": "imagens/times/sf/load.png",
+    "id": "TEAM #10",
+    "statusInscricao": "Aguardando pagamento ⏳",
+    "descricao": "",
+    "capitao": "Racha_Cucaa",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "Racha_Cucaa"
       }
     ]
   }
