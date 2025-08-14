@@ -151,7 +151,13 @@
         "nome": "CAPIVARA-CALVA"
       },
       {
-        "nome": "fidalgo"
+        "nome": "Racha_Cucaa"
+      },
+      {
+        "nome": "F̶i̶d̶a̶l̶g̶o̶"
+      },
+      {
+        "nome": "r̶i̶c̶k̶z̶e̶l̶"
       }
     ]
   },
@@ -261,22 +267,6 @@
       },
       {
         "nome": "SAMURUCUCA"
-      }
-    ]
-  },
-  {
-    "nome": "Disponiveis para recrutamento",
-    "tag": "",
-    "logo": "imagens/times/sf/load.png",
-    "id": "TEAM #10",
-    "statusInscricao": "Inscrito ✅",
-    "descricao": "",
-    "capitao": "",
-    "substituicoesFeitas": 0,
-    "entradasSaidas": [],
-    "jogadores": [
-      {
-        "nome": "Racha_Cucaa"
       }
     ]
   }

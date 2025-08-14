@@ -1,4 +1,19 @@
+// rushadrop/js/navbar.js
+
 export function injectNavbar() {
+  // Adiciona Font Awesome via JS
+  if (!document.getElementById('fa-css')) {
+    const faLink = document.createElement('link');
+    faLink.id = 'fa-css';
+    faLink.rel = 'stylesheet';
+    faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css';
+    faLink.integrity = 'sha512-papv+GfqZk9LlT9D9x9J8F2bSg2tFjv8Q0a/6oXg/7Mljf9WZBx7v2Kz+1Xx0Qh5nR1qU2ZYD2T0/c61h2yJGw==';
+    faLink.crossOrigin = 'anonymous';
+    faLink.referrerPolicy = 'no-referrer';
+    document.head.appendChild(faLink);
+  }
+
+  // Cria a navbar
   const navbarHTML = `
     <nav id="navbar-top" style="
       position: fixed;
@@ -30,7 +45,7 @@ export function injectNavbar() {
         padding-bottom: 1rem;
         margin: 0;
         list-style: none;
-        font-weight: 600;
+        font-weight: 50;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         flex-wrap: wrap;
         transition: max-height 0.3s ease;
@@ -40,45 +55,21 @@ export function injectNavbar() {
         ${createNavItem('times.html', 'fa-users', 'Times')}
         ${createNavItem('tabelas.html', 'fa-table', 'Tabelas')}
         ${createNavItem('informacoes.html', 'fa-info-circle', 'Informações')}
+        ${createNavItem('https://www.twitch.tv/', 'fa-twitch', 'Live Twitch', 'twitch', 'fab')}
       </ul>
 
       <style>
         @media (max-width: 768px) {
-          #menu-toggle {
-            display: block !important;
-          }
-
-          #navbar-links {
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-height: 500px;
-          }
-
-          #navbar-links.collapsed {
-            max-height: 0;
-            padding-bottom: 0 !important;
-          }
+          #menu-toggle { display: block !important; }
+          #navbar-links { flex-direction: column; align-items: center; width: 100%; max-height: 500px; }
+          #navbar-links.collapsed { max-height: 0; padding-bottom: 0 !important; }
         }
 
-        .nav-link {
-          position: relative;
-          color: white;
-          text-decoration: none;
-          transition: color 0.3s ease;
-          display: inline-block;
-          padding-bottom: 4px;
-        }
+        .nav-link { position: relative; color: white; text-decoration: none; transition: color 0.3s ease; display: inline-block; padding-bottom: 4px; }
+        .nav-link .underline { position: absolute; height: 2px; bottom: 0; left: 0; background-color: #facc15; width: 0%; transition: width 0.3s ease; }
 
-        .nav-link .underline {
-          position: absolute;
-          height: 2px;
-          bottom: 0;
-          left: 0;
-          background-color: #facc15;
-          width: 0%;
-          transition: width 0.3s ease;
-        }
+        .nav-link.twitch { color: #9146FF; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
       </style>
     </nav>
   `;
@@ -92,66 +83,46 @@ export function injectNavbar() {
   const toggleButton = document.getElementById('menu-toggle');
   const logo = document.getElementById('navbar-logo');
   const linksContainer = document.getElementById('navbar-links');
-  const currentPage = window.location.pathname.split('/').pop();
   let isMobile = window.innerWidth <= 768;
 
-  // Destaca a página atual
+  const currentPage = window.location.pathname.split('/').pop();
   navLinks.forEach(link => {
     const underline = link.querySelector('.underline');
-    if (link.getAttribute('href') === currentPage) {
-      link.style.color = '#facc15';
-      underline.style.width = '100%';
-    } else {
-      link.addEventListener('mouseover', () => {
-        link.style.color = '#facc15';
-        underline.style.width = '100%';
-      });
-      link.addEventListener('mouseout', () => {
-        link.style.color = 'white';
-        underline.style.width = '0%';
-      });
+    if (link.getAttribute('href') === currentPage) { link.style.color = '#facc15'; underline.style.width = '100%'; }
+    else {
+      link.addEventListener('mouseover', () => { link.style.color = link.classList.contains('twitch') ? '#9146FF' : '#facc15'; underline.style.width = '100%'; });
+      link.addEventListener('mouseout', () => { link.style.color = link.classList.contains('twitch') ? '#9146FF' : 'white'; underline.style.width = '0%'; });
     }
+    if (link.classList.contains('twitch')) { link.setAttribute('target','_blank'); link.setAttribute('rel','noopener noreferrer'); }
   });
 
-  // Toggle do menu
-  const toggleMenu = () => {
-    linksContainer.classList.toggle('collapsed');
-  };
+  const toggleMenu = () => linksContainer.classList.toggle('collapsed');
   toggleButton.addEventListener('click', toggleMenu);
-  logo.addEventListener('click', () => {
-    if (isMobile) toggleMenu();
-  });
+  logo.addEventListener('click', () => { if (isMobile) toggleMenu(); });
 
-  // Recolher após 1s no mobile
-  if (isMobile) {
-    setTimeout(() => {
-      linksContainer.classList.add('collapsed');
-    }, 1000);
+  if (isMobile) setTimeout(() => { linksContainer.classList.add('collapsed'); }, 1000);
+  window.addEventListener('scroll', () => { if (isMobile && !linksContainer.classList.contains('collapsed')) linksContainer.classList.add('collapsed'); });
+
+  function ajustarMainSpacing() {
+    const main = document.querySelector('main');
+    if (!main) return;
+    main.style.paddingTop = window.innerWidth > 768 ? `${navbar.offsetHeight}px` : '0';
   }
 
-  // Recolhe menu aberto ao scrollar no mobile
-  window.addEventListener('scroll', () => {
-    if (isMobile && !linksContainer.classList.contains('collapsed')) {
-      linksContainer.classList.add('collapsed');
-    }
-  });
-
-  // Garante comportamento responsivo ao redimensionar
+  ajustarMainSpacing();
   window.addEventListener('resize', () => {
     isMobile = window.innerWidth <= 768;
-    if (!isMobile) {
-      linksContainer.classList.remove('collapsed');
-    } else {
-      linksContainer.classList.add('collapsed');
-    }
+    if (!isMobile) linksContainer.classList.remove('collapsed');
+    else linksContainer.classList.add('collapsed');
+    ajustarMainSpacing();
   });
 }
 
-function createNavItem(href, iconClass, label) {
+function createNavItem(href, iconClass, label, extraClass = '', iconPrefix = 'fas') {
   return `
     <li>
-      <a href="${href}" class="nav-link">
-        <i class="fas ${iconClass}"></i> ${label}
+      <a href="${href}" class="nav-link ${extraClass}" target="${extraClass==='twitch'?'_blank':''}" rel="${extraClass==='twitch'?'noopener noreferrer':''}">
+        <i class="${iconPrefix} ${iconClass}"></i> ${label}
         <span class="underline"></span>
       </a>
     </li>
