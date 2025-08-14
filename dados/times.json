@@ -215,6 +215,34 @@
     ]
   },
   {
+    "nome": "ANTAS",
+    "tag": "ANTA",
+    "logo": "imagens/times/sf/ANTAS.png",
+    "id": "TEAM #9",
+    "statusInscricao": "Inscrito ✅",
+    "descricao": "",
+    "capitao": "0_justiceiro",
+    "substituicoesFeitas": 0,
+    "entradasSaidas": [],
+    "jogadores": [
+      {
+        "nome": "0_justiceiro"
+      },
+      {
+        "nome": "SargentoPE"
+      },
+      {
+        "nome": "Alex-Lives"
+      },
+      {
+        "nome": "KaduzaoFPS"
+      },
+      {
+        "nome": "PIRATA_FPS"
+      }
+    ]
+  },
+  {
     "nome": "EL MATADORES DE NOOB",
     "tag": "EMDN",
     "logo": "imagens/times/sf/EL MATADORES DE NOOB.png",
