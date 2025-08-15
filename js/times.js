@@ -27,6 +27,7 @@ function closeModal() {
   modalBody.innerHTML = '';
 }
 
+// Event listeners do modal
 modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
@@ -142,6 +143,7 @@ let sortAsc = true;
 let tooltipEl;
 let tooltipLocked = false;
 
+// Criar Tooltip
 function createTooltip() {
   tooltipEl = document.createElement('div');
   Object.assign(tooltipEl.style, {
@@ -163,6 +165,7 @@ function createTooltip() {
   document.body.appendChild(tooltipEl);
 }
 
+// Mostrar Tooltip
 function showTooltip(el, text) {
   if (!tooltipEl) createTooltip();
   tooltipEl.textContent = text;
@@ -173,6 +176,7 @@ function showTooltip(el, text) {
   tooltipEl.style.pointerEvents = 'auto';
 }
 
+// Esconder Tooltip
 function hideTooltip() {
   if (tooltipEl) {
     tooltipEl.style.opacity = '0';
@@ -180,17 +184,22 @@ function hideTooltip() {
   }
 }
 
+// Toggle Tooltip por clique
 function toggleTooltipClick(e, el) {
   e.stopPropagation();
   if (tooltipLocked) {
     hideTooltip();
     tooltipLocked = false;
   } else {
-    showTooltip(el, colunas.find(c => c.key === 'headshotKills').tooltip);
+    // Aqui você pode personalizar o tooltip, por exemplo, usar a tooltip do cabeçalho
+    const colKey = el.dataset.colKey;
+    const col = colunas.find(c => c.key === colKey);
+    showTooltip(el, col ? col.tooltip : '');
     tooltipLocked = true;
   }
 }
 
+// Fechar tooltip ao clicar fora
 document.body.addEventListener('click', () => {
   if (tooltipLocked) {
     hideTooltip();
@@ -207,8 +216,11 @@ function renderTabela(jogadores) {
           <th
             style="padding: 0.75rem; text-align: center; cursor: pointer; user-select:none;"
             tabindex="0"
+            data-col-key="${col.key}"
             onclick="handleSort(${i})"
-            onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); handleSort(${i}); }"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();handleSort(${i});}"
+            onmouseenter="toggleTooltipClick(event, this)"
+            onmouseleave="hideTooltip()"
           >
             ${col.label}
             ${sortColIndex === i ? (sortAsc ? ' ▲' : ' ▼') : ''}
@@ -245,7 +257,7 @@ function renderTabela(jogadores) {
   modalBody.appendChild(containerTable);
 }
 
-// Funciona para ordenar
+// Função de ordenação
 async function handleSort(colIndex) {
   if (sortColIndex === colIndex) {
     sortAsc = !sortAsc;
@@ -255,27 +267,32 @@ async function handleSort(colIndex) {
   }
 
   const key = colunas[colIndex].key;
+
+  // Ordenar a lista
   jogadoresParaTabela.sort((a, b) => {
     let valA = a[key];
     let valB = b[key];
+
     if (key === 'timeSurvived') {
       valA = a.timeSurvivedRaw;
       valB = b.timeSurvivedRaw;
     }
+
     if (typeof valA === 'string') {
       valA = valA.toLowerCase();
       valB = valB.toLowerCase();
     }
+
     if (valA < valB) return sortAsc ? -1 : 1;
     if (valA > valB) return sortAsc ? 1 : -1;
     return 0;
   });
+
   renderTabela(jogadoresParaTabela);
 }
 
 // Carregar detalhes do time
 async function loadTeamDetails(tag) {
-  // Proteção: verifica se a tag existe na lista de times
   const time = Array.isArray(timesData) && timesData.find(t => t.tag && t.tag.toLowerCase() === tag.toLowerCase());
   if (!time) {
     modalBody.innerHTML = `<p>Time não encontrado ou dados incompletos.</p>`;
@@ -298,6 +315,7 @@ async function loadTeamDetails(tag) {
       .map(jogadorTime => {
         const nomeLimpo = jogadorTime.nome.trim();
         const dadosCsv = dadosMap.get(nomeLimpo.toLowerCase());
+
         const link = dadosCsv ? createOpggLink(dadosCsv.nick).outerHTML : nomeLimpo;
 
         return {
@@ -311,6 +329,7 @@ async function loadTeamDetails(tag) {
         };
       });
 
+    // Cor do status
     const status = (time.statusInscricao || '').toLowerCase();
     const statusColor = {
       'inscrito ✅': 'green',
@@ -319,19 +338,21 @@ async function loadTeamDetails(tag) {
       'nao inscrito❌': 'red',
     }[status] || '#ccc';
 
+    // Substituições
     const substituicoesHTML = (time.entradasSaidas || []).map(sub => `
       <p style="margin-left: 30px; font-size: 0.95rem;">
         ${iconEntrada} <strong>Entrada:</strong> ${sub.entrada} &nbsp; - &nbsp; ${iconSaida} <strong>Saída:</strong> ${sub.saida}
       </p>
     `).join('');
 
+    // Renderização do HTML do modal
     const html = `
       <section style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-start;">
         <img src="${time.logo}" alt="Logo do time ${time.nome}" style="width: 105px; height: 150px; object-fit: contain;" />
         <div>
           <h1>${time.nome}</h1>
           <p>${iconCapitao} <strong>Capitão:</strong> ${time.capitao || 'Não definido'}</p>
-          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${time.entradasSaidas.length} de 2</p>
+          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${time.substituicoesFeitas || 0} de 2</p>
           ${substituicoesHTML}
           <p>${time.descricao || ''}</p>
           ${time.linkSite ? `<p><br><a href="${time.linkSite}" target="_blank" rel="noopener noreferrer" style="color:#9ae6b4;">Site do time</a></p>` : ''}
@@ -355,11 +376,12 @@ async function loadTeamDetails(tag) {
     aplicarEstilosResponsivosInline();
 
   } catch (e) {
+    console.error('Erro ao carregar detalhes:', e);
     modalBody.innerHTML = `<p>Erro ao carregar detalhes do time.</p>`;
   }
 }
 
-// Estilos responsivos
+// Estilos responsivos inline
 function aplicarEstilosResponsivosInline() {
   if (window.innerWidth > 768) return;
   Object.assign(modalBody.parentElement.style, {
