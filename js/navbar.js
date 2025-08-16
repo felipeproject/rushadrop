@@ -22,6 +22,7 @@ export function injectNavbar() {
       box-shadow: 0 2px 8px rgba(0,0,0,0.7);
       z-index: 9999;
       transition: transform 0.3s ease;
+      margin-top: 0px;
     ">
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;">
         <div id="navbar-logo" style="font-weight: bold; color: #facc15; font-size: 1.2rem; cursor: pointer;">
@@ -93,7 +94,7 @@ export function injectNavbar() {
       link.addEventListener('mouseover', () => { link.style.color = link.classList.contains('twitch') ? '#9146FF' : '#facc15'; underline.style.width = '100%'; });
       link.addEventListener('mouseout', () => { link.style.color = link.classList.contains('twitch') ? '#9146FF' : 'white'; underline.style.width = '0%'; });
     }
-    if (link.classList.contains('twitch')) { link.setAttribute('target','_blank'); link.setAttribute('rel','noopener noreferrer'); }
+    if (link.classList.contains('twitch')) { link.setAttribute('target', '_blank'); link.setAttribute('rel', 'noopener noreferrer'); }
   });
 
   const toggleMenu = () => linksContainer.classList.toggle('collapsed');
@@ -121,7 +122,7 @@ export function injectNavbar() {
 function createNavItem(href, iconClass, label, extraClass = '', iconPrefix = 'fas') {
   return `
     <li>
-      <a href="${href}" class="nav-link ${extraClass}" target="${extraClass==='twitch'?'_blank':''}" rel="${extraClass==='twitch'?'noopener noreferrer':''}">
+      <a href="${href}" class="nav-link ${extraClass}" target="${extraClass === 'twitch' ? '_blank' : ''}" rel="${extraClass === 'twitch' ? 'noopener noreferrer' : ''}">
         <i class="${iconPrefix} ${iconClass}"></i> ${label}
         <span class="underline"></span>
       </a>
