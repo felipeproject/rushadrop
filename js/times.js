@@ -352,7 +352,7 @@ async function loadTeamDetails(tag) {
         <div>
           <h1>${time.nome}</h1>
           <p>${iconCapitao} <strong>Capitão:</strong> ${time.capitao || 'Não definido'}</p>
-          <p>${iconSubstituicoes} <strong>Substituições feitas:</strong> ${time.substituicoesFeitas || 0} de 2</p>
+          <p>${iconSubstituicoes} <strong>Alterações feitas:</strong> ${time.substituicoesFeitas || 0} de 2</p>
           ${substituicoesHTML}
           <p>${time.descricao || ''}</p>
           ${time.linkSite ? `<p><br><a href="${time.linkSite}" target="_blank" rel="noopener noreferrer" style="color:#9ae6b4;">Site do time</a></p>` : ''}
