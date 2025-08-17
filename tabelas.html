@@ -7,29 +7,6 @@
   <link rel="stylesheet" href="css/tabelas.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  <!-- Scripts -->
-  <script type="module">
-    import { injectNavbar } from './js/navbar.js';
-    injectNavbar();
-
-    // Popup de manutenção
-    window.addEventListener('load', () => {
-      Swal.fire({
-        title: 'Página em manutenção ⚠️',
-        text: ' Algumas funcionalidades estão fora do ar. Estamos atualizando!',
-        icon: 'info',
-        confirmButtonText: 'OK',
-        background: '#121212',
-        color: '#f9fafb',
-        iconColor: '#ffffff',
-        confirmButtonColor: '#1f2937',
-      });
-    });
-  </script>
 
   <script>
     tailwind.config = {
@@ -66,7 +43,7 @@
     <div id="topBar" class="flex flex-wrap justify-between items-center mb-5 gap-3">
       <div class="flex gap-3">
         <select id="arquivos" class="bg-cardbg text-white px-3 py-2 rounded-md border border-gray-700">
-          <option>-- Rodadas --</option>
+          <option>Jogos</option>
         </select>
         <button id="btnPontuacao" class="bg-blue-800/30 hover:bg-blue-600 px-4 py-2 rounded-md text-white text-sm">
           ℹ️
@@ -115,7 +92,8 @@
   </div>
 
   <!-- Notificação sutil -->
-  <div id="notifAtualizacao" class="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-500 pointer-events-none">
+  <div id="notifAtualizacao"
+    class="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-500 pointer-events-none">
     Atualização detectada, recarregando...
   </div>
 
@@ -127,15 +105,25 @@
     injectNavbar('#navbar');
 
     // =============================
-    // Carregar tabelas
+    // Carregar tabelas e evento de troca
     // =============================
     window.addEventListener('DOMContentLoaded', async () => {
       const tabelaRodada = new TabelaRodada({ tabelaId: 'tabelaRodada', tituloId: 'tituloTabela' });
+
+      // Inicializa a tabela de rodada
       await tabelaRodada.init('arquivos');
 
+      // Adiciona evento ao select para trocar CSV
+      document.getElementById('arquivos').addEventListener('change', async () => {
+        const caminho = document.getElementById('arquivos').value;
+        await tabelaRodada.carregarCSV(caminho);
+      });
+
+      // Inicializa a tabela geral
       const tabelaGeral = new TabelaGeral({ containerId: 'tabelaGeralContainer' });
       await tabelaGeral.init();
 
+      // Esconde o loader e mostra o conteúdo
       document.getElementById('loader').style.display = 'none';
       document.getElementById('conteudo').style.opacity = 1;
     });
@@ -151,7 +139,7 @@
     window.onclick = e => { if (e.target == modal) modal.classList.add("hidden"); }
 
     // =============================
-    // Reload automático via JSON com notificação sutil
+    // Verificação automática de atualização
     // =============================
     let ultimaAtualizacaoLocal = null;
 
@@ -174,7 +162,7 @@
           notif.classList.add("opacity-100");
           setTimeout(() => notif.classList.remove("opacity-100"), 2000);
 
-          // Pequeno delay antes do reload
+          // Recarregar após delay
           setTimeout(() => location.reload(), 2200);
         }
       } catch (e) {
@@ -184,8 +172,8 @@
 
     // Verificação automática a cada 30 segundos
     setInterval(verificarAtualizacao, 30000);
-
   </script>
 
 </body>
+
 </html>

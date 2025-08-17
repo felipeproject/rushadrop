@@ -7,7 +7,6 @@ export class TabelaRodada {
     this.tabelaId = tabelaId;
     this.tituloId = tituloId;
     this.jogadorParaTime = {};
-    this.killsPorTime = {};
     this.times = [];
   }
 
@@ -23,10 +22,15 @@ export class TabelaRodada {
       const res = await fetch("dados/times.json");
       if (!res.ok) { this.log("Erro: times.json não encontrado"); return; }
       this.times = await res.json();
+
+      // Mapear jogadores para times
+      this.jogadorParaTime = {};
       this.times.forEach(t => {
-        t.jogadores.forEach(j => { this.jogadorParaTime[j.nome] = t.nome; });
-        this.killsPorTime[t.nome] = 0;
+        t.jogadores.forEach(j => {
+          this.jogadorParaTime[j.nome] = t.nome;
+        });
       });
+
       this.log("Times carregados com sucesso");
     } catch (e) {
       this.log("Erro ao carregar times.json: " + e);
@@ -53,6 +57,7 @@ export class TabelaRodada {
 
   async carregarListaEAbrirUltimo(selectId) {
     const select = document.getElementById(selectId);
+    select.innerHTML = ""; // Limpa opções anteriores
     let ultimoValido = null;
 
     for (let i = 0; i < DIAS.length; i++) {
@@ -68,7 +73,7 @@ export class TabelaRodada {
           option.value = caminho;
           option.textContent = MAPAS_POR_DIA[i][j];
           optgroup.appendChild(option);
-          ultimoValido = caminho;
+          ultimoValido = caminho; // grava o último válido
         }
       }
 
@@ -84,60 +89,65 @@ export class TabelaRodada {
   async carregarCSV(caminho) {
     const data = await this.csvValido(caminho) || [];
 
-    // Reset kills e Win Place por time
-    Object.keys(this.killsPorTime).forEach(t => this.killsPorTime[t] = 0);
-    const winPlacePorTime = {};
+    // Inicializa os acumuladores
+    const killsPorTime = {}; // soma de kills por time
+    const lastDeathByTime = {}; // última morte (menor tempo de sobrevivência) por time
 
-    // Processa cada linha
+    // Inicializa os objetos
+    this.times.forEach(t => {
+      killsPorTime[t.nome] = 0;
+      lastDeathByTime[t.nome] = { deathTime: Infinity, winPlace: 0 };
+    });
+
+    // Processa as linhas do CSV
     data.forEach(linha => {
-      const time = this.jogadorParaTime[linha.Name] || linha.TeamName;
+      const nomeJogador = linha.Name;
+      const time = this.jogadorParaTime[nomeJogador];
       if (!time) return;
 
-      // Soma kills
-      const kills = parseInt(linha.Kills) || 0;
-      this.killsPorTime[time] = (this.killsPorTime[time] || 0) + kills;
+      const kills = parseInt(linha["Kills"]) || 0;
+      const timeSurvived = parseFloat(linha["Time Survived"]) || Infinity;
+      const winPlace = parseInt(linha["Win Place"]) || 0;
 
-      // Win Place mais alto do time
-      const wp = parseInt(linha["Win Place"]) || 0;
-      if (!winPlacePorTime[time] || wp > winPlacePorTime[time]) {
-        winPlacePorTime[time] = wp;
+      // Soma kills ao time
+      killsPorTime[time] += kills;
+
+      // Verifica se essa morte é a mais próxima (menor tempo de sobrevivência)
+      if (timeSurvived < lastDeathByTime[time].deathTime) {
+        lastDeathByTime[time] = { deathTime: timeSurvived, winPlace: winPlace };
       }
     });
 
-    // Monta dados da tabela
+    // Cria array de times com seus dados
     const tabelaDados = this.times.map(t => {
-      const kills = this.killsPorTime[t.nome] || 0;
-      const participou = data.some(l => (this.jogadorParaTime[l.Name] === t.nome) || l.TeamName === t.nome);
-
-      const winPlace = winPlacePorTime[t.nome] || 0;
-      const ptsColocacao = PONTOS_POR_COLOCACAO[winPlace] || (winPlace >= 8 ? 1 : 0);
-      const pontos = ptsColocacao + kills + (participou ? 1 : 0);
-
-      // Tooltip do time com nomes dos jogadores
-      const jogadoresNomes = t.jogadores.map(j => j.nome).join(", ");
-
+      const totalKills = killsPorTime[t.nome] || 0;
+      const winPlaceTime = lastDeathByTime[t.nome]?.winPlace || 0;
       return {
+        Rank: 0, // será atualizado após ordenação
         Time: t.nome,
-        Kills: kills,
-        Participou: participou,
-        Pontos: pontos,
-        PontosTooltip: `+ ${ptsColocacao} pts`,
-        TimeTooltip: jogadoresNomes
+        TotalKills: totalKills,
+        WinPlace: winPlaceTime
       };
     });
 
-    tabelaDados.sort((a, b) => b.Pontos - a.Pontos || b.Kills - a.Kills);
+    // Ordena pelo WinPlace asc, depois por Kills desc
+    tabelaDados.sort((a, b) => {
+      if (a.WinPlace !== b.WinPlace) {
+        return a.WinPlace - b.WinPlace; // menor WinPlace primeiro
+      }
+      return b.TotalKills - a.TotalKills; // maior kills em caso de empate
+    });
+
+    // Atribui ranks após ordenação
     tabelaDados.forEach((r, idx) => r.Rank = idx + 1);
 
-    // Render tabela com tooltips
-    const thead = "<tr><th>Rank</th><th>Time</th><th>Kills</th><th>Pontos</th></tr>";
+    // Renderiza a tabela
+    const thead = "<tr><th>Win Place</th><th>Time</th><th>Kills</th></tr>";
     const tbody = tabelaDados.map(r => {
-      const classe = r.Participou ? "" : "time-falta";
-      return `<tr class="${classe}">
-        <td title="${r.PontosTooltip}">${r.Rank}</td>
-        <td title="${r.TimeTooltip}">${r.Time}</td>
-        <td>${r.Kills}</td>
-        <td>${r.Pontos}</td>
+      return `<tr>
+        <td>${r.WinPlace}</td>
+        <td>${r.Time}</td>
+        <td>${r.TotalKills}</td>
       </tr>`;
     }).join("");
 
@@ -147,16 +157,26 @@ export class TabelaRodada {
     }
     tabela.find("thead").html(thead);
     tabela.find("tbody").html(tbody);
-    tabela.DataTable({ paging: false, searching: false, info: false, ordering: true });
+    tabela.DataTable({ paging: false, searching: false, info: false, order: false });
 
-    // Atualiza título: DIA | MAPA | Jogo X/Y
+    // Atualiza o título e a imagem do mapa
     if (this.tituloId) {
-      const partes = caminho.split("/"); // ex: ["csv", "DIA1", "jogo2.csv"]
-      const dia = partes[1].replace("DIA", "DIA "); // DIA1 -> DIA 1
-      const jogoIndex = parseInt(partes[2].replace("jogo", "").replace(".csv", "")); // 2
-      const totalJogos = rodadas[partes[1]].length; // total de jogos do dia
-      const mapa = MAPAS_POR_DIA[DIAS.indexOf(partes[1])][jogoIndex - 1]; // nome do mapa
-      document.getElementById(this.tituloId).textContent = `${dia} | ${mapa} | Jogo ${jogoIndex}/${totalJogos}`;
+      const partes = caminho.split("/"); // exemplo: ["csv", "DIA1", "jogo2.csv"]
+      const dia = partes[1].replace("DIA", "DIA ");
+      const jogoNum = parseInt(partes[2].replace("jogo", "").replace(".csv", ""));
+      const totalJogos = rodadas[partes[1]].length;
+      const mapaIndex = jogoNum - 1;
+      const mapa = MAPAS_POR_DIA[DIAS.indexOf(partes[1])][mapaIndex];
+
+      // Atualiza o título da tabela
+      document.getElementById(this.tituloId).textContent = `${dia} | ${mapa} | Jogo ${jogoNum}/${totalJogos}`;
+
+      // Atualiza a imagem do mapa
+      const imgMapa = document.getElementById('imagemMapa');
+      if (imgMapa) {
+        imgMapa.src = `imagens/mapas/${mapa}.jpg`; // ajuste o caminho e extensão se necessário
+        imgMapa.alt = `Mapa: ${mapa}`;
+      }
     }
   }
 
