@@ -1,16 +1,181 @@
-:root {
-  --logo-size: 100px;
-}
-
-/* regra altamente específica, vence o reset */
-table.dataTable td img.logo-time {
-  height: var(--logo-size) !important;
-  width: auto !important;
-  display: inline-block !important;
-  object-fit: contain !important;
-  max-width: none !important; /* anula o reset global */
-}
-
+/* Geral */
 body {
-  margin-top: 70px; /* ajuste o valor: 20px, 40px, 60px... */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0f0f0f;
+    color: #fff;
+}
+
+/* Navbar */
+#navbar {
+    width: 100%;
+    height: 60px;
+    background-color: #1a1a1a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Loader */
+#loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Conteúdo */
+#conteudo {
+    max-width: 1400px;
+    margin: 80px auto 40px; /* espaço para navbar fixa */
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Título */
+#conteudo h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Barra superior */
+#topBar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#topBar select,
+#topBar button {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#topBar button:hover {
+    background-color: #333;
+}
+
+/* Container das tabelas */
+#tabelasContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Cards das tabelas */
+#tabelasContainer > div {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    flex: 1 1 600px; /* largura mínima para tabela */
+    max-width: 48%;   /* duas tabelas lado a lado em widescreen */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Título das tabelas */
+#tabelasContainer h3 {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* DataTables */
+table.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+table.dataTable th,
+table.dataTable td {
+    padding: 8px 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+table.dataTable th {
+    background-color: #2c2c2c;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background-color: #222;
+}
+
+/* Logos dentro da tabela, se houver */
+table.dataTable td img.logo-time {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Modal Pontuação */
+#modalPontuacao {
+    display: none; /* JS vai controlar a exibição */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+#modalPontuacao > div {
+    background-color: #1e1e1e;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 400px;
+}
+
+#modalPontuacao .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8em;
+    cursor: pointer;
+}
+
+/* Notificação sutil */
+#notifAtualizacao {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #fff;
+    display: none; /* JS controla */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1500;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    #tabelasContainer > div {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
 }

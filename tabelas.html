@@ -1,102 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <title>Campeonato - Tabelas</title>
-  <link rel="stylesheet" href="css/tabelas.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            darkbg: '#0f0f0f',
-            cardbg: '#1e1e1e',
-            thbg: '#2c2c2c'
-          }
-        }
-      }
-    }
-  </script>
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/tabelas.css" />
+
+  <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <!-- PapaParse -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 
-<body class="bg-darkbg text-white font-sans pt-24 pb-12 flex flex-col items-center min-h-screen">
+<body>
 
-  <div id="navbar" class="w-full"></div>
+  <div id="navbar"></div>
 
   <!-- Loader -->
-  <div id="loader" class="flex justify-center items-center h-screen">
-    <div class="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+  <div id="loader">
+    <div>Carregando...</div>
   </div>
 
-  <div id="conteudo" class="w-full max-w-7xl px-5 opacity-0 transition-opacity duration-500">
-    <h2 class="text-center text-2xl mb-6">Tabelas do Campeonato</h2>
+  <div id="conteudo">
+    <h2>Tabelas do Campeonato</h2>
 
     <!-- Barra superior -->
-    <div id="topBar" class="flex flex-wrap justify-between items-center mb-5 gap-3">
-      <div class="flex gap-3">
-        <select id="arquivos" class="bg-cardbg text-white px-3 py-2 rounded-md border border-gray-700">
-          <option>Jogos</option>
-        </select>
-        <button id="btnPontuacao" class="bg-blue-800/30 hover:bg-blue-600 px-4 py-2 rounded-md text-white text-sm">
-          ℹ️
-        </button>
-      </div>
+    <div id="topBar">
+      <select id="arquivos">
+        <option>Jogos</option>
+      </select>
+      <button id="btnPontuacao">ℹ️ Como funciona o sistema de pontuação</button>
     </div>
 
     <!-- Container das tabelas -->
-    <div id="tabelasContainer" class="flex flex-wrap justify-center gap-6">
+    <div id="tabelasContainer">
+
       <!-- Tabela Rodada -->
-      <div class="flex-1 min-w-[350px] max-w-xl bg-cardbg p-4 rounded-xl shadow-lg">
-        <h3 id="tituloTabela" class="text-center text-lg mb-2">Tabela de Jogos</h3>
-        <table id="tabelaRodada" class="display compact w-full text-center text-white">
+      <div>
+        <h3 id="tituloTabela">Tabela de Jogos</h3>
+        <table id="tabelaRodada">
           <thead></thead>
           <tbody></tbody>
         </table>
       </div>
 
       <!-- Tabela Geral -->
-      <div class="flex-1 min-w-[350px] max-w-xl bg-cardbg p-4 rounded-xl shadow-lg">
-        <h3 class="text-center text-lg mb-2">Tabela Geral do Campeonato</h3>
+      <div>
+        <h3>Tabela Geral do Campeonato</h3>
         <div id="tabelaGeralContainer"></div>
       </div>
-    </div>
-  </div>
 
-  <!-- Modal Pontuação -->
-  <div id="modalPontuacao" class="hidden fixed inset-0 bg-black/50 z-50 flex justify-center items-center">
-    <div class="bg-cardbg text-white p-6 rounded-xl w-80 relative">
-      <span class="absolute top-3 right-4 text-2xl cursor-pointer close">&times;</span>
-      <h3 class="text-center text-lg mb-3">Sistema de Pontuação</h3>
-      <p><strong>Por colocação:</strong></p>
-      <ul class="list-disc list-inside mb-2">
-        <li>1º – 15 pts</li>
-        <li>2º – 12 pts</li>
-        <li>3º – 10 pts</li>
-        <li>4º – 8 pts</li>
-        <li>5º – 6 pts</li>
-        <li>6º – 4 pts</li>
-        <li>7º – 2 pts</li>
-        <li>8º em diante – 1 pt</li>
-      </ul>
-      <p><strong>Adicionais:</strong> +1 ponto por kill<br>+1 ponto por participação<br>Falta = 0 pontos<br>Exemplo: 2º
-        + 5 kills + participação = 18 pts</p>
     </div>
   </div>
 
   <!-- Notificação sutil -->
-  <div id="notifAtualizacao"
-    class="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-500 pointer-events-none">
-    Atualização detectada, recarregando...
-  </div>
+  <div id="notifAtualizacao">Atualização detectada, recarregando...</div>
 
+  <!-- Scripts principais -->
   <script type="module">
     import { TabelaRodada } from './js/tabelaRodada.js';
     import { TabelaGeral } from './js/TabelaGeral.js';
@@ -104,45 +72,24 @@
 
     injectNavbar('#navbar');
 
-    // =============================
-    // Carregar tabelas e evento de troca
-    // =============================
     window.addEventListener('DOMContentLoaded', async () => {
       const tabelaRodada = new TabelaRodada({ tabelaId: 'tabelaRodada', tituloId: 'tituloTabela' });
-
-      // Inicializa a tabela de rodada
       await tabelaRodada.init('arquivos');
 
-      // Adiciona evento ao select para trocar CSV
       document.getElementById('arquivos').addEventListener('change', async () => {
         const caminho = document.getElementById('arquivos').value;
         await tabelaRodada.carregarCSV(caminho);
       });
 
-      // Inicializa a tabela geral
       const tabelaGeral = new TabelaGeral({ containerId: 'tabelaGeralContainer' });
       await tabelaGeral.init();
 
-      // Esconde o loader e mostra o conteúdo
       document.getElementById('loader').style.display = 'none';
-      document.getElementById('conteudo').style.opacity = 1;
+      document.getElementById('conteudo').style.display = 'block';
     });
 
-    // =============================
-    // Modal pontuação
-    // =============================
-    const modal = document.getElementById("modalPontuacao");
-    const btn = document.getElementById("btnPontuacao");
-    const span = modal.querySelector(".close");
-    btn.onclick = () => modal.classList.remove("hidden");
-    span.onclick = () => modal.classList.add("hidden");
-    window.onclick = e => { if (e.target == modal) modal.classList.add("hidden"); }
-
-    // =============================
     // Verificação automática de atualização
-    // =============================
     let ultimaAtualizacaoLocal = null;
-
     async function verificarAtualizacao() {
       try {
         const response = await fetch('/data/lastUpdate.json?_=' + Date.now());
@@ -156,24 +103,60 @@
 
         if (ultimaAtualizacaoRemota > ultimaAtualizacaoLocal) {
           ultimaAtualizacaoLocal = ultimaAtualizacaoRemota;
-
-          // Mostrar notificação sutil
           const notif = document.getElementById("notifAtualizacao");
-          notif.classList.add("opacity-100");
-          setTimeout(() => notif.classList.remove("opacity-100"), 2000);
-
-          // Recarregar após delay
+          notif.style.display = 'block';
+          setTimeout(() => notif.style.display = 'none', 2000);
           setTimeout(() => location.reload(), 2200);
         }
       } catch (e) {
         console.error("Erro ao verificar atualização:", e);
       }
     }
-
-    // Verificação automática a cada 30 segundos
     setInterval(verificarAtualizacao, 30000);
   </script>
 
-</body>
+  <!-- ====================================== -->
+  <!-- Modal Pontuação: seção separada inline -->
+  <!-- ====================================== -->
+  <div id="modalPontuacao" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:2000;">
+    <div style="background:#1e1e1e;padding:25px;border-radius:12px;max-width:400px;position:relative;">
+      <span class="close" style="position:absolute;top:10px;right:15px;font-size:1.5em;cursor:pointer;">&times;</span>
+      <h3>📊 Sistema de Pontuação</h3>
 
+      <p>Por colocação:</p>
+      <ul>
+        <li>🥇 1º – 15 pts</li>
+        <li>🥈 2º – 12 pts</li>
+        <li>🥉 3º – 10 pts</li>
+        <li>🏅 4º – 8 pts</li>
+        <li>🏅 5º – 6 pts</li>
+        <li>🏅 6º – 4 pts</li>
+        <li>🏅 7º – 2 pts</li>
+        <li>🔴 8º em diante – 0 pt</li>
+      </ul>
+
+      <p>Adicionais:</p>
+      <ul>
+        <li>+1 ponto por kill</li>
+        <li>+1 ponto por participação</li>
+        <li>Falta = 0 pontos</li>
+      </ul>
+
+      <div>
+        Exemplo: 2º lugar + 5 kills + participação = 18 pts
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("modalPontuacao");
+      const btn = document.getElementById("btnPontuacao");
+      const span = modal.querySelector(".close");
+
+      btn.onclick = () => modal.style.display = 'flex';
+      span.onclick = () => modal.style.display = 'none';
+      window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; }
+    </script>
+  </div>
+
+</body>
 </html>

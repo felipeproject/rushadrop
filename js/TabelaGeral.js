@@ -1,11 +1,10 @@
 // js/TabelaGeral.js
-import { DIAS, rodadas, PONTOS_POR_COLOCACAO } from './configGlobal.js';
+import { DIAS, rodadas } from './configGlobal.js';
 
 export class TabelaGeral {
   constructor({ containerId }) {
     this.container = document.getElementById(containerId);
     this.jogadorParaTime = {};
-    this.killsPorTime = {};
     this.times = [];
     this.timesInfo = {};
   }
@@ -13,70 +12,115 @@ export class TabelaGeral {
   async carregarTimes() {
     try {
       const res = await fetch("dados/times.json");
-      if (!res.ok) return;
+      if (!res.ok) throw new Error("Arquivo times.json não encontrado");
       this.times = await res.json();
+
       this.times.forEach(t => {
-        t.jogadores.forEach(j => this.jogadorParaTime[j.nome] = t.nome);
-        this.killsPorTime[t.nome] = 0;
         this.timesInfo[t.nome] = t;
+        t.jogadores.forEach(j => {
+          this.jogadorParaTime[j.nome] = t.nome;
+        });
       });
     } catch (e) {
       console.error("Erro ao carregar times:", e);
     }
   }
 
-  async carregarTodosCSVs() {
-    let todosDados = [];
-    for (let dia of DIAS) {
-      for (let csv of rodadas[dia]) {
-        try {
-          const res = await fetch(csv);
-          if (!res.ok) continue;
-          const texto = await res.text();
-          if (!texto.trim()) continue;
-          const data = Papa.parse(texto, { header: true, skipEmptyLines: true }).data;
-          todosDados.push(...data);
-        } catch (e) {
-          console.warn("Erro ao carregar CSV:", csv, e);
-        }
-      }
+  async csvValido(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const texto = await res.text();
+      if (!texto.trim()) return null;
+
+      return Papa.parse(texto, { header: true, skipEmptyLines: true }).data;
+    } catch (e) {
+      console.warn("Erro ao carregar CSV:", url, e);
+      return null;
     }
-    return todosDados;
   }
 
   calcularPontos(rank, kills, participou = true) {
-    const ptsColocacao = PONTOS_POR_COLOCACAO[rank] ?? (rank >= 8 ? 1 : 0);
+    if (!participou) return 0;
+
+    let ptsColocacao = 0;
+    switch (rank) {
+      case 1: ptsColocacao = 15; break;
+      case 2: ptsColocacao = 12; break;
+      case 3: ptsColocacao = 10; break;
+      case 4: ptsColocacao = 8; break;
+      case 5: ptsColocacao = 6; break;
+      case 6: ptsColocacao = 4; break;
+      case 7: ptsColocacao = 2; break;
+      default: ptsColocacao = 0; break;
+    }
+
     return ptsColocacao + kills + (participou ? 1 : 0);
   }
 
   async init() {
     await this.carregarTimes();
-    const todosDados = await this.carregarTodosCSVs();
 
-    Object.keys(this.killsPorTime).forEach(t => this.killsPorTime[t] = 0);
+    // Inicializa totais
+    const pontosPorTime = {};
+    const killsPorTime = {};
+    const participouPorTime = {};
 
-    todosDados.forEach(linha => {
-      const time = this.jogadorParaTime[linha["Name"]];
-      const kills = parseInt(linha["Kills"]) || 0;
-      if (time) this.killsPorTime[time] += kills;
+    this.times.forEach(t => {
+      pontosPorTime[t.nome] = 0;
+      killsPorTime[t.nome] = 0;
+      participouPorTime[t.nome] = 0;
     });
 
+    // Processa todas as partidas
+    for (const dia of DIAS) {
+      for (const csv of rodadas[dia]) {
+        const dados = await this.csvValido(csv);
+        if (!dados) continue;
+
+        // Melhor colocação e kills por time nesta partida
+        const melhorPlace = {};
+        const kills = {};
+        this.times.forEach(t => { melhorPlace[t.nome] = Infinity; kills[t.nome] = 0; });
+
+        dados.forEach(linha => {
+          const time = this.jogadorParaTime[linha.Name];
+          if (!time) return;
+          const place = parseInt(linha["Win Place"]) || 99;
+          const k = parseInt(linha.Kills) || 0;
+
+          kills[time] += k;
+          if (place < melhorPlace[time]) melhorPlace[time] = place;
+        });
+
+        // Atualiza totais
+        this.times.forEach(t => {
+          const time = t.nome;
+          const p = (melhorPlace[time] === Infinity) ? 0 : this.calcularPontos(melhorPlace[time], kills[time]);
+          pontosPorTime[time] += p;
+          killsPorTime[time] += kills[time];
+          if (melhorPlace[time] !== Infinity) participouPorTime[time] += 1;
+        });
+      }
+    }
+
+    // Monta tabela final
     const tabelaDados = this.times.map(t => {
-      const kills = this.killsPorTime[t.nome] || 0;
-      const participou = todosDados.some(l => this.jogadorParaTime[l["Name"]] === t.nome);
-      const pontos = todosDados
-        .filter(l => this.jogadorParaTime[l["Name"]] === t.nome)
-        .reduce((sum, l) => {
-          const rank = parseInt(l["Win Place"]) || 0;
-          const k = parseInt(l["Kills"]) || 0;
-          return sum + this.calcularPontos(rank, k, true);
-        }, 0);
-      return { Time: t.nome, Kills: kills, Participou: participou, Pontos: pontos };
+      return {
+        Time: t.nome,
+        Kills: killsPorTime[t.nome],
+        Pontos: pontosPorTime[t.nome],
+        Participou: participouPorTime[t.nome] > 0
+      };
     });
 
+    // Ordena por pontos, kills
     tabelaDados.sort((a, b) => b.Pontos - a.Pontos || b.Kills - a.Kills);
+
+    // Atribui rank
     tabelaDados.forEach((r, idx) => r.Rank = idx + 1);
 
+    // Cabeçalho
     const thead = `
       <tr>
         <th>Rank</th>
@@ -86,6 +130,7 @@ export class TabelaGeral {
         <th>Pontos</th>
       </tr>`;
 
+    // Corpo da tabela
     const tbody = tabelaDados.map(r => {
       const infoTime = this.timesInfo[r.Time];
       const jogadores = infoTime ? infoTime.jogadores.map(j => j.nome).join(", ") : "";
@@ -93,23 +138,25 @@ export class TabelaGeral {
         ? infoTime.nome.replace(/\s+/g, "_").replace(/[^\w\-]/g, "")
         : "";
       const logo = logoNome ? `imagens/times/sf/${logoNome}.png` : "";
-      const classeFalta = (r.Kills === 0 && r.Pontos === 0) ? 'time-falta' : '';
+      const classeFalta = r.Kills === 0 && r.Pontos === 0 ? 'time-falta' : '';
       return `
-      <tr class="${classeFalta}">
-        <td title="+ ${r.Pontos} pts">${r.Rank}</td>
-        <td>${logo ? `<img src="${logo}" alt="${r.Time}" class="logo-time">` : ''}</td>
-        <td title="${jogadores}">${r.Time}</td>
-        <td>${r.Kills}</td>
-        <td>${r.Pontos}</td>
-      </tr>`;
+        <tr class="${classeFalta}">
+          <td title="+ ${r.Pontos} pts">${r.Rank}</td>
+          <td>${logo ? `<img src="${logo}" alt="${r.Time}" class="logo-time">` : ''}</td>
+          <td title="${jogadores}">${r.Time}</td>
+          <td>${r.Kills}</td>
+          <td>${r.Pontos}</td>
+        </tr>`;
     }).join("");
 
+    // Renderiza tabela
     this.container.innerHTML = "";
     const tabela = document.createElement("table");
     tabela.className = "display compact";
     tabela.innerHTML = `<thead>${thead}</thead><tbody>${tbody}</tbody>`;
     this.container.appendChild(tabela);
 
+    // Inicializa DataTable
     $(tabela).DataTable({
       paging: false,
       searching: false,
