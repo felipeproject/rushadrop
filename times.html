@@ -145,40 +145,6 @@
   <script type="module" src="js/times.js"></script>
 </body>
 
-<body>
-  <main class="p-4">
-    <input type="search" id="search-bar" placeholder="Buscar time ou jogador..." autocomplete="off"
-      class="w-full max-w-2xl mb-6 px-4 py-2 rounded-lg border border-gray-600 bg-gray-900 text-white" />
-
-    <div id="times-container" aria-live="polite" aria-busy="true">
-      Carregando times...
-    </div>
-
-    <div id="no-results" style="display:none;">Nenhum time ou jogador encontrado.</div>
-
-  </main>
-
-  <!-- Modal -->
-  <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-content" role="document" tabindex="0">
-      <button id="modal-close" aria-label="Fechar detalhes do time">&times;</button>
-      <div id="modal-body">
-        <!-- Conteúdo dinâmico aqui -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script type="module">
-    import { injectNavbar } from './js/navbar.js';
-    injectNavbar();
-  </script>
-
-  <script type="module" src="js/times.js"></script>
-
-  </script>
-
-</body>
 <!-- Rodapé -->
 <footer
   style="background-color: #080808; color: #f9fafb; text-align: center; padding: 1rem; font-size: 0.9rem; font-family: Arial, sans-serif;">

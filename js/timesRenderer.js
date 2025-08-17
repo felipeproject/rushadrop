@@ -1,4 +1,3 @@
-// timesRenderer.js
 export function renderTimes(container, times, noResults) {
   container.setAttribute('aria-busy', 'true');
   container.innerHTML = '';
@@ -18,7 +17,7 @@ export function renderTimes(container, times, noResults) {
     card.className = 'time-card';
     card.tabIndex = 0;
     card.role = 'link';
-    card.ariaLabel = `Ver detalhes do time ${time.nome}`;
+    card.setAttribute('aria-label', `Ver detalhes do time ${time.nome}`);
     card.dataset.tag = time.tag;
 
     Object.assign(card.style, {

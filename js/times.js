@@ -19,7 +19,7 @@ let jogadoresParaTabela = [];
 // Funções de abrir e fechar modal
 function openModal() {
   modal.setAttribute('aria-hidden', 'false');
-  modalBody.focus();
+  modal.querySelector('#modal-close').focus();
 }
 
 function closeModal() {
@@ -191,7 +191,6 @@ function toggleTooltipClick(e, el) {
     hideTooltip();
     tooltipLocked = false;
   } else {
-    // Aqui você pode personalizar o tooltip, por exemplo, usar a tooltip do cabeçalho
     const colKey = el.dataset.colKey;
     const col = colunas.find(c => c.key === colKey);
     showTooltip(el, col ? col.tooltip : '');
@@ -238,7 +237,7 @@ function renderTabela(jogadores) {
     <td style="text-align:center;">${j.headshotKills}</td>
     <td style="text-align:center;">${j.timeSurvived}</td>
   </tr>
-`).join('')
+`).join('');
 
   const tableHTML = `
     <table style="width:100%; border-collapse: collapse; font-size: 0.95rem;">
@@ -293,7 +292,7 @@ async function handleSort(colIndex) {
 
 // Carregar detalhes do time
 async function loadTeamDetails(tag) {
-  const time = Array.isArray(timesData) && timesData.find(t => t.tag && t.tag.toLowerCase() === tag.toLowerCase());
+  const time = timesData.find(t => t.tag && t.tag.toLowerCase() === tag.toLowerCase());
   if (!time) {
     modalBody.innerHTML = `<p>Time não encontrado ou dados incompletos.</p>`;
     openModal();
