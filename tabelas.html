@@ -7,6 +7,30 @@
   <link rel="stylesheet" href="css/tabelas.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <!-- Scripts -->
+  <script type="module">
+    import { injectNavbar } from './js/navbar.js';
+    injectNavbar();
+
+    // Popup de manutenção
+    window.addEventListener('load', () => {
+      Swal.fire({
+        title: 'Página em manutenção ⚠️',
+        text: ' Algumas funcionalidades estão fora do ar. Estamos atualizando!',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        background: '#121212',
+        color: '#f9fafb',
+        iconColor: '#ffffff',
+        confirmButtonColor: '#1f2937',
+      });
+    });
+  </script>
+
   <script>
     tailwind.config = {
       theme: {
