@@ -35,7 +35,7 @@
     "statusInscricao": "Inscrito ✅",
     "descricao": "",
     "capitao": "STRAT_FPS",
-    "substituicoesFeitas": 0,
+    "substituicoesFeitas": 1,
     "entradasSaidas": [],
     "jogadores": [
       {
@@ -45,7 +45,10 @@
         "nome": "MESTRE-MCS"
       },
       {
-        "nome": "BLANKSZ1"
+        "nome": "Master_CTA"
+      },
+      {
+        "nome": "B̶L̶A̶N̶K̶S̶Z̶1̶"
       },
       {
         "nome": "AllbertWesker"
@@ -197,7 +200,7 @@
     "statusInscricao": "Inscrito ✅",
     "descricao": "",
     "capitao": "AnDreviZ",
-    "substituicoesFeitas": 0,
+    "substituicoesFeitas": 1,
     "entradasSaidas": [],
     "jogadores": [
       {
@@ -211,6 +214,9 @@
       },
       {
         "nome": "nAsty-"
+      },
+      {
+        "nome": "E̶T̶_̶B̶R̶I̶S̶A̶D̶O̶"
       },
       {
         "nome": "WF_PROZIN"
@@ -303,6 +309,7 @@
   }
 
 ]
+
 
 
 
