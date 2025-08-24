@@ -6,7 +6,7 @@ export const DIAS = ['DIA1', 'DIA2', 'DIA3', 'DIA4'];
 // Mapas por dia
 export const MAPAS_POR_DIA = [
   ['Erangel', 'Taego', 'Miramar'],
-  ['Deston', 'Vikendi', 'Erangel'],
+  ['Vikendi', 'Erangel', 'Deston'],
   ['Sanhok', 'Rondo', 'Taego'],
   ['Deston', 'Erangel', 'Miramar']
 ];
@@ -24,3 +24,4 @@ export const PONTOS_POR_COLOCACAO = { 1: 15, 2: 12, 3: 10, 4: 8, 5: 6, 6: 4, 7: 
 
 // Pontos adicionais
 export const PONTOS_ADICIONAIS = { kill: 1, participacao: 1 };
+
