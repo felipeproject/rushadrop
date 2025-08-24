@@ -1,7 +1,8 @@
 {
   "DIA1": ["jogo1.csv", "jogo2.csv", "jogo3.csv"],
-  "DIA2": ["jogo4.csv", "jogo5.csv", "jogo6.csv"],
-  "DIA3": ["jogo7.csv", "jogo8.csv", "jogo9.csv"],
-  "DIA4": ["jogo10.csv", "jogo11.csv", "jogo12.csv"]
+  "DIA2": ["jogo1.csv", "jogo2.csv", "jogo3.csv"],
+  "DIA3": ["jogo1.csv", "jogo2.csv", "jogo3.csv"],
+  "DIA4": ["jogo1.csv", "jogo2.csv", "jogo3.csv"]
 }
+
 
