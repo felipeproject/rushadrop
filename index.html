@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 
@@ -7,128 +8,51 @@
   <title>Rusha Drop - Campeonato PUBG</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-
   <style>
-    /* Reset básico */
-    * {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-
-    main {
-      padding-top: 100px !important;
-      /* espaço para a navbar fixa */
-    }
-
-
-    body {
-      background-color: #121212;
-      color: #f1f1f1;
-      scroll-behavior: smooth;
-    }
-
-    /* Navbar fixa */
-    .navbar {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background-color: #1f1f1f;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .navbar a {
-      color: #f1f1f1;
-      text-decoration: none;
-      margin-left: 1rem;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: #ffcc00;
-    }
-
-    /* Conteúdo passa por baixo da navbar */
-    main {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Área 1: Banner */
-    .banner-container {
-      position: relative;
-      text-align: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .banner-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.9);
-    }
-
+    * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #121212; color: #f1f1f1; scroll-behavior: smooth; margin:0; }
+    main { padding-top: 100px; position: relative; z-index: 1; }
+    .banner-container { position: relative; text-align: center; height: 100vh; overflow: hidden; }
+    .banner-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
     .cronometro-overlay {
-      position: absolute;
-      top: 65%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ffffff;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);
+      color: #ffffff; background: rgba(0,0,0,0.6); padding: 1.5rem 2rem;
+      border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.7);
     }
-
-    .cronometro-overlay h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    #countdown { font-size: 1.5rem; font-weight: bold; color: #ffcc00; margin-bottom: 1rem; }
+    .btn-redir {
+      display: inline-block; padding: 0.75rem 1.5rem; margin: 0.5rem;
+      background-color: #ffcc00; color: #000; font-weight: bold;
+      border-radius: 8px; text-decoration: none; transition: transform 0.2s;
     }
-
-    #countdown {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffcc00;
-    }
-
-    /* Área 2: Twitch e restante */
-    .content-area {
-      padding: 4rem 2rem;
-      background-color: #1a1a1a;
-      min-height: 100vh;
-    }
-
-    .content-area h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      color: #9147ff;
-      text-align: center;
-    }
-
+    .btn-redir:hover { transform: scale(1.05); }
+    .content-area { padding: 4rem 2rem; background-color: #1a1a1a; min-height: 100vh; }
+    .content-area h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: #9147ff; text-align: center; }
     .twitch-wrapper iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-      display: block;
-      margin: 0 auto;
+      width: 100%; aspect-ratio: 16/9; border: none; border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: block; margin: 0 auto;
     }
+    footer { padding: 2rem; text-align: center; background-color: #1f1f1f; color: #cccccc; font-size: 0.9rem; }
 
-    footer {
-      padding: 2rem;
-      text-align: center;
-      background-color: #1f1f1f;
-      color: #cccccc;
-      font-size: 0.9rem;
+    /* Pop-up */
+    .popup-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.75); display:flex;
+      justify-content:center; align-items:center; z-index: 2000;
+      display:none;
     }
+    .popup-content {
+      background: #1f1f1f; padding:2rem; border-radius:12px;
+      text-align:center; color:#fff; max-width: 400px;
+    }
+    .popup-content button {
+      margin-top: 1rem; padding:0.5rem 1rem;
+      background:#ffcc00; border:none; border-radius:8px; font-weight:bold; cursor:pointer;
+    }
+    .popup-close { background:#555; margin-left:1rem; }
+    .disabled { opacity: 0.5; pointer-events: none; }
+    .blink { animation: blink-animation 0.6s ease-in-out 3; }
+    @keyframes blink-animation { 0%,100%{opacity:1}50%{opacity:0;} }
   </style>
 </head>
 
@@ -141,23 +65,21 @@
   </script>
 
   <main>
-    <!-- Área 1: Banner com cronômetro -->
+    <!-- Banner -->
     <section id="banner" class="banner-container">
-      <img src="imagens/Rusha.png" alt="Banner do campeonato Rusha Drop PUBG" loading="lazy"
-        style="width:100%; height:100%; object-fit:cover;" />
+      <img src="imagens/Rusha.png" alt="Banner do campeonato Rusha Drop PUBG" loading="lazy" />
       <div class="cronometro-overlay">
         <h2><i class="fas fa-trophy"></i></h2>
         <div id="countdown" aria-live="polite">00:00:00</div>
+        <a href="#" class="btn-redir" id="btn-banner-redir">Confira Times e Tabelas</a>
       </div>
     </section>
 
-
-    <!-- Área 2: Twitch + conteúdo -->
+    <!-- Conteúdo Twitch -->
     <section class="content-area">
       <h2><i class="fab fa-twitch"></i> Acompanhe a Live</h2>
       <div class="twitch-wrapper">
-        <iframe src="https://player.twitch.tv/?channel=&parent=localhost" title="Transmissão ao vivo na Twitch"
-          allowfullscreen loading="lazy" scrolling="no"></iframe>
+        <iframe id="twitch-frame" src="" title="Transmissão ao vivo na Twitch" allowfullscreen loading="lazy" scrolling="no"></iframe>
       </div>
     </section>
   </main>
@@ -166,38 +88,77 @@
     <p>Rusha Drop eSports © 2025 – Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Script do cronômetro -->
-  <script>
-    const countdownElement = document.getElementById('countdown');
-    const endDate = new Date("2025-08-16T21:00:00").getTime();
+  <!-- Pop-up -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content">
+      <p>Confira os times e tabelas do campeonato de hoje, às 21h.</p>
+      <button id="popup-go">Ir para Final Circle</button>
+      <button id="popup-close" class="popup-close">Fechar</button>
+    </div>
+  </div>
 
+  <script>
+    // Links
+    const twitchLink = "https://player.twitch.tv/?channel=SEU_CANAL&parent=localhost";
+    const finalCircleLink = "https://final-circle-9472e.web.app/";
+
+    // Atualizar iframe Twitch
+    const twitchFrame = document.getElementById('twitch-frame');
+    twitchFrame.src = twitchLink;
+
+    // Botão do banner
+    const btnBanner = document.getElementById('btn-banner-redir');
+    btnBanner.addEventListener('click', ()=> window.location.href = finalCircleLink);
+
+    // Cronômetro 30/08/2025 21:00
+    const countdownElement = document.getElementById('countdown');
+    const endDate = new Date("2025-08-30T21:00:00").getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = endDate - now;
-
-      if (distance < 0) {
-        countdownElement.innerHTML = "O Campeonato começou!";
-        clearInterval(interval);
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownElement.innerHTML = `
-      ${days} dia${days !== 1 ? 's' : ''}, 
-      ${hours.toString().padStart(2, '0')}h : 
-      ${minutes.toString().padStart(2, '0')}m : 
-      ${seconds.toString().padStart(2, '0')}s
-    `;
+      if(distance<0){countdownElement.innerHTML="O Campeonato começou!"; clearInterval(interval); return;}
+      const days = Math.floor(distance/(1000*60*60*24));
+      const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+      const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+      const seconds = Math.floor((distance%(1000*60))/1000);
+      countdownElement.innerHTML = `${days} dia${days!==1?'s':''}, ${hours.toString().padStart(2,'0')}h : ${minutes.toString().padStart(2,'0')}m : ${seconds.toString().padStart(2,'0')}s`;
     }
-
-    const interval = setInterval(updateCountdown, 1000);
+    const interval = setInterval(updateCountdown,1000);
     updateCountdown();
+
+    // Pop-up
+    const popup = document.getElementById('popup');
+    const popupGo = document.getElementById('popup-go');
+    const popupClose = document.getElementById('popup-close');
+
+    function showPopup(){popup.style.display='flex';}
+    function hidePopup(){popup.style.display='none';}
+
+    popupGo.addEventListener('click', ()=>window.location.href=finalCircleLink);
+    popupClose.addEventListener('click', hidePopup);
+
+    window.addEventListener('load', ()=>{
+      showPopup();
+      setInterval(()=>{
+        if(popup.style.display==='none'){showPopup();}
+      },30000);
+    });
+
+    // Botões desativados na navbar (Times e Tabelas)
+    function disableNavbarButtons(){
+      const links = document.querySelectorAll('#navbar-links a');
+      links.forEach(link=>{
+        if(link.textContent.includes('Times')||link.textContent.includes('Tabelas')){
+          link.classList.add('disabled');
+          link.addEventListener('click', ()=>{
+            btnBanner.classList.add('blink');
+            setTimeout(()=>btnBanner.classList.remove('blink'),1800);
+          });
+        }
+      });
+    }
+    window.addEventListener('load', ()=>setTimeout(disableNavbarButtons,1000));
   </script>
 
 </body>
-
 </html>
